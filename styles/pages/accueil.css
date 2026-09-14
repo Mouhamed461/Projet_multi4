@@ -1,5 +1,5 @@
 #accueil-hero {
-  background-image: linear-gradient(180deg, rgba(48, 69, 54, 0.87), rgba(48, 69, 54, 0.93)), url("../../images/musee-modelisme.jpg");
+  background-image: linear-gradient(180deg, rgba(48, 69, 54, 0.4), rgba(48, 69, 54, 0.55)), url("../../images/musee-modelisme.jpg");
   background-size: cover;
   background-position: center;
   color: var(--beige);
@@ -24,7 +24,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin: 3rem auto 0;
+  margin: 3.75rem auto 0;
   padding: 0.7rem 1.5rem;
   background-color: var(--beige);
   color: var(--noir);
