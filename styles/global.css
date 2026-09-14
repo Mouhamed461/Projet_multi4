@@ -1,0 +1,247 @@
+@font-face {
+  font-family: 'Rigata';
+  src: url('../fonts/rigata-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('../fonts/robotocondensed-variablefont_wght-webfont.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Red Hat Display';
+  src: url('../fonts/redhatdisplay-variablefont_wght-webfont.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Palette
+   Beige  #F5F0E8 — fond des pages
+   Noir   #202122 — texte courant
+   Vert   #304536 — header, footer sections mises en avant
+   Rouge  #9E3D23 — titres de section, accents, boutons principaux
+   Orange #DC6921 — hover des boutons
+   Jaune  #D89520 — hover des liens de navigation
+
+   Par élément :
+   header / nav       fond vert,  texte beige
+   footer             fond noir,  texte beige
+   body               fond beige, texte noir
+   h1                 Rigata
+   h2 h3 h4           Roboto Condensed
+   texte courant      Red Hat Display
+   boutons            fond rouge, texte beige, hover orange
+   liens nav          beige, hover jaune
+   th (tables)        fond vert,  texte beige
+   sections alternées vert puis rouge avec texte beige
+*/
+
+:root {
+  --beige:  #F5F0E8;
+  --noir:   #202122;
+  --vert:   #304536;
+  --rouge:  #9E3D23;
+  --orange: #DC6921;
+  --jaune:  #D89520;
+
+  --police-h1:   'Rigata', cursive;
+  --police-h2:   'Roboto Condensed', Arial Narrow, sans-serif;
+  --police-texte: 'Red Hat Display', Arial, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--police-texte);
+  background-color: var(--beige);
+  color: var(--noir);
+  line-height: 1.6;
+}
+
+h1 {
+  font-family: var(--police-h1);
+}
+
+h2, h3, h4 {
+  font-family: var(--police-h2);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* header */
+header {
+  background-color: var(--beige);
+  border-bottom: 2px solid var(--rouge);
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2.5rem;
+}
+
+header nav > a {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+header nav > a img {
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+header nav ul {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+
+header nav ul li a {
+  font-family: var(--police-texte);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--noir);
+  padding: 0.4rem 0.5rem;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+header nav ul li a:hover,
+header nav ul li a[aria-current="page"] {
+  color: var(--orange);
+}
+
+/* bouton Réservation — dernier élément du nav */
+header nav ul li:last-child a {
+  background-color: var(--rouge);
+  color: var(--beige);
+  padding: 0.55rem 1.2rem;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+header nav ul li:last-child a:hover {
+  background-color: var(--orange);
+}
+
+/* footer */
+footer {
+  background-color: var(--noir);
+  color: var(--beige);
+}
+
+footer > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 2.5rem 5rem;
+}
+
+footer > div > a {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+footer > div > a img {
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+footer nav {
+  display: flex;
+  gap: 3rem;
+}
+
+footer nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+footer nav ul li a {
+  font-family: var(--police-h2);
+  font-size: 0.9rem;
+  color: var(--beige);
+}
+
+footer nav ul li a:hover {
+  color: var(--jaune);
+}
+
+footer > div > section {
+  flex-shrink: 0;
+}
+
+footer > div > section h3 {
+  font-family: var(--police-h2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+footer > div > section ul {
+  display: flex;
+  gap: 0.5rem;
+}
+
+footer > div > section ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(245, 240, 232, 0.15);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--beige);
+}
+
+footer > div > section ul li a:hover {
+  background-color: var(--rouge);
+}
+
+footer > p {
+  text-align: center;
+  font-size: 0.72rem;
+  padding: 1rem 2rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.15);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
