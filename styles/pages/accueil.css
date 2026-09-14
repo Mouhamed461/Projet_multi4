@@ -24,7 +24,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin: 2rem auto 0;
+  margin: 3rem auto 0;
   padding: 0.7rem 1.5rem;
   background-color: var(--beige);
   color: var(--noir);
@@ -76,6 +76,25 @@
 
 #accueil-hero > a:hover {
   color: var(--jaune);
+}
+
+#accueil-hero > a svg {
+  animation: rebond-scroll 1.8s ease-in-out infinite;
+}
+
+@keyframes rebond-scroll {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #accueil-hero > a svg {
+    animation: none;
+  }
 }
 
 #bienvenue {
