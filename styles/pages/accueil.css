@@ -1,8 +1,10 @@
 #accueil-hero {
-  background-color: var(--vert);
+  background-image: linear-gradient(180deg, rgba(48, 69, 54, 0.87), rgba(48, 69, 54, 0.93)), url("../../images/musee-modelisme.jpg");
+  background-size: cover;
+  background-position: center;
   color: var(--beige);
   text-align: center;
-  padding: 4.5rem 2rem 3.5rem;
+  padding: 5.5rem 2rem 4rem;
 }
 
 #accueil-hero h1 {
@@ -10,6 +12,7 @@
   margin: 0 auto;
   font-size: 2.75rem;
   line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
 #statut-musee {
@@ -97,17 +100,19 @@
 }
 
 #bienvenue p {
-  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
 }
 
 #bienvenue a {
   display: inline-block;
-  padding: 0.9rem 1.9rem;
+  padding: 1rem 2.3rem;
   background-color: var(--rouge);
   color: var(--beige);
   border-radius: 3px;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   transition: background-color 0.25s ease;
@@ -154,17 +159,17 @@
 }
 
 #prochains-evenements li h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
 }
 
 #prochains-evenements li p {
-  font-size: 0.85rem;
-  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 #prochains-evenements li a {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--rouge);
   transition: color 0.25s ease;
