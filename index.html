@@ -29,50 +29,41 @@
 
   <main>
 
-    <section>
-      <img src="images/musee-modelisme.jpg" alt="Vue intérieure du Musée du Modélisme Ferroviaire">
+    <section id="accueil-hero">
       <h1>Musée du Modélisme Ferroviaire et des Chemins de fer du Québec</h1>
-      <p>À Drummondville, ce musée passionne petits et grands avec ses réseaux miniatures animés, ses maquettes de gares régionales, et sa collection d'objets ferroviaires. Il raconte aussi l'histoire du développement des transports au Québec.</p>
-      <a href="pages/reservation.html">Réserver ma visite</a>
+      <p id="statut-musee">
+        <span aria-hidden="true"></span>
+        Le musée est présentement <strong id="statut-texte">fermé</strong>
+      </p>
+      <a href="#bienvenue" aria-label="Voir la suite de la page">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </a>
     </section>
 
-    <section>
-      <h2>Nos expositions</h2>
-      <ul>
-        <li>
-          <img src="images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-          <h3>Réseaux miniatures en action</h3>
-          <p>Plongez dans des univers miniatures où les trains circulent à travers des paysages inspirés du Québec.</p>
-          <a href="pages/expositions.html">En savoir plus</a>
-        </li>
-        <li>
-          <img src="images/expositions/gares-regionales.jpg" alt="Les gares régionales">
-          <h3>Les gares régionales</h3>
-          <p>Des maquettes fidèles de plusieurs gares régionales, certaines toujours existantes, d'autres disparues avec le temps.</p>
-          <a href="pages/expositions.html">En savoir plus</a>
-        </li>
-        <li>
-          <img src="images/expositions/souvenirs-ferroviaires.png" alt="Objets et souvenirs ferroviaires">
-          <h3>Objets et souvenirs ferroviaires</h3>
-          <p>Uniformes, lanternes, outils et billets d'époque — chaque objet porte l'empreinte du quotidien de ceux qui faisaient vivre le rail.</p>
-          <a href="pages/expositions.html">En savoir plus</a>
-        </li>
-      </ul>
+    <section id="bienvenue">
+      <img src="images/musee-modelisme.jpg" alt="Vue intérieure du Musée du Modélisme Ferroviaire">
+      <div>
+        <h2>Bienvenue</h2>
+        <p>À Drummondville, ce musée passionne petits et grands avec ses réseaux miniatures animés, ses maquettes de gares régionales, et sa collection d'objets ferroviaires. Il raconte aussi l'histoire du développement des transports au Québec.</p>
+        <a href="pages/reservation.html">Réserver ma visite</a>
+      </div>
     </section>
 
-    <section>
-      <h2>Prochains événements</h2>
+    <section id="prochains-evenements">
+      <h2>Les prochains événements</h2>
       <ul>
         <li>
           <img src="images/activités/petits-cheminots.jpg" alt="Journée des petits cheminots">
           <h3>Journée des petits cheminots</h3>
-          <p>Chaque printemps, une journée spéciale pour les enfants avec ateliers de modélisme, mini-concours de trains miniatures et chasse aux trésors dans les expositions.</p>
+          <p>Une fois par année, au printemps</p>
           <a href="pages/evenements.html">En savoir plus</a>
         </li>
         <li>
           <img src="images/activités/ateliers-maquettes.jpg" alt="Atelier maquettes">
           <h3>Atelier maquettes</h3>
-          <p>Une fois par mois, des ateliers pratiques où les participants apprennent à construire et décorer une maquette ferroviaire sous les conseils d'experts.</p>
+          <p>Le premier samedi de chaque mois</p>
           <a href="pages/evenements.html">En savoir plus</a>
         </li>
       </ul>

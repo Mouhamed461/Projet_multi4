@@ -1,0 +1,169 @@
+#accueil-hero {
+  background-color: var(--vert);
+  color: var(--beige);
+  text-align: center;
+  padding: 4.5rem 2rem 3.5rem;
+}
+
+#accueil-hero h1 {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 2.75rem;
+  line-height: 1.2;
+}
+
+#statut-musee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem auto 0;
+  padding: 0.5rem 1.1rem;
+  background-color: var(--beige);
+  color: var(--noir);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#statut-musee span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--vert);
+}
+
+#statut-musee.ferme span {
+  background-color: var(--rouge);
+}
+
+#accueil-hero > a {
+  display: inline-block;
+  margin-top: 2.5rem;
+  color: var(--beige);
+}
+
+#accueil-hero > a:hover {
+  color: var(--jaune);
+}
+
+#bienvenue {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 4.5rem 5rem;
+}
+
+#bienvenue img {
+  flex: 1;
+  max-width: 45%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#bienvenue > div {
+  flex: 1;
+}
+
+#bienvenue h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+}
+
+#bienvenue p {
+  margin-bottom: 1.5rem;
+}
+
+#bienvenue a {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  background-color: var(--rouge);
+  color: var(--beige);
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#bienvenue a:hover {
+  background-color: var(--orange);
+}
+
+#prochains-evenements {
+  background-color: var(--rouge);
+  color: var(--beige);
+  padding: 4.5rem 5rem;
+}
+
+#prochains-evenements h2 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+#prochains-evenements ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+#prochains-evenements li {
+  flex: 1;
+  min-width: 220px;
+  background-color: var(--beige);
+  color: var(--noir);
+  padding: 1.2rem;
+  border-radius: 4px;
+}
+
+#prochains-evenements li img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 0.9rem;
+}
+
+#prochains-evenements li h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+#prochains-evenements li p {
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+#prochains-evenements li a {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--rouge);
+}
+
+#prochains-evenements li a:hover {
+  color: var(--orange);
+}
+
+#prochains-evenements > a {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.7rem 1.6rem;
+  background-color: var(--beige);
+  color: var(--rouge);
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#prochains-evenements > a:hover {
+  background-color: var(--jaune);
+  color: var(--noir);
+}
