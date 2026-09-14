@@ -4,7 +4,12 @@
   background-position: center;
   color: var(--beige);
   text-align: center;
-  padding: 5.5rem 2rem 4rem;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
 }
 
 #accueil-hero h1 {
@@ -63,8 +68,8 @@
 }
 
 #accueil-hero > a {
-  display: inline-block;
-  margin-top: 2.5rem;
+  display: block;
+  margin-top: 1.75rem;
   color: var(--beige);
   transition: color 0.25s ease;
 }
