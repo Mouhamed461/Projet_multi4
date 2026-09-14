@@ -98,6 +98,7 @@ header {
 }
 
 header nav {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 1rem 2.5rem;
@@ -117,14 +118,12 @@ header nav > a img {
 }
 
 header nav ul {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1.6rem;
-  margin-left: 2.5rem;
-}
-
-header nav ul li:last-child {
-  margin-left: auto;
 }
 
 header nav ul li a {
@@ -136,6 +135,7 @@ header nav ul li a {
   padding: 0.4rem 0.1rem;
   letter-spacing: 0;
   white-space: nowrap;
+  transition: color 0.25s ease;
 }
 
 header nav ul li:not(:last-child) a::after {
@@ -170,6 +170,7 @@ header nav ul li:last-child a {
   font-size: 0.9rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  transition: background-color 0.25s ease;
 }
 
 header nav ul li:last-child a:hover {
@@ -185,9 +186,8 @@ footer {
 footer > div {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 4.5rem;
   padding: 2.5rem 5rem;
 }
 
@@ -206,7 +206,7 @@ footer > div > a img {
 
 footer nav {
   display: flex;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 footer nav ul {
@@ -219,6 +219,7 @@ footer nav ul li a {
   font-family: var(--police-h2);
   font-size: 0.9rem;
   color: var(--beige);
+  transition: color 0.25s ease;
 }
 
 footer nav ul li a:hover {
@@ -254,6 +255,7 @@ footer > div > section ul li a {
   font-size: 0.7rem;
   font-weight: 700;
   color: var(--beige);
+  transition: background-color 0.25s ease;
 }
 
 footer > div > section ul li a:hover {

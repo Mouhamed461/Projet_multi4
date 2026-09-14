@@ -63,6 +63,7 @@
   display: inline-block;
   margin-top: 2.5rem;
   color: var(--beige);
+  transition: color 0.25s ease;
 }
 
 #accueil-hero > a:hover {
@@ -109,6 +110,7 @@
   font-size: 0.95rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  transition: background-color 0.25s ease;
 }
 
 #bienvenue a:hover {
@@ -165,6 +167,7 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--rouge);
+  transition: color 0.25s ease;
 }
 
 #prochains-evenements li a:hover {
@@ -183,6 +186,7 @@
   font-size: 0.95rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 #prochains-evenements > a:hover {
