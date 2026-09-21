@@ -1,3 +1,169 @@
-/* Page Expositions : la grille de cartes (.grille-expositions,
-   .carte-exposition) est un composant partage, defini dans
-   global.css, reutilise aussi en suggestion sur les fiches. */
+/* Page Expositions : liste des trois expositions en bandes plein
+   largeur, chacune separee des autres par un espace genereux (gap).
+   Une fine ligne verte encadre la partie texte de chaque exposition,
+   en haut et en bas, sans traverser l'image. Image plus large que le
+   texte. */
+.lignes-expositions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ligne-exposition {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--beige);
+}
+
+.ligne-image {
+  position: relative;
+  width: 60%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ligne-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.ligne-exposition:hover .ligne-image img {
+  transform: scale(1.04);
+}
+
+.ligne-texte {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 4rem 3rem 5rem;
+  border-top: 1px solid var(--vert);
+  border-bottom: 1px solid var(--vert);
+}
+
+/* Une expo sur deux est inversee (image a droite, texte a gauche)
+   pour que les trois bandes n'aient pas exactement la meme
+   disposition. Le remplissage du texte suit. */
+.ligne-exposition:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.ligne-exposition:nth-child(even) .ligne-texte {
+  padding: 3rem 5rem 3rem 4rem;
+}
+
+.ligne-texte p.etiquette-secondaire {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.75rem;
+}
+
+.ligne-texte h2 {
+  font-size: 1.9rem;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+  transition: color 0.25s ease;
+}
+
+.ligne-exposition:hover .ligne-texte h2 {
+  color: var(--orange);
+}
+
+.ligne-texte p:not(.etiquette-secondaire) {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 1.5rem;
+}
+
+.ligne-texte .carte-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.ligne-texte .carte-cta::after {
+  content: "";
+  width: 1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+
+.ligne-exposition:hover .ligne-texte .carte-cta {
+  color: var(--orange);
+  gap: 0.9rem;
+}
+
+/* Entree en fondu au scroll, purement decorative : les navigateurs
+   qui ne prennent pas en charge les animations liees au scroll
+   affichent simplement les bandes sans animation (aucun script de
+   remplacement necessaire pour un effet decoratif). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @keyframes ligne-entree {
+      from {
+        opacity: 0;
+        translate: 0 40px;
+      }
+    }
+
+    .ligne-exposition {
+      animation: ligne-entree 0.6s ease-out backwards;
+      animation-timeline: view();
+      animation-range: entry;
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .lignes-expositions {
+    gap: 1.5rem;
+  }
+
+  /* Il faut repeter les variantes nth-child(even) / nth-child(3n)
+     ici : ces selecteurs desktop (specificite 0-2-0) sont plus
+     specifiques que .ligne-exposition seul (0-1-0), donc ils
+     l'emportent sur ces regles mobiles malgre leur position plus
+     tardive dans le fichier. Sans ca, la carte paire (Les gares
+     regionales) restait en row-reverse en mobile : le texte se
+     retrouvait ecrase hors de l'ecran. */
+  .ligne-exposition,
+  .ligne-exposition:nth-child(even) {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .ligne-image {
+    width: 100%;
+    height: 260px;
+  }
+
+  .ligne-texte,
+  .ligne-exposition:nth-child(even) .ligne-texte {
+    padding: 2rem;
+  }
+}

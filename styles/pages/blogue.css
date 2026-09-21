@@ -56,7 +56,6 @@ main > article img {
   height: 420px;
   object-fit: cover;
   border-radius: 4px;
-  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.15);
   margin-bottom: 1.75rem;
 }
 
@@ -139,17 +138,15 @@ main > article img + p {
   background-color: #FFFFFF;
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(32, 33, 34, 0.12);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .articles article {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
   }
 
   .articles article:hover {
     transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(32, 33, 34, 0.18);
   }
 }
 

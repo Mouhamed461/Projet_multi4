@@ -394,7 +394,12 @@
 }
 
 /* Confirmation */
-#confirmation {
+/* :not([hidden]) est necessaire ici : sans ca, ce display: flex a une
+   specificite (id) plus forte que la regle [hidden] du navigateur
+   (display: none) et l'emporte dessus, ce qui affichait la carte de
+   confirmation en permanence sous la section panier, meme avant tout
+   achat, avec un grand espace vide entre les deux. */
+#confirmation:not([hidden]) {
   display: flex;
   justify-content: center;
   padding: 5rem 2rem 6rem;

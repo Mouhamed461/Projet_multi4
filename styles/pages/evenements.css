@@ -5,41 +5,47 @@
 .grille-evenements {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  max-width: 1000px;
+  gap: 4rem;
+  max-width: 1160px;
   margin: 3rem auto 5rem;
-  padding: 0 5rem;
+  padding: 0 3rem;
 }
 
+/* Meme logique de carte empilee que les tarifs (voir horaire-tarifs.css,
+   .tarifs-grille li / .tarif-corps) : un panneau de couleur reste fixe
+   en dessous, entierement recouvert au repos par le panneau blanc, qui
+   glisse en diagonale au survol pour reveler le panneau colore dessous. */
 .carte-evenement {
+  position: relative;
+  min-height: 620px;
+  border-radius: 6px;
+  background-color: var(--rouge);
+}
+
+.carte-evenement-panneau {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background-color: #FFFFFF;
   border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
-.carte-evenement img {
+.carte-evenement:hover .carte-evenement-panneau {
+  transform: translate(16px, 16px);
+}
+
+.carte-evenement-panneau img {
   width: 100%;
   height: 220px;
   object-fit: cover;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .carte-evenement img {
-    transition: transform 0.4s ease;
-  }
-
-  .carte-evenement:hover img {
-    transform: scale(1.05);
-  }
-
-  .carte-evenement:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(32, 33, 34, 0.18);
-  }
+  flex-shrink: 0;
 }
 
 .carte-evenement-corps {
@@ -144,23 +150,41 @@
   gap: 3rem;
 }
 
+/* Hauteur fixe sur l'image, avec de la marge au-dela du texte le
+   plus long des deux fiches actuelles : height: 100% donnait un
+   resultat different selon ce qui determinait la hauteur de la
+   rangee. Base sur le texte (comme au tout debut), l'image suivait
+   la longueur du texte et changeait de proportions d'une fiche a
+   l'autre. Base sur l'image elle-meme (height: 100% d'une rangee
+   dont la hauteur est indefinie), le navigateur retombe sur le ratio
+   naturel de la photo, qui differe beaucoup entre les deux photos
+   (paysage vs portrait) et donnait alors une rangee bien plus haute
+   que necessaire pour Atelier maquettes. Une hauteur fixe evite les
+   deux problemes : les deux fiches ont la meme proportion d'image, et
+   il reste assez d'espace sous le bouton "Reserver ma visite" sans
+   jamais depasser le bas de la photo. */
 .fiche-evenement-image {
   flex: 0 0 46%;
+  height: 500px;
 }
 
 .fiche-evenement-image img {
   width: 100%;
   height: 100%;
-  min-height: 420px;
   object-fit: cover;
   border-radius: 6px;
 }
 
+/* justify-content: flex-start plutot que center : la rangee fait
+   500px (hauteur de l'image) meme quand le texte prend moins de
+   place, et centrer le contenu dans cet espace en plus pousserait le
+   bouton "Reserver ma visite" plus ou moins bas selon le cas. Aligne
+   en haut, il suit toujours directement la description. */
 .fiche-evenement-corps {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .fiche-evenement-corps .etiquette {
@@ -213,6 +237,27 @@
   margin-bottom: 1.75rem;
 }
 
+/* Le texte apparait en fondu avec une legere montee des l'ouverture
+   de la page, meme logique que les paragraphes d'un article de
+   blogue (voir blogue.css) : pilote par la classe .est-visible
+   ajoutee par IntersectionObserver dans global.js plutot que par
+   animation-timeline, pour que le texte joue une vraie transition
+   meme s'il est deja visible a l'ecran des le chargement. Un filet
+   <noscript> dans evenement-fiche.html annule ces regles si
+   JavaScript est desactive. */
+@media (prefers-reduced-motion: no-preference) {
+  .fiche-evenement-corps p.description {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fiche-evenement-corps p.description.est-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .fiche-evenement-corps a.cta {
   display: inline-block;
   width: fit-content;
@@ -244,9 +289,14 @@
     gap: 1.5rem;
   }
 
-  .fiche-evenement-image img {
+  /* flex: 0 0 auto en plus de height : en colonne, la hauteur
+     devient l'axe principal, et le flex-basis: 46% herite de la
+     regle de bureau (pensee pour la largeur en rangee) reprenait le
+     dessus sur height, forcant l'image a la hauteur de son ratio
+     naturel au lieu de 280px. */
+  .fiche-evenement-image {
+    flex: 0 0 auto;
     height: 280px;
-    min-height: 0;
   }
 
   .fiche-evenement-meta {

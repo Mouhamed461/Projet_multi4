@@ -167,6 +167,128 @@ article {
   }
 }
 
+/* Carte d'exposition avec retournement au survol : le bandeau sombre
+   du repos disparait pour laisser place a un panneau rouge qui
+   remonte et revele un court resume. Composant utilise seulement ici,
+   dans les suggestions "Autres expositions" en bas de fiche. */
+.grille-expositions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 0 5rem 5rem;
+}
+
+.carte-exposition {
+  position: relative;
+  display: block;
+  min-height: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.18);
+}
+
+.carte-exposition img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carte-exposition:hover img {
+  transform: scale(1.05);
+}
+
+.carte-exposition .carte-info,
+.carte-exposition .carte-detail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+}
+
+.carte-exposition .carte-info {
+  background: linear-gradient(180deg, rgba(32, 33, 34, 0) 45%, rgba(32, 33, 34, 0.75));
+  color: var(--beige);
+  transition: opacity 0.3s ease;
+}
+
+.carte-exposition .carte-detail {
+  /* Fond translucide plutot qu'une couleur pleine : la photo reste
+     visible sous le panneau au survol, seulement teintee de rouge. */
+  background-color: rgba(158, 61, 35, 0.62);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: var(--beige);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.carte-exposition p.etiquette-secondaire {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin-bottom: 0.4rem;
+}
+
+.carte-exposition h2 {
+  font-size: 1.4rem;
+}
+
+.carte-exposition .carte-detail p:not(.etiquette-secondaire) {
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.carte-exposition .carte-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.carte-exposition .carte-cta::after {
+  content: "";
+  width: 1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+
+.carte-exposition:hover .carte-info {
+  opacity: 0;
+}
+
+.carte-exposition:hover .carte-detail {
+  transform: translateY(0);
+}
+
+.carte-exposition:hover .carte-cta::after {
+  transform: scaleX(-1) translateX(-3px);
+}
+
+@media (max-width: 860px) {
+  .grille-expositions {
+    grid-template-columns: 1fr;
+    padding: 0 2rem 3rem;
+  }
+}
+
 /* Suggestion d'autres expositions en bas de fiche, meme carte que
    sur la page Expositions mais limitee a deux colonnes. */
 .autres-expositions {
