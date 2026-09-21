@@ -1,0 +1,215 @@
+[hidden] {
+    display: none !important;
+}
+
+.introduction-jeu {
+    padding: 60px 20px;
+}
+
+.introduction-jeu__contenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+}
+
+.introduction-jeu__contenu h1 {
+    margin-bottom: 20px;
+}
+
+.introduction-jeu__contenu p {
+    margin: 5px 0;
+}
+
+.jeu-rail {
+    max-width: 900px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.jeu-rail__entete {
+    text-align: center;
+}
+
+.jeu-rail__niveau {
+    margin-bottom: 10px;
+}
+
+.jeu-rail__zone-plateau {
+    overflow-x: auto;
+}
+
+#plateau-jeu {
+    display: grid;
+    gap: 5px;
+    width: fit-content;
+    margin: 40px auto;
+}
+
+.case {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #333;
+    background: white;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.case:hover {
+    background: #eee;
+}
+
+.case.cachee,
+.case.fixe {
+    border: none;
+    background: transparent;
+    cursor: default;
+}
+
+.jeu-rail__outils {
+    margin-top: 30px;
+}
+
+#selection-rails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.rail-btn {
+    width: 100px;
+    min-height: 65px;
+    border: 2px solid #444;
+    background: #eee;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.rail-btn:hover {
+    background: #ddd;
+}
+
+.rail-btn.selected {
+    outline: 3px solid #222;
+}
+
+.jeu-rail__zone-message {
+    min-height: 45px;
+    margin-top: 20px;
+}
+
+#message-jeu {
+    font-weight: bold;
+}
+
+.jeu-rail__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.bouton-jeu {
+    width: 124px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    image-rendering: pixelated;
+    cursor: pointer;
+
+    transition:
+        transform 0.12s ease,
+        filter 0.12s ease;
+}
+
+.bouton-jeu:hover {
+    transform: translateY(-3px) scale(1.03);
+    filter: brightness(1.08);
+}
+
+.bouton-jeu:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.bouton-jeu--jouer {
+    height: 46px;
+    background-image: url("../../images/boutons/bouton-jouer-Sheet.png");
+    background-size: 620px 46px;
+}
+
+.bouton-jeu--valider {
+    height: 50px;
+    background-image: url("../../images/boutons/bouton-valider-Sheet.png");
+    background-size: 620px 50px;
+}
+
+.bouton-jeu--retour {
+    height: 50px;
+    background-image: url("../../images/boutons/bouton-retour-Sheet.png");
+    background-size: 620px 50px;
+}
+
+.bouton-jeu.animation {
+    animation: animation-bouton 0.3s steps(4, end) forwards;
+}
+
+@keyframes animation-bouton {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -496px 0;
+    }
+}
+
+.bouton-jeu:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 4px;
+}
+
+.jeu-rail__reussite,
+.jeu-rail__fin {
+    margin-top: 30px;
+    padding: 25px;
+    text-align: center;
+    border: 2px solid #333;
+}
+
+.jeu-rail__reussite-contenu,
+.jeu-rail__fin-contenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jeu-rail__reussite .bouton-jeu,
+.jeu-rail__fin .bouton-jeu {
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+
+    .case {
+        width: 60px;
+        height: 60px;
+        font-size: 26px;
+    }
+
+    #plateau-jeu {
+        grid-auto-columns: 60px;
+    }
+
+    .rail-btn {
+        width: 80px;
+        min-height: 55px;
+        font-size: 20px;
+    }
+
+}
