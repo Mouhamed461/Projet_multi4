@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Réservation</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Réservation</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/reservation.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
 <body>
 
@@ -27,102 +33,178 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
     <section>
       <img src="../images/musee-modelisme.jpg" alt="Vue intérieure du Musée du Modélisme Ferroviaire">
+      <p class="etiquette">Billetterie</p>
       <h1>Réservation</h1>
+      <p>Réservez vos billets en ligne et évitez l'attente à l'accueil. Le paiement se fait sur place, à votre arrivée.</p>
     </section>
 
     <section id="panier">
-      <h2>Votre panier</h2>
+      <div class="panier-entete">
+        <p class="panier-etiquette">Vos billets</p>
+        <h2>Choisissez vos billets</h2>
+        <p>Sélectionnez le nombre de billets par catégorie. Le sous-total, les taxes et le total se calculent automatiquement.</p>
+      </div>
 
-      <table id="tableau-panier">
-        <caption>Choisissez vos billets</caption>
-        <thead>
-          <tr>
-            <th scope="col">Billet</th>
-            <th scope="col">Prix unitaire</th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Sous-total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Adulte</td>
-            <td id="prix-adulte">12,00 $</td>
-            <td>
-              <label for="quantite-adulte">Quantité adulte</label>
-              <input type="number" id="quantite-adulte" name="quantite-adulte" value="0" min="0">
-            </td>
-            <td id="sous-total-adulte">0,00 $</td>
-          </tr>
-          <tr>
-            <td>Aîné (65 ans et +)</td>
-            <td id="prix-aine">10,00 $</td>
-            <td>
-              <label for="quantite-aine">Quantité aîné</label>
-              <input type="number" id="quantite-aine" name="quantite-aine" value="0" min="0">
-            </td>
-            <td id="sous-total-aine">0,00 $</td>
-          </tr>
-          <tr>
-            <td>Étudiant (carte valide)</td>
-            <td id="prix-etudiant">8,00 $</td>
-            <td>
-              <label for="quantite-etudiant">Quantité étudiant</label>
-              <input type="number" id="quantite-etudiant" name="quantite-etudiant" value="0" min="0">
-            </td>
-            <td id="sous-total-etudiant">0,00 $</td>
-          </tr>
-          <tr>
-            <td>Enfant (6–12 ans)</td>
-            <td id="prix-enfant">6,00 $</td>
-            <td>
-              <label for="quantite-enfant">Quantité enfant</label>
-              <input type="number" id="quantite-enfant" name="quantite-enfant" value="0" min="0">
-            </td>
-            <td id="sous-total-enfant">0,00 $</td>
-          </tr>
-          <tr>
-            <td>Forfait famille (2 adultes + 2 enfants)</td>
-            <td id="prix-famille">30,00 $</td>
-            <td>
-              <label for="quantite-famille">Quantité forfait famille</label>
-              <input type="number" id="quantite-famille" name="quantite-famille" value="0" min="0">
-            </td>
-            <td id="sous-total-famille">0,00 $</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">Sous-total</td>
-            <td id="sous-total">0,00 $</td>
-          </tr>
-          <tr>
-            <td colspan="3">TPS (5 %)</td>
-            <td id="tps">0,00 $</td>
-          </tr>
-          <tr>
-            <td colspan="3">TVQ (9,975 %)</td>
-            <td id="tvq">0,00 $</td>
-          </tr>
-          <tr>
-            <td colspan="3">Total</td>
-            <td id="total">0,00 $</td>
-          </tr>
-        </tfoot>
-      </table>
+      <form id="formulaire-panier" novalidate>
+        <div class="panier-grille">
 
-      <p>Les enfants de moins de 6 ans entrent gratuitement — aucun billet nécessaire.</p>
+          <div class="panier-colonne-billets">
 
-      <button type="button" id="bouton-confirmer">Confirmer l'achat</button>
+            <fieldset class="billets">
+              <legend class="visually-hidden">Catégories de billets</legend>
+
+              <div class="carte-billet" data-billet="adulte">
+                <div class="billet-entete">
+                  <h3>Adulte</h3>
+                  <p class="billet-prix"><span id="prix-adulte">12,00</span> $</p>
+                </div>
+                <div class="billet-pied">
+                  <div class="stepper">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-adulte" data-pas="-1" aria-label="Retirer un billet adulte"><span aria-hidden="true">&minus;</span></button>
+                    <label for="quantite-adulte" class="visually-hidden">Nombre de billets adulte</label>
+                    <input type="number" id="quantite-adulte" name="quantite-adulte" class="stepper-champ" value="0" min="0" max="30" inputmode="numeric">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-adulte" data-pas="1" aria-label="Ajouter un billet adulte"><span aria-hidden="true">+</span></button>
+                  </div>
+                  <p class="billet-sous-total"><span class="visually-hidden">Sous-total adulte : </span><span id="sous-total-adulte">0,00 $</span></p>
+                </div>
+              </div>
+
+              <div class="carte-billet" data-billet="aine">
+                <div class="billet-entete">
+                  <h3>Aîné</h3>
+                  <p class="billet-description">65 ans et plus</p>
+                  <p class="billet-prix"><span id="prix-aine">10,00</span> $</p>
+                </div>
+                <div class="billet-pied">
+                  <div class="stepper">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-aine" data-pas="-1" aria-label="Retirer un billet aîné"><span aria-hidden="true">&minus;</span></button>
+                    <label for="quantite-aine" class="visually-hidden">Nombre de billets aîné</label>
+                    <input type="number" id="quantite-aine" name="quantite-aine" class="stepper-champ" value="0" min="0" max="30" inputmode="numeric">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-aine" data-pas="1" aria-label="Ajouter un billet aîné"><span aria-hidden="true">+</span></button>
+                  </div>
+                  <p class="billet-sous-total"><span class="visually-hidden">Sous-total aîné : </span><span id="sous-total-aine">0,00 $</span></p>
+                </div>
+              </div>
+
+              <div class="carte-billet" data-billet="etudiant">
+                <div class="billet-entete">
+                  <h3>Étudiant</h3>
+                  <p class="billet-description">Carte valide exigée</p>
+                  <p class="billet-prix"><span id="prix-etudiant">8,00</span> $</p>
+                </div>
+                <div class="billet-pied">
+                  <div class="stepper">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-etudiant" data-pas="-1" aria-label="Retirer un billet étudiant"><span aria-hidden="true">&minus;</span></button>
+                    <label for="quantite-etudiant" class="visually-hidden">Nombre de billets étudiant</label>
+                    <input type="number" id="quantite-etudiant" name="quantite-etudiant" class="stepper-champ" value="0" min="0" max="30" inputmode="numeric">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-etudiant" data-pas="1" aria-label="Ajouter un billet étudiant"><span aria-hidden="true">+</span></button>
+                  </div>
+                  <p class="billet-sous-total"><span class="visually-hidden">Sous-total étudiant : </span><span id="sous-total-etudiant">0,00 $</span></p>
+                </div>
+              </div>
+
+              <div class="carte-billet" data-billet="enfant">
+                <div class="billet-entete">
+                  <h3>Enfant</h3>
+                  <p class="billet-description">6 à 12 ans</p>
+                  <p class="billet-prix"><span id="prix-enfant">6,00</span> $</p>
+                </div>
+                <div class="billet-pied">
+                  <div class="stepper">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-enfant" data-pas="-1" aria-label="Retirer un billet enfant"><span aria-hidden="true">&minus;</span></button>
+                    <label for="quantite-enfant" class="visually-hidden">Nombre de billets enfant</label>
+                    <input type="number" id="quantite-enfant" name="quantite-enfant" class="stepper-champ" value="0" min="0" max="30" inputmode="numeric">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-enfant" data-pas="1" aria-label="Ajouter un billet enfant"><span aria-hidden="true">+</span></button>
+                  </div>
+                  <p class="billet-sous-total"><span class="visually-hidden">Sous-total enfant : </span><span id="sous-total-enfant">0,00 $</span></p>
+                </div>
+              </div>
+
+              <div class="carte-billet carte-billet--vedette" data-billet="famille">
+                <p class="billet-badge">Populaire</p>
+                <div class="billet-entete">
+                  <h3>Forfait famille</h3>
+                  <p class="billet-description">2 adultes + 2 enfants</p>
+                  <p class="billet-prix"><span id="prix-famille">30,00</span> $</p>
+                </div>
+                <div class="billet-pied">
+                  <div class="stepper">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-famille" data-pas="-1" aria-label="Retirer un forfait famille"><span aria-hidden="true">&minus;</span></button>
+                    <label for="quantite-famille" class="visually-hidden">Nombre de forfaits famille</label>
+                    <input type="number" id="quantite-famille" name="quantite-famille" class="stepper-champ" value="0" min="0" max="30" inputmode="numeric">
+                    <button type="button" class="stepper-bouton" data-cible="quantite-famille" data-pas="1" aria-label="Ajouter un forfait famille"><span aria-hidden="true">+</span></button>
+                  </div>
+                  <p class="billet-sous-total"><span class="visually-hidden">Sous-total forfait famille : </span><span id="sous-total-famille">0,00 $</span></p>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <p class="panier-note">Les enfants de moins de 6 ans entrent gratuitement, aucun billet nécessaire.</p>
+
+          </div>
+
+          <aside class="recapitulatif" aria-labelledby="recap-titre">
+
+            <h2 id="recap-titre">Récapitulatif</h2>
+
+            <fieldset class="coordonnees">
+              <legend>Vos coordonnées</legend>
+              <div class="champ">
+                <label for="nom-complet">Nom complet</label>
+                <input type="text" id="nom-complet" name="nom-complet" autocomplete="name" required>
+              </div>
+              <div class="champ">
+                <label for="courriel">Courriel</label>
+                <input type="email" id="courriel" name="courriel" autocomplete="email" required>
+              </div>
+            </fieldset>
+
+            <dl class="recap-lignes">
+              <div>
+                <dt>Sous-total</dt>
+                <dd id="sous-total">0,00 $</dd>
+              </div>
+              <div>
+                <dt>TPS (5 %)</dt>
+                <dd id="tps">0,00 $</dd>
+              </div>
+              <div>
+                <dt>TVQ (9,975 %)</dt>
+                <dd id="tvq">0,00 $</dd>
+              </div>
+            </dl>
+
+            <div class="recap-total">
+              <span>Total</span>
+              <span id="total" aria-live="polite">0,00 $</span>
+            </div>
+
+            <button type="submit" id="bouton-confirmer" disabled>Confirmer l'achat</button>
+            <p class="recap-message" id="recap-message" aria-live="polite">Ajoutez au moins un billet pour continuer.</p>
+
+          </aside>
+
+        </div>
+      </form>
     </section>
 
     <section id="confirmation" hidden>
-      <h2>Confirmation de votre achat</h2>
-      <p>Merci pour votre réservation ! Un courriel de confirmation vous sera envoyé à l'adresse fournie.</p>
-      <a href="../index.html">Retour à l'accueil</a>
+      <div class="confirmation-carte">
+        <span class="confirmation-icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12.5l5 5L20 6.5"/>
+          </svg>
+        </span>
+        <p class="etiquette-secondaire">Réservation confirmée</p>
+        <h2>Merci pour votre réservation !</h2>
+        <p>Un courriel de confirmation vous sera envoyé à l'adresse fournie.</p>
+        <a class="cta" href="../index.html">Retour à l'accueil</a>
+      </div>
     </section>
 
   </main>

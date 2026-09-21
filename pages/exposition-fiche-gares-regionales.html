@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <link rel="icon" type="image/png" href="../favicon.ico">
-  <title>Musée du Modélisme Ferroviaire - Blogue</title>
+  <title>Musée du Modélisme Ferroviaire - Les gares régionales</title>
   <link rel="stylesheet" href="../styles/global.css">
-  <link rel="stylesheet" href="../styles/pages/blogue.css">
+  <link rel="stylesheet" href="../styles/pages/exposition-fiche.css">
   <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
        analyse, pour que la transition entre les pages ne demarre
        jamais sur une page a moitie vide. -->
   <link rel="expect" href="#contenu-principal" blocking="render">
-  <!-- Charge tot pour que l'ecouteur pagereveal (transition vers/depuis
-       un article de blogue) soit en place avant le tout premier rendu
-       de la page. -->
+  <!-- Charge tot pour que l'ecouteur pagereveal (transition horizontale
+       vers/depuis la liste des expositions) soit en place avant le tout
+       premier rendu de la page. -->
   <script src="../scripts/global.js"></script>
 </head>
 <body>
@@ -26,11 +26,11 @@
       </a>
       <ul>
         <li><a href="../index.html">Accueil</a></li>
-        <li><a href="expositions.html">Expositions</a></li>
+        <li><a href="expositions.html" aria-current="page">Expositions</a></li>
         <li><a href="horaire-tarifs.html">Horaire &amp; Tarifs</a></li>
         <li><a href="evenements.html">Événements</a></li>
         <li><a href="information-visiteurs.html">Information visiteurs</a></li>
-        <li><a href="blogue.html" aria-current="page">Blogue</a></li>
+        <li><a href="blogue.html">Blogue</a></li>
         <li><a href="espace-enfant.html">Espace enfant</a></li>
         <li><a href="reservation.html">Réservation</a></li>
       </ul>
@@ -39,54 +39,27 @@
 
   <main id="contenu-principal">
 
-    <section>
-      <img src="../images/blogue/raconter-histoire.jpg" alt="Trains miniatures qui racontent des histoires">
-      <p class="etiquette">Blogue</p>
-      <h1>Blogue</h1>
-      <p>Des textes et des anecdotes sur le modélisme ferroviaire, l'histoire du rail au Québec et les coulisses de nos expositions.</p>
-    </section>
+    <a class="retour" href="expositions.html">Retour aux expositions</a>
 
-    <section class="articles">
+    <article class="fiche-hero">
+      <p class="etiquette">Exposition permanente</p>
+      <h1>Les gares régionales</h1>
 
-      <h2>Nos articles</h2>
+      <div class="fiche-hero-corps">
+        <div class="fiche-image">
+          <img src="../images/expositions/gares-regionales.jpg" alt="Les gares régionales du Québec">
+        </div>
+        <div class="fiche-texte">
+          <p class="etiquette-secondaire">Exposition permanente</p>
 
-      <article>
-        <div class="article-image">
-          <img src="../images/blogue/raconter-histoire.jpg" alt="Des trains miniatures sur un réseau animé">
-        </div>
-        <div class="article-corps">
-          <p class="etiquette-carte">Blogue</p>
-          <h3>Quand les trains miniatures racontent des histoires</h3>
-          <p>Au-delà du jeu, les réseaux miniatures sont de véritables fresques vivantes. Chaque maison, chaque arbre, chaque locomotive témoigne d'une époque et d'un savoir-faire. Nos bénévoles et maquettistes consacrent des centaines d'heures à donner vie à ces univers miniatures.</p>
-          <a class="lire-article" href="blogue-article-1.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
-        </div>
-      </article>
+          <p>Les gares ont longtemps été au cœur de la vie des communautés québécoises. Dans cette exposition, vous découvrirez des maquettes fidèles de plusieurs gares régionales, certaines toujours existantes, d'autres disparues avec le temps. Chaque reconstitution est le fruit d'un travail de recherche minutieux à partir de photographies, de plans d'archives et de témoignages.</p>
 
-      <article>
-        <div class="article-image">
-          <img src="../images/blogue/gares-disparues.jpg" alt="Maquette d'une gare régionale disparue">
-        </div>
-        <div class="article-corps">
-          <p class="etiquette-carte">Blogue</p>
-          <h3>Les gares disparues du Québec</h3>
-          <p>Saviez-vous que plusieurs gares régionales, jadis essentielles aux communautés, ont aujourd'hui disparu ? Nos maquettes permettent de leur redonner une place dans la mémoire collective et de rappeler l'importance du rail dans la vitalité des villages québécois.</p>
-          <a class="lire-article" href="blogue-article-2.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
-        </div>
-      </article>
+          <p>Ces gares miniatures ne sont pas de simples maquettes : elles racontent l'histoire de leur rôle dans le quotidien, avec leur architecture caractéristique et des scènes de vie qui rappellent l'importance de ces lieux de rencontre et de transit.</p>
 
-      <article>
-        <div class="article-image">
-          <img src="../images/blogue/train-moteur.png" alt="Locomotive ancienne du Québec">
+          <a class="cta" href="reservation.html">Réserver ma visite</a>
         </div>
-        <div class="article-corps">
-          <p class="etiquette-carte">Blogue</p>
-          <h3>Le train, moteur du Québec moderne</h3>
-          <p>Sans le chemin de fer, l'industrialisation et l'essor économique du Québec auraient suivi un tout autre rythme. Le train a non seulement relié les villes, mais aussi rapproché les gens, ouvrant la voie au commerce, au tourisme et aux échanges culturels.</p>
-          <a class="lire-article" href="blogue-article-3.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
-        </div>
-      </article>
-
-    </section>
+      </div>
+    </article>
 
   </main>
 

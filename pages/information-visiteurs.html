@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Information visiteurs</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Information visiteurs</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/information-visiteurs.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
 <body>
 
@@ -27,7 +33,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
     <section>
       <img src="../images/musee-modelisme.jpg" alt="Vue intérieure du Musée du Modélisme Ferroviaire">
@@ -38,8 +44,7 @@
       <h2>Adresse et coordonnées</h2>
       <address>
         <p>Musée du Modélisme Ferroviaire et des Chemins de fer du Québec</p>
-        <p>123, rue du Rail</p>
-        <p>Drummondville (Québec) J2B 0A0</p>
+        <p>123, rue du Rail, Drummondville, QC</p>
         <p>Téléphone : <a href="tel:+18195558724">(819) 555-TRAIN</a></p>
         <p>Courriel : <a href="mailto:info@museeferroviaireqc.ca">info@museeferroviaireqc.ca</a></p>
       </address>
@@ -56,7 +61,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>Mardi — Dimanche</td>
+            <td>Mardi au dimanche</td>
             <td>10 h à 17 h</td>
           </tr>
           <tr>
@@ -66,7 +71,6 @@
         </tbody>
       </table>
       <p>Fermé le 25 décembre et le 1er janvier.</p>
-      <p>Dernière admission à 16 h 30.</p>
     </section>
 
     <section>
@@ -109,45 +113,19 @@
     </section>
 
     <section>
-      <h2>Comment nous trouver</h2>
-
-      <h3>En voiture</h3>
-      <p>Le musée est situé au cœur de Drummondville, à quelques minutes du centre-ville. Depuis l'autoroute 20, prendre la sortie 177 en direction de Drummondville. Suivre la rue Heriot vers le centre, puis tourner sur la rue du Rail.</p>
-
-      <h3>En transport en commun</h3>
-      <p>Plusieurs lignes d'autobus de la ville de Drummondville desservent le quartier. Consultez le site de la <a href="https://www.mrctransit.ca" rel="noopener">MRC Transport</a> pour les horaires et arrêts les plus proches.</p>
-
-      <h3>Stationnement</h3>
-      <p>Un stationnement gratuit est disponible directement sur le site du musée, avec une capacité d'une cinquantaine de véhicules. Des places réservées aux personnes handicapées sont situées à l'entrée principale.</p>
-    </section>
-
-    <section>
-      <h2>Accessibilité</h2>
+      <h2>Stationnement et accessibilité</h2>
       <ul>
-        <li>Entrée de plain-pied, sans escalier</li>
-        <li>Rampes d'accès à tous les niveaux</li>
-        <li>Places réservées aux personnes à mobilité réduite dans le stationnement</li>
-        <li>Toilettes accessibles sur place</li>
-        <li>Tables basses pour les visiteurs en fauteuil roulant dans les salles d'exposition</li>
+        <li>Stationnement gratuit sur place</li>
+        <li>Accès complet pour personnes à mobilité réduite</li>
       </ul>
     </section>
 
     <section>
       <h2>Services sur place</h2>
       <ul>
-        <li>Vestiaire gratuit à l'entrée</li>
-        <li>Boutique souvenir (modèles réduits, livres, papeterie)</li>
-        <li>Espace-café avec boissons chaudes et collations</li>
-        <li>Toilettes familiales</li>
-        <li>Poussettes autorisées dans toutes les salles</li>
+        <li>Boutique du musée : maquettes, livres et souvenirs ferroviaires</li>
+        <li>Aire de repos avec distributrices et collations</li>
       </ul>
-    </section>
-
-    <section>
-      <h2>Visites de groupe</h2>
-      <p>Le musée accueille les groupes scolaires, les camps de jour et les clubs d'aînés. Des visites guidées sur mesure peuvent être organisées sur demande. Pour toute réservation de groupe (10 personnes et plus), veuillez nous contacter au moins deux semaines à l'avance.</p>
-      <p>Tarif de groupe disponible sur demande.</p>
-      <p>Contact : <a href="mailto:groupes@museeferroviaireqc.ca">groupes@museeferroviaireqc.ca</a></p>
     </section>
 
   </main>

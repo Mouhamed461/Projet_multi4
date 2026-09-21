@@ -1,0 +1,256 @@
+/* Page Evenements. Le bandeau du haut (photo, etiquette, h1, texte)
+   vient des regles partagees dans global.css. Cette feuille couvre la
+   grille de cartes evenements plus bas. */
+
+.grille-evenements {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  max-width: 1000px;
+  margin: 3rem auto 5rem;
+  padding: 0 5rem;
+}
+
+.carte-evenement {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carte-evenement img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carte-evenement img {
+    transition: transform 0.4s ease;
+  }
+
+  .carte-evenement:hover img {
+    transform: scale(1.05);
+  }
+
+  .carte-evenement:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(32, 33, 34, 0.18);
+  }
+}
+
+.carte-evenement-corps {
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.carte-evenement h3 {
+  font-size: 1.3rem;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+}
+
+.carte-evenement-meta {
+  display: flex;
+  gap: 2rem;
+  padding: 0.9rem 0;
+  margin-bottom: 1.25rem;
+  border-top: 1px solid rgba(32, 33, 34, 0.12);
+  border-bottom: 1px solid rgba(32, 33, 34, 0.12);
+}
+
+.carte-evenement-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.carte-evenement-meta .etiquette-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vert);
+}
+
+.carte-evenement-meta .valeur-meta {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--noir);
+}
+
+.carte-evenement p.description {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--noir);
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.carte-evenement a.decouvrir {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--rouge);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: color 0.25s ease;
+}
+
+.carte-evenement a.decouvrir:hover {
+  color: var(--orange);
+}
+
+.carte-evenement a.decouvrir .fleche {
+  display: inline-block;
+  font-size: 1.1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carte-evenement a.decouvrir .fleche {
+    transition: transform 0.25s ease;
+  }
+
+  .carte-evenement a.decouvrir:hover .fleche {
+    transform: translate(3px, 3px);
+  }
+}
+
+@media (max-width: 860px) {
+  .grille-evenements {
+    grid-template-columns: 1fr;
+    padding: 0 2rem;
+  }
+}
+
+/* Fiche detail d'un evenement (evenement-fiche.html) : meme logique
+   que les fiches d'exposition, deux colonnes image/texte, avec la
+   meme bande Date/Prix que sur les cartes de la page Evenements. */
+.fiche-evenement {
+  max-width: 1100px;
+  margin: 2.5rem auto 5rem;
+  padding: 0 5rem;
+  display: flex;
+  align-items: stretch;
+  gap: 3rem;
+}
+
+.fiche-evenement-image {
+  flex: 0 0 46%;
+}
+
+.fiche-evenement-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.fiche-evenement-corps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fiche-evenement-corps .etiquette {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.75rem;
+}
+
+.fiche-evenement-corps h1 {
+  font-size: 2.4rem;
+  color: var(--rouge);
+  margin-bottom: 1.5rem;
+}
+
+.fiche-evenement-meta {
+  display: flex;
+  gap: 2.5rem;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid rgba(32, 33, 34, 0.15);
+  border-bottom: 1px solid rgba(32, 33, 34, 0.15);
+}
+
+.fiche-evenement-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fiche-evenement-meta .etiquette-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vert);
+}
+
+.fiche-evenement-meta .valeur-meta {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--noir);
+}
+
+.fiche-evenement-corps p.description {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
+}
+
+.fiche-evenement-corps a.cta {
+  display: inline-block;
+  width: fit-content;
+  padding: 1rem 2.5rem;
+  background-color: var(--rouge);
+  color: var(--beige);
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.fiche-evenement-corps a.cta:hover {
+  background-color: var(--orange);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fiche-evenement-corps a.cta:active {
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 860px) {
+  .fiche-evenement {
+    flex-direction: column;
+    padding: 0 2rem;
+    gap: 1.5rem;
+  }
+
+  .fiche-evenement-image img {
+    height: 280px;
+    min-height: 0;
+  }
+
+  .fiche-evenement-meta {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+}

@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Espace enfant</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Espace enfant</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/espace-enfant.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
 <body>
 
@@ -27,7 +33,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
   </main>
 
   <footer>

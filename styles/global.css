@@ -7,28 +7,31 @@
 }
 
 @font-face {
+  /* Un seul poids statique (400) dans ce fichier, malgré son nom.
+     font-weight: 400 force le navigateur à simuler le gras pour 700/900. */
   font-family: 'Roboto Condensed';
   src: url('../fonts/robotocondensed-variablefont_wght-webfont.woff2') format('woff2');
-  font-weight: 100 900;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
+  /* Même chose, poids 400 seulement. */
   font-family: 'Red Hat Display';
   src: url('../fonts/redhatdisplay-variablefont_wght-webfont.woff2') format('woff2');
-  font-weight: 100 900;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 /* Palette
-   Beige  #F5F0E8 — fond des pages
-   Noir   #202122 — texte courant
-   Vert   #304536 — header, footer sections mises en avant
-   Rouge  #9E3D23 — titres de section, accents, boutons principaux
-   Orange #DC6921 — hover des boutons
-   Jaune  #D89520 — hover des liens de navigation
+   Beige  #F5F0E8 : fond des pages
+   Noir   #202122 : texte courant
+   Vert   #304536 : header, footer, sections mises en avant
+   Rouge  #9E3D23 : titres de section, accents, boutons principaux
+   Orange #DC6921 : hover des boutons
+   Jaune  #D89520 : hover des liens de navigation
 
    Par élément :
    header / nav       fond vert,  texte beige
@@ -72,11 +75,197 @@ html {
   }
 }
 
+/* Transition douce entre les pages (view transitions natives).
+   Simple amelioration progressive : un navigateur qui ne la
+   supporte pas fait juste une navigation normale, sans erreur ni
+   script de remplacement necessaire. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both sortie-page;
+  }
+
+  ::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both entree-page;
+  }
+}
+
+@keyframes sortie-page {
+  to {
+    opacity: 0;
+    transform: translateX(-6%);
+  }
+}
+
+@keyframes entree-page {
+  from {
+    opacity: 0;
+    transform: translateX(6%);
+  }
+}
+
+/* Transition horizontale entre la liste des expositions et une fiche
+   en particulier : vers une fiche, le contenu glisse vers la gauche ;
+   au retour vers la liste, le glissement se fait dans l'autre sens.
+   Le type (expo-avant / expo-arriere) est ajoute en JS (voir
+   scripts/global.js, evenement pagereveal). */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(expo-avant)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-gauche;
+  }
+
+  html:active-view-transition-type(expo-avant)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-droite;
+  }
+
+  html:active-view-transition-type(expo-arriere)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-droite;
+  }
+
+  html:active-view-transition-type(expo-arriere)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-gauche;
+  }
+}
+
+@keyframes glisse-sortie-gauche {
+  to {
+    transform: translateX(-6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-entree-droite {
+  from {
+    transform: translateX(6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-sortie-droite {
+  to {
+    transform: translateX(6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-entree-gauche {
+  from {
+    transform: translateX(-6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+/* Transition en fondu avec un leger zoom entre la page blogue et un
+   article en particulier : volontairement differente du glissement
+   horizontal des expositions, pour donner un rythme distinct a la
+   lecture d'un article. Vers un article, la nouvelle page s'approche
+   (zoom avant leger) ; au retour vers la liste, l'article s'eloigne
+   (zoom arriere leger). Le type (article-avant / article-arriere)
+   est ajoute en JS (voir scripts/global.js, evenement pagereveal). */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(article-avant)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both zoom-sortie-discret;
+  }
+
+  html:active-view-transition-type(article-avant)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both zoom-entree-avant;
+  }
+
+  html:active-view-transition-type(article-arriere)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both zoom-sortie-avant;
+  }
+
+  html:active-view-transition-type(article-arriere)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both zoom-entree-discret;
+  }
+}
+
+@keyframes zoom-sortie-discret {
+  to {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-entree-avant {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-sortie-avant {
+  to {
+    transform: scale(1.06);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-entree-discret {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+}
+
 body {
   font-family: var(--police-texte);
   background-color: var(--beige);
   color: var(--noir);
   line-height: 1.6;
+}
+
+/* Espace réservé avant le footer, sur toutes les pages, pour le train. */
+main {
+  position: relative;
+  padding-bottom: 182px;
+}
+
+main::after {
+  content: url("../images/footer-train-animated-x200.gif");
+  display: block;
+  position: absolute;
+  /* Le fichier contient une marge transparente sous les roues,
+     on ajuste bottom pour coller le train au trait du footer. */
+  bottom: -33px;
+  right: 3rem;
+  height: 182px;
+  width: auto;
+  line-height: 0;
+  font-size: 0;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Passage du train : il traverse une seule fois toute la largeur,
+   juste au-dessus du trait du footer, puis reste caché hors-champ
+   un bon moment avant de repasser (pas de mouvement en continu). La
+   locomotive regarde vers la gauche sur le visuel, donc le train se
+   déplace de la droite vers la gauche. */
+@media (prefers-reduced-motion: no-preference) {
+  main {
+    overflow: hidden;
+  }
+
+  main::after {
+    animation: passage-train 32s ease-in-out infinite;
+  }
+}
+
+@keyframes passage-train {
+  0% {
+    transform: translateX(60vw);
+  }
+  56% {
+    transform: translateX(-170vw);
+  }
+  100% {
+    transform: translateX(-170vw);
+  }
 }
 
 h1 {
@@ -99,6 +288,367 @@ a {
 
 ul {
   list-style: none;
+}
+
+/* Lien retour, utilisé sur les fiches et les articles de blogue.
+   Icone SVG en masque CSS pour garder la couleur du lien au survol. */
+.retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.5rem 5rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--rouge);
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .retour:active {
+    transform: scale(0.95);
+  }
+}
+
+.retour::before {
+  content: "";
+  display: inline-block;
+  width: 1.1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  transition: transform 0.25s ease;
+}
+
+.retour:hover {
+  color: var(--orange);
+}
+
+.retour:hover::before {
+  transform: translateX(-3px);
+}
+
+/* Carte d'exposition avec retournement au survol : le bandeau sombre
+   du repos disparait pour laisser place a un panneau rouge qui
+   remonte et revele un court resume. Utilisee sur la page Expositions
+   et en suggestion sur les fiches individuelles. */
+.grille-expositions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 0 5rem 5rem;
+}
+
+.carte-exposition {
+  position: relative;
+  display: block;
+  min-height: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.18);
+}
+
+.carte-exposition img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carte-exposition:hover img {
+  transform: scale(1.05);
+}
+
+.carte-exposition .carte-info,
+.carte-exposition .carte-detail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+}
+
+.carte-exposition .carte-info {
+  background: linear-gradient(180deg, rgba(32, 33, 34, 0) 45%, rgba(32, 33, 34, 0.75));
+  color: var(--beige);
+  transition: opacity 0.3s ease;
+}
+
+.carte-exposition .carte-detail {
+  /* Fond translucide plutot qu'une couleur pleine : la photo reste
+     visible sous le panneau au survol, seulement teintee de rouge. */
+  background-color: rgba(158, 61, 35, 0.62);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: var(--beige);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.carte-exposition p.etiquette-secondaire {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin-bottom: 0.4rem;
+}
+
+.carte-exposition h2 {
+  font-size: 1.4rem;
+}
+
+.carte-exposition .carte-detail p:not(.etiquette-secondaire) {
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.carte-exposition .carte-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.carte-exposition .carte-cta::after {
+  content: "";
+  width: 1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+
+.carte-exposition:hover .carte-info {
+  opacity: 0;
+}
+
+.carte-exposition:hover .carte-detail {
+  transform: translateY(0);
+}
+
+.carte-exposition:hover .carte-cta::after {
+  transform: scaleX(-1) translateX(-3px);
+}
+
+@media (max-width: 860px) {
+  .grille-expositions {
+    grid-template-columns: 1fr;
+    padding: 0 2rem 3rem;
+  }
+}
+
+/* Liste d'expositions en bandes plein largeur, chacune separee des
+   autres par un espace genereux plutot que collees les unes aux
+   autres, image plus large que le texte, separees par une fine
+   ligne verticale. Design different de .carte-exposition (reservee
+   aux suggestions sur les fiches) ; utilisee sur la page
+   Expositions. */
+.lignes-expositions {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.ligne-exposition {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--beige);
+  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.12);
+}
+
+.ligne-exposition:not(:first-child) {
+  border-top: 1px solid rgba(32, 33, 34, 0.15);
+}
+
+.ligne-image {
+  position: relative;
+  width: 60%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ligne-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.ligne-exposition:hover .ligne-image img {
+  transform: scale(1.04);
+}
+
+.ligne-separateur {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 60%;
+  width: 6px;
+  margin-left: -3px;
+  z-index: 2;
+  border-radius: 2px;
+  background-color: var(--rouge);
+  transition: background-color 0.3s ease;
+}
+
+.ligne-exposition:hover .ligne-separateur {
+  background-color: var(--orange);
+}
+
+.ligne-texte {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 4rem 3rem 5rem;
+}
+
+/* Une expo sur deux est inversee (image a droite, texte a gauche)
+   pour que les trois bandes n'aient pas exactement la meme
+   disposition. La ligne separatrice et le remplissage du texte
+   suivent. */
+.ligne-exposition:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.ligne-exposition:nth-child(even) .ligne-separateur {
+  left: 40%;
+}
+
+.ligne-exposition:nth-child(even) .ligne-texte {
+  padding: 3rem 5rem 3rem 4rem;
+}
+
+.ligne-texte p.etiquette-secondaire {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.75rem;
+}
+
+.ligne-texte h2 {
+  font-size: 1.9rem;
+  color: var(--rouge);
+  margin-bottom: 1rem;
+  transition: color 0.25s ease;
+}
+
+.ligne-exposition:hover .ligne-texte h2 {
+  color: var(--orange);
+}
+
+.ligne-texte p:not(.etiquette-secondaire) {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 1.5rem;
+}
+
+.ligne-texte .carte-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.ligne-texte .carte-cta::after {
+  content: "";
+  width: 1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+
+.ligne-exposition:hover .ligne-texte .carte-cta {
+  color: var(--orange);
+  gap: 0.9rem;
+}
+
+/* Entree en fondu au scroll, purement decorative : les navigateurs
+   qui ne prennent pas en charge les animations liees au scroll
+   affichent simplement les bandes sans animation (aucun script de
+   remplacement necessaire pour un effet decoratif). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @keyframes ligne-entree {
+      from {
+        opacity: 0;
+        translate: 0 40px;
+      }
+    }
+
+    .ligne-exposition {
+      animation: ligne-entree 0.6s ease-out backwards;
+      animation-timeline: view();
+      animation-range: entry;
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .lignes-expositions {
+    gap: 2.5rem;
+  }
+
+  /* Il faut repeter les variantes nth-child(even) / nth-child(3n)
+     ici : ces selecteurs desktop (specificite 0-2-0) sont plus
+     specifiques que .ligne-exposition seul (0-1-0), donc ils
+     l'emportent sur ces regles mobiles malgre leur position plus
+     tardive dans le fichier. Sans ca, la carte paire (Les gares
+     regionales) restait en row-reverse en mobile : le texte se
+     retrouvait ecrase hors de l'ecran. */
+  .ligne-exposition,
+  .ligne-exposition:nth-child(even) {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .ligne-image {
+    width: 100%;
+    height: 260px;
+  }
+
+  .ligne-separateur {
+    display: none;
+  }
+
+  .ligne-texte,
+  .ligne-exposition:nth-child(even) .ligne-texte {
+    padding: 2rem;
+  }
 }
 
 /* header */
@@ -145,7 +695,13 @@ header nav ul li a {
   padding: 0.4rem 0.1rem;
   letter-spacing: 0;
   white-space: nowrap;
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  header nav ul li a:active {
+    transform: scale(0.95);
+  }
 }
 
 header nav ul li:not(:last-child) a::after {
@@ -180,14 +736,20 @@ header nav ul li:last-child a {
   font-size: 0.9rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 header nav ul li:last-child a:hover {
   background-color: var(--orange);
 }
 
-/* hero des pages secondaires — même proportion que le hero de l'accueil :
+@media (prefers-reduced-motion: no-preference) {
+  header nav ul li:last-child a:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Hero des pages secondaires, même proportion que celui de l'accueil :
    image plein cadre sur toute la hauteur, texte superposé au centre */
 main > section:first-child:not(#accueil-hero) {
   position: relative;
@@ -292,11 +854,17 @@ footer nav ul li a {
   font-family: var(--police-h2);
   font-size: 1rem;
   color: var(--beige);
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, transform 0.15s ease;
 }
 
 footer nav ul li a:hover {
   color: var(--jaune);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  footer nav ul li a:active {
+    transform: scale(0.95);
+  }
 }
 
 footer .footer-liens section {
@@ -331,11 +899,17 @@ footer .footer-liens section ul li a {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--beige);
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 footer .footer-liens section ul li a:hover {
   background-color: var(--rouge);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  footer .footer-liens section ul li a:active {
+    transform: scale(0.9);
+  }
 }
 
 footer .footer-liens section ul li a svg {
