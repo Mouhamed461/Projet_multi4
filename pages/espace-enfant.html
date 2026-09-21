@@ -32,27 +32,24 @@
 
   <main>
 
+    <div class="message-mobile">
+      <h1>Mini-jeu non disponible sur téléphone</h1>
+      <p>
+        Pour profiter correctement du jeu, utilise un ordinateur ou une tablette.
+      </p>
+    </div>
+
     <section class="introduction-jeu" id="introduction-jeu">
 
-      <div class="introduction-jeu__contenu">
+      <div class="menu-jeu">
 
-        <p class="introduction-jeu__surtitre">
-          Espace enfant
-        </p>
+        <div class="menu-jeu__fond"></div>
 
-        <h1>
-          Construis la voie ferrée
-        </h1>
-
-        <p>
-          Le train doit rejoindre la gare, mais une partie de la voie a disparu...
-        </p>
-
-        <p>
-          Aide le train à atteindre sa destination !
-        </p>
+        <div class="menu-jeu__titre"></div>
 
         <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-jouer" aria-label="Jouer"></button>
+
+        <img src="../images/jeu/train-minijeu.png" class="menu-jeu__train" alt="">
 
       </div>
 
@@ -94,77 +91,88 @@
 
         <div id="selection-rails">
 
-          <button type="button" class="rail-btn" data-type="h">
-            ---
+          <button type="button" class="rail-btn" data-type="h" aria-label="Rail horizontal">
+            <img src="../images/jeu/rails/horizontal/rail-tile.png" alt="" class="rail-apercu rail-apercu--horizontal">
           </button>
 
-          <button type="button" class="rail-btn" data-type="v">
-            |||
+          <button type="button" class="rail-btn" data-type="v" aria-label="Rail vertical">
+            <img src="../images/jeu/rails/vertical/rail-tile.png" alt="" class="rail-apercu rail-apercu--vertical">
           </button>
 
-          <button type="button" class="rail-btn" data-type="bas">
-            ┐
+          <button type="button" class="rail-btn" data-type="courbeBG" aria-label="Rail courbé bas gauche">
+            <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
+              class="rail-apercu rail-apercu--courbe courbe-bg">
           </button>
 
-          <button type="button" class="rail-btn" data-type="droite">
-            └
+          <button type="button" class="rail-btn" data-type="courbeHD" aria-label="Rail courbé haut droite">
+            <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
+              class="rail-apercu rail-apercu--courbe courbe-hd">
+          </button>
+
+          <button type="button" class="rail-btn" data-type="courbeBD" aria-label="Rail courbé bas droite">
+            <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
+              class="rail-apercu rail-apercu--courbe courbe-bd">
+          </button>
+
+          <button type="button" class="rail-btn" data-type="courbeHG" aria-label="Rail courbé haut gauche">
+            <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
+              class="rail-apercu rail-apercu--courbe courbe-hg">
           </button>
 
         </div>
 
-      </div>
+        <div class="jeu-rail__zone-message" aria-live="polite">
 
-      <div class="jeu-rail__zone-message" aria-live="polite">
-
-        <p id="message-jeu"></p>
-
-      </div>
-
-      <div class="jeu-rail__actions">
-
-        <button type="button" class="bouton-jeu bouton-jeu--retour" id="bouton-retour" aria-label="Retour"></button>
-
-        <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider"
-          aria-label="Valider le chemin"></button>
-
-      </div>
-
-      <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
-
-        <div class="jeu-rail__reussite-contenu">
-
-          <h2>
-            Bravo !
-          </h2>
-
-          <p>
-            Le train est arrivé à destination.
-          </p>
-
-          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant"
-            aria-label="Niveau suivant"></button>
+          <p id="message-jeu"></p>
 
         </div>
 
-      </div>
+        <div class="jeu-rail__actions">
 
-      <div class="jeu-rail__fin" id="fin-jeu" hidden>
+          <button type="button" class="bouton-jeu bouton-jeu--retour" id="bouton-retour" aria-label="Retour"></button>
 
-        <div class="jeu-rail__fin-contenu">
-
-          <h2>
-            Bravo !
-          </h2>
-
-          <p>
-            Tu as terminé les trois niveaux et permis au train d'arriver à destination.
-          </p>
-
-          <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-rejouer" aria-label="Rejouer"></button>
+          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider"
+            aria-label="Valider le chemin"></button>
 
         </div>
 
-      </div>
+        <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
+
+          <div class="jeu-rail__reussite-contenu">
+
+            <h2>
+              Bravo !
+            </h2>
+
+            <p>
+              Le train est arrivé à destination.
+            </p>
+
+            <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant"
+              aria-label="Niveau suivant"></button>
+
+          </div>
+
+        </div>
+
+        <div class="jeu-rail__fin" id="fin-jeu" hidden>
+
+          <div class="jeu-rail__fin-contenu">
+
+            <h2>
+              Bravo !
+            </h2>
+
+            <p>
+              Tu as terminé les trois niveaux et permis au train d'arriver à destination.
+            </p>
+
+            <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-rejouer"
+              aria-label="Rejouer"></button>
+
+          </div>
+
+        </div>
 
     </section>
 

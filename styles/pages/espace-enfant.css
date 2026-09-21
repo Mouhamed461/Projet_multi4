@@ -3,24 +3,157 @@
 }
 
 .introduction-jeu {
-    padding: 60px 20px;
-}
-
-.introduction-jeu__contenu {
+    width: 100%;
+    padding: 40px 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    max-width: 700px;
-    margin: auto;
 }
 
-.introduction-jeu__contenu h1 {
-    margin-bottom: 20px;
+.menu-jeu {
+    position: relative;
+    width: 512px;
+    height: 512px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vw - 40px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #a83d25;
 }
 
-.introduction-jeu__contenu p {
-    margin: 5px 0;
+.menu-jeu__fond {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background-image: url("../../images/jeu/menu-minijeu-Sheet.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 1200% 100%;
+
+    image-rendering: pixelated;
+
+    animation: animation-menu 1.6s steps(11, end) infinite;
+}
+
+.menu-jeu__titre {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background-image: url("../../images/jeu/titre-minijeu-Sheet.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 1200% 100%;
+
+    image-rendering: pixelated;
+    pointer-events: none;
+
+    animation: animation-titre 1.4s steps(12, jump-none) infinite;
+}
+
+.menu-jeu__train {
+    position: absolute;
+    z-index: 3;
+
+    left: 0;
+    bottom: 0;
+
+    width: 40% !important;
+    height: auto !important;
+    max-width: none !important;
+
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+.menu-jeu .bouton-jeu--jouer {
+    position: absolute;
+    z-index: 4;
+
+    left: 50%;
+    top: 55%;
+
+    width: 186px;
+    height: 69px;
+
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    background-color: transparent;
+    background-image: url("../../images/boutons/bouton-jouer-Sheet.png");
+    background-repeat: no-repeat;
+    background-size: 500% 100%;
+    background-position: 0% 0;
+
+    image-rendering: pixelated;
+    cursor: pointer;
+
+    transform: translateX(-50%);
+    transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.menu-jeu .bouton-jeu--jouer:hover {
+    transform: translateX(-50%) translateY(-3px) scale(1.03);
+    filter: brightness(1.08);
+}
+
+.menu-jeu .bouton-jeu--jouer:active {
+    transform: translateX(-50%) translateY(1px) scale(0.98);
+}
+
+.menu-jeu .bouton-jeu--jouer.animation {
+    transform: translateX(-50%);
+    animation: clic-jouer 0.3s linear forwards;
+}
+
+@keyframes clic-jouer {
+
+    0%,
+    19.99% {
+        background-position: 0% 0;
+    }
+
+    20%,
+    39.99% {
+        background-position: 25% 0;
+    }
+
+    40%,
+    59.99% {
+        background-position: 50% 0;
+    }
+
+    60%,
+    79.99% {
+        background-position: 75% 0;
+    }
+
+    80%,
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes animation-menu {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes animation-titre {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
 }
 
 .jeu-rail {
@@ -55,6 +188,10 @@
     background: white;
     font-size: 35px;
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .case:hover {
@@ -72,6 +209,25 @@
     margin-top: 30px;
 }
 
+.texture-rail {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+    display: block;
+}
+
+.texture-rail--vertical {
+    width: 54px;
+    height: 76px;
+}
+
+.texture-rail--horizontal {
+    width: 76px;
+    height: 54px;
+}
+
 #selection-rails {
     display: flex;
     flex-wrap: wrap;
@@ -80,12 +236,63 @@
 }
 
 .rail-btn {
-    width: 100px;
-    min-height: 65px;
+    width: 90px;
+    height: 90px;
+    padding: 0;
+    box-sizing: border-box;
+
     border: 2px solid #444;
     background: #eee;
-    font-size: 25px;
     cursor: pointer;
+
+    display: grid;
+    place-items: center;
+
+    line-height: 0;
+    overflow: hidden;
+}
+
+.rail-apercu {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    object-fit: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+
+    max-width: none;
+}
+
+.rail-apercu--vertical {
+    width: 67px;
+    height: 56px;
+}
+
+.rail-apercu--horizontal {
+    width: 57px;
+    height: 41px;
+}
+
+.rail-apercu--courbe {
+    width: 72px;
+    height: 72px;
+}
+
+.courbe-bg {
+    transform: rotate(0deg);
+}
+
+.courbe-hd {
+    transform: rotate(180deg);
+}
+
+.courbe-bd {
+    transform: rotate(0deg);
+}
+
+.courbe-hg {
+    transform: rotate(180deg);
 }
 
 .rail-btn:hover {
@@ -210,6 +417,25 @@
         width: 80px;
         min-height: 55px;
         font-size: 20px;
+    }
+
+}
+
+.message-mobile {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+@media (max-width: 700px) {
+
+    .message-mobile {
+        display: block;
+    }
+
+    #introduction-jeu,
+    #jeu-rail {
+        display: none !important;
     }
 
 }

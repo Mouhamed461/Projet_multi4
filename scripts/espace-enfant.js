@@ -11,6 +11,7 @@ const plateau = document.getElementById("plateau-jeu");
 const compteur = document.getElementById("compteur-niveau");
 const titre = document.getElementById("titre-niveau");
 const msg = document.getElementById("message-jeu");
+const enteteJeu = document.querySelector(".jeu-rail__entete");
 
 const victoire = document.getElementById("fenetre-reussite");
 const fin = document.getElementById("fin-jeu");
@@ -21,28 +22,30 @@ const niveaux = [
     {
         titre: "Premier trajet",
         lignes: 3,
-        colonnes: 4,
-        depart: 4,
-        arrivee: 7,
+        colonnes: 5,
+        depart: 5,
+        arrivee: 9,
         rails: ["h", "v"],
         solution: {
-            5: "h",
-            6: "h"
+            6: "h",
+            7: "h",
+            8: "h"
         }
     },
 
     {
         titre: "Premier virage",
         lignes: 4,
-        colonnes: 4,
-        depart: 4,
-        arrivee: 15,
-        rails: ["h", "v", "bas", "droite"],
+        colonnes: 5,
+        depart: 5,
+        arrivee: 19,
+        rails: ["h", "v", "courbeHD", "courbeBD", "courbeBG", "courbeHG"],
         solution: {
-            5: "h",
-            6: "bas",
-            10: "v",
-            14: "droite"
+            6: "h",
+            7: "courbeBG",
+            12: "v",
+            17: "courbeHD",
+            18: "h"
         }
     },
 
@@ -52,13 +55,13 @@ const niveaux = [
         colonnes: 6,
         depart: 6,
         arrivee: 29,
-        rails: ["h", "v", "bas", "droite"],
+        rails: ["h", "v", "courbeHD", "courbeBD", "courbeBG", "courbeHG"],
         solution: {
             7: "h",
-            8: "bas",
+            8: "courbeBG",
             14: "v",
             20: "v",
-            26: "droite",
+            26: "courbeHD",
             27: "h",
             28: "h"
         }
@@ -68,12 +71,52 @@ const niveaux = [
 const symboles = {
     h: "---",
     v: "|||",
-    bas: "┐",
-    droite: "└"
+    courbeHD: "└",
+    courbeBD: "┌",
+    courbeBG: "┐",
+    courbeHG: "┘"
 };
+
+const railsVerticaux = [
+    "../images/jeu/rails/vertical/rail-tile.png",
+    "../images/jeu/rails/vertical/rail-tile-2.png",
+    "../images/jeu/rails/vertical/rail-tile-3.png",
+    "../images/jeu/rails/vertical/rail-tile-4.png",
+    "../images/jeu/rails/vertical/rail-tile-5.png",
+    "../images/jeu/rails/vertical/rail-tile-6.png",
+    "../images/jeu/rails/vertical/rail-tile-7.png"
+];
+
+const railsHorizontaux = [
+    "../images/jeu/rails/horizontal/rail-tile.png",
+    "../images/jeu/rails/horizontal/rail-tile-2.png",
+    "../images/jeu/rails/horizontal/rail-tile-3.png",
+    "../images/jeu/rails/horizontal/rail-tile-4.png",
+    "../images/jeu/rails/horizontal/rail-tile-5.png",
+    "../images/jeu/rails/horizontal/rail-tile-6.png",
+    "../images/jeu/rails/horizontal/rail-tile-7.png"
+];
+
+const railCourbeGauche =
+    "../images/jeu/rails/courbe/left-curved-rail-minijeu.png";
+
+const railCourbeDroite =
+    "../images/jeu/rails/courbe/right-curved-rail-minijeu.png";
 
 let niveauActuel = 0;
 let railActif = "";
+
+function recupererTypeRail(btn) {
+    if (btn.dataset.type === "bas") {
+        return "courbeBG";
+    }
+
+    if (btn.dataset.type === "droite") {
+        return "courbeHD";
+    }
+
+    return btn.dataset.type;
+}
 
 btnJouer.onclick = () => {
     btnJouer.classList.add("animation");
@@ -103,6 +146,11 @@ btnRetour.onclick = () => {
         msg.innerText = "";
 
         btnRetour.classList.remove("animation");
+
+        intro.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }, 300);
 };
 
@@ -112,6 +160,7 @@ btnSuivant.onclick = () => {
     setTimeout(() => {
         niveauActuel++;
         btnSuivant.classList.remove("animation");
+
         chargerNiveau();
     }, 300);
 };
@@ -133,7 +182,7 @@ railBtns.forEach(btn => {
 
     btn.onclick = () => {
 
-        railActif = btn.dataset.type;
+        railActif = recupererTypeRail(btn);
 
         railBtns.forEach(b => {
             b.classList.remove("selected");
@@ -163,7 +212,9 @@ function chargerNiveau() {
 
         btn.classList.remove("selected");
 
-        if (niveau.rails.includes(btn.dataset.type)) {
+        const type = recupererTypeRail(btn);
+
+        if (niveau.rails.includes(type)) {
             btn.style.display = "block";
         } else {
             btn.style.display = "none";
@@ -172,6 +223,13 @@ function chargerNiveau() {
     });
 
     creerPlateau();
+
+    setTimeout(() => {
+        enteteJeu.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 100);
 }
 
 function creerPlateau() {
@@ -220,14 +278,84 @@ function creerPlateau() {
 function placerRail(c) {
 
     if (!railActif) {
-
         msg.innerText = "Choisis d'abord un rail !";
         return;
-
     }
 
-    c.innerText = symboles[railActif];
+    c.innerHTML = "";
     c.dataset.val = railActif;
+
+    if (railActif === "v") {
+
+        const img = document.createElement("img");
+
+        const texture =
+            railsVerticaux[Math.floor(Math.random() * railsVerticaux.length)];
+
+        img.src = texture;
+        img.alt = "Rail vertical";
+        img.className = "texture-rail texture-rail--vertical";
+
+        c.appendChild(img);
+
+    } else if (railActif === "h") {
+
+        const img = document.createElement("img");
+
+        const texture =
+            railsHorizontaux[Math.floor(Math.random() * railsHorizontaux.length)];
+
+        img.src = texture;
+        img.alt = "Rail horizontal";
+        img.className = "texture-rail texture-rail--horizontal";
+
+        c.appendChild(img);
+
+    } else if (railActif === "courbeBG") {
+
+        const img = document.createElement("img");
+
+        img.src = railCourbeGauche;
+        img.alt = "Rail courbé";
+        img.className = "texture-rail courbe-bg";
+
+        c.appendChild(img);
+
+    } else if (railActif === "courbeHD") {
+
+        const img = document.createElement("img");
+
+        img.src = railCourbeGauche;
+        img.alt = "Rail courbé";
+        img.className = "texture-rail courbe-hd";
+
+        c.appendChild(img);
+
+    } else if (railActif === "courbeBD") {
+
+        const img = document.createElement("img");
+
+        img.src = railCourbeDroite;
+        img.alt = "Rail courbé";
+        img.className = "texture-rail courbe-bd";
+
+        c.appendChild(img);
+
+    } else if (railActif === "courbeHG") {
+
+        const img = document.createElement("img");
+
+        img.src = railCourbeDroite;
+        img.alt = "Rail courbé";
+        img.className = "texture-rail courbe-hg";
+
+        c.appendChild(img);
+
+    } else {
+
+        c.innerText = symboles[railActif];
+
+    }
 
     msg.innerText = "";
 }
@@ -242,28 +370,47 @@ btnValider.onclick = () => {
 };
 
 function verifierNiveau() {
+
     const niveau = niveaux[niveauActuel];
 
     let correct = true;
 
     for (const position in niveau.solution) {
+
         const c = plateau.children[position];
 
         if (c.dataset.val !== niveau.solution[position]) {
             correct = false;
         }
+
     }
 
     if (!correct) {
+
         msg.innerText = "Le chemin n'est pas correct.";
         return;
+
     }
 
     msg.innerText = "";
 
     if (niveauActuel === niveaux.length - 1) {
+
         fin.hidden = false;
+
+        fin.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
     } else {
+
         victoire.hidden = false;
+
+        victoire.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
     }
 }
