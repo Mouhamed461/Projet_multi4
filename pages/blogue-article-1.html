@@ -3,11 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Quand les trains miniatures racontent des histoires</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Quand les trains miniatures racontent des histoires</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/blogue.css">
+  <noscript>
+    <style>
+      main > article p:not(.etiquette) {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
+  <!-- Charge tot pour que l'ecouteur pagereveal (transition vers/depuis
+       la page blogue) soit en place avant le tout premier rendu de la
+       page. -->
+  <script src="../scripts/global.js"></script>
 </head>
 <body>
+
+  <div id="progression-lecture" aria-hidden="true"></div>
 
   <header>
     <nav>
@@ -27,13 +47,14 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
-    <a href="blogue.html">&larr; Retour au blogue</a>
+    <a class="retour" href="blogue.html">Retour au blogue</a>
 
     <article>
-      <img src="../images/blogue/raconter-histoire.jpg" alt="Des trains miniatures sur un réseau animé">
+      <p class="etiquette">Blogue</p>
       <h1>Quand les trains miniatures racontent des histoires</h1>
+      <img src="../images/blogue/raconter-histoire.jpg" alt="Des trains miniatures sur un réseau animé">
 
       <p>Les réseaux miniatures ne sont pas seulement des jouets sophistiqués : ce sont de véritables fresques vivantes qui donnent vie à des époques entières. Chaque décor, chaque locomotive et chaque figurine témoigne d'un savoir-faire minutieux et d'un souci du détail qui captivent petits et grands. En observant ces maquettes, on découvre bien plus qu'un passe-temps : on plonge dans un monde où l'imaginaire et la mémoire collective se rejoignent.</p>
 
@@ -78,6 +99,5 @@
     <p>&copy; 2026 Musée du Modélisme Ferroviaire</p>
   </footer>
 
-  <script src="../scripts/global.js"></script>
 </body>
 </html>

@@ -3,9 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Réseaux miniatures en action</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Réseaux miniatures en action</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/exposition-fiche.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
+  <!-- Charge tot pour que l'ecouteur pagereveal (transition horizontale
+       vers/depuis la liste des expositions) soit en place avant le tout
+       premier rendu de la page. -->
+  <script src="../scripts/global.js"></script>
 </head>
 <body>
 
@@ -27,46 +37,29 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
-    <section>
-      <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-      <p class="etiquette">Expositions</p>
-      <h1>Réseaux miniatures en action</h1>
-    </section>
+    <a class="retour" href="expositions.html">Retour aux expositions</a>
 
-    <a class="retour" href="expositions.html">&larr; Retour aux expositions</a>
+    <article class="fiche-hero">
+      <p class="etiquette">Exposition permanente</p>
+      <h1>Réseaux miniatures en <span class="accent">action</span></h1>
 
-    <article>
-      <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-      <p class="etiquette-secondaire">Exposition permanente</p>
+      <div class="fiche-hero-corps">
+        <div class="fiche-image">
+          <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
+        </div>
+        <div class="fiche-texte">
+          <p class="etiquette-secondaire">Exposition permanente</p>
 
-      <p>L'exposition phare du musée vous transporte dans un monde en miniature où locomotives et wagons sillonnent des paysages méticuleusement reconstitués. Du village de montagne à la gare de triage industrielle, chaque scène est pensée pour représenter fidèlement un fragment du Québec ferroviaire d'hier et d'aujourd'hui.</p>
+          <p>Plongez dans des univers miniatures où les trains circulent à travers des paysages inspirés du Québec. Ces réseaux animés reproduisent des scènes vivantes : locomotives franchissant des ponts de pierre, wagons serpentant dans les vallées, gares animées où les passagers attendent leur départ. Chaque détail, du feuillage des arbres à la peinture des wagons, a été pensé et réalisé avec soin.</p>
 
-      <h2>Une création collective</h2>
-      <p>Ces réseaux sont l'œuvre de dizaines de bénévoles passionnés qui consacrent leurs fins de semaine à construire, peindre et animer ces décors. Chaque détail — une pancarte de gare, un camion de livraison garé sur le côté de la route, un paysan dans son champ — est soigneusement placé pour recréer l'illusion d'un monde vivant. Certains éléments sont fabriqués à la main, d'autres proviennent de collections personnelles de maquettistes.</p>
+          <p>Ces réseaux ne sont pas seulement statiques : ils sont mis en mouvement pour offrir une expérience immersive. Les visiteurs peuvent voir les trains circuler, s'arrêter dans les gares et même entendre les sons qui rappellent la vie ferroviaire d'autrefois.</p>
 
-      <h2>Une technologie au service de la magie</h2>
-      <p>Les trains en circulation utilisent des systèmes de contrôle numérique (DCC) qui permettent de faire rouler plusieurs locomotives simultanément sur le même réseau, chacune à sa propre vitesse et avec ses propres sons. Les feux de signalisation, les passages à niveau et les aiguillages sont automatisés, rendant le spectacle encore plus réaliste.</p>
-
-      <h2>Pour tous les âges</h2>
-      <p>Cette exposition est conçue pour être accessible à tous. Des tables à hauteur d'enfant permettent aux plus jeunes de voir les trains de près, tandis que les panneaux explicatifs offrent aux adultes des informations techniques et historiques sur les modèles présentés. Certains réseaux disposent même de commandes que les visiteurs peuvent actionner eux-mêmes pour faire circuler une locomotive.</p>
-
-      <section>
-        <h2>Informations pratiques</h2>
-        <dl>
-          <dt>Durée recommandée</dt>
-          <dd>45 minutes à 1 heure</dd>
-          <dt>Accessible aux personnes à mobilité réduite</dt>
-          <dd>Oui</dd>
-          <dt>Adapté aux enfants</dt>
-          <dd>Dès 4 ans</dd>
-        </dl>
-      </section>
-
+          <a class="cta" href="reservation.html">Réserver ma visite</a>
+        </div>
+      </div>
     </article>
-
-    <a class="cta" href="reservation.html">Réserver ma visite</a>
 
   </main>
 
@@ -104,6 +97,5 @@
     <p>&copy; 2026 Musée du Modélisme Ferroviaire</p>
   </footer>
 
-  <script src="../scripts/global.js"></script>
 </body>
 </html>

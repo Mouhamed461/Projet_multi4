@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Événements</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Événements</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/evenements.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
 <body>
 
@@ -27,31 +33,59 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
     <section>
       <img src="../images/activités/petits-cheminots.jpg" alt="Journée des petits cheminots">
-      <h1>Événements</h1>
-      <p>Le musée anime sa programmation tout au long de l'année avec des événements spéciaux ouverts à tous. Ateliers pratiques, journées thématiques et conférences — il y en a pour chaque âge et chaque curiosité.</p>
+      <h1>Nos rendez-vous à venir</h1>
+      <p>Le musée propose deux rendez-vous réguliers pour petits et grands : une journée familiale au printemps et un atelier pratique offert chaque mois.</p>
     </section>
 
-    <section>
-      <img src="../images/activités/petits-cheminots.jpg" alt="Journée des petits cheminots">
-      <h2>Journée des petits cheminots</h2>
-      <p>Chaque printemps, une journée entière est dédiée aux familles avec enfants. Au programme : ateliers de modélisme animés par nos bénévoles, mini-concours de construction de trains miniatures, chasse aux trésors dans les expositions et lecture d'histoires liées au monde du rail. Un moment festif qui allie apprentissage et plaisir pour les 4 à 12 ans.</p>
-      <p><strong>Fréquence :</strong> Une fois par année, au printemps</p>
-      <p><strong>Inclus avec l'entrée</strong></p>
-      <a href="evenement-fiche.html">En savoir plus</a>
-    </section>
+    <div class="grille-evenements">
 
-    <section>
-      <img src="../images/activités/ateliers-maquettes.jpg" alt="Atelier maquettes mensuel">
-      <h2>Atelier maquettes</h2>
-      <p>Une fois par mois, nos maquettistes expérimentés ouvrent leurs portes aux curieux de tout âge. Sous leur guidance, les participants apprennent à construire et décorer une scène ferroviaire miniature : modelage du relief, peinture, végétation, éclairage. Chacun repart avec sa propre création. Les places sont limitées — inscription requise.</p>
-      <p><strong>Fréquence :</strong> Le premier samedi de chaque mois, 13 h à 16 h</p>
-      <p><strong>Coût :</strong> Inclus avec l'entrée (matériaux fournis)</p>
-      <a href="evenement-fiche.html">En savoir plus</a>
-    </section>
+      <article class="carte-evenement">
+        <div class="carte-evenement-panneau">
+          <img src="../images/activités/petits-cheminots.jpg" alt="Journée des petits cheminots">
+          <div class="carte-evenement-corps">
+            <h3>Journée des petits cheminots</h3>
+            <div class="carte-evenement-meta">
+              <div>
+                <span class="etiquette-meta">Date</span>
+                <span class="valeur-meta">Chaque printemps</span>
+              </div>
+              <div>
+                <span class="etiquette-meta">Prix</span>
+                <span class="valeur-meta">Compris avec l'entrée</span>
+              </div>
+            </div>
+            <p class="description">Chaque printemps, une journée spéciale est organisée pour les enfants, avec ateliers de modélisme, mini-concours de trains miniatures et chasse aux trésors dans les expositions.</p>
+            <a class="decouvrir" href="evenement-fiche.html">Découvrir l'activité <span class="fleche" aria-hidden="true">↘</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="carte-evenement">
+        <div class="carte-evenement-panneau">
+          <img src="../images/activités/ateliers-maquettes.jpg" alt="Atelier maquettes mensuel">
+          <div class="carte-evenement-corps">
+            <h3>Atelier maquettes</h3>
+            <div class="carte-evenement-meta">
+              <div>
+                <span class="etiquette-meta">Date</span>
+                <span class="valeur-meta">Chaque mois</span>
+              </div>
+              <div>
+                <span class="etiquette-meta">Prix</span>
+                <span class="valeur-meta">Compris avec l'entrée</span>
+              </div>
+            </div>
+            <p class="description">Une fois par mois, des ateliers pratiques permettent aux participants d'apprendre à construire et décorer une maquette ferroviaire sous les conseils d'experts.</p>
+            <a class="decouvrir" href="evenement-fiche-atelier-maquettes.html">Découvrir l'activité <span class="fleche" aria-hidden="true">↘</span></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
 
   </main>
 

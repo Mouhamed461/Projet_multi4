@@ -1,0 +1,245 @@
+/* Barre de progression de lecture sur les pages d'article de blogue.
+   Suit le defilement de la page en CSS pur (scroll-driven animation) ;
+   un repli JS dans global.js prend le relais pour Firefox, qui ne
+   supporte pas encore animation-timeline. */
+#progression-lecture {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--rouge);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 1000;
+}
+
+@supports (animation-timeline: scroll()) {
+  @keyframes progression-lecture-defilement {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  #progression-lecture {
+    animation: progression-lecture-defilement auto linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Fiche d'un article de blogue (blogue-article-1/2/3.html) : titre
+   en haut, grande image ensuite, puis le texte, dans les couleurs
+   du site plutot que le texte noir par defaut du navigateur. */
+main > article {
+  max-width: 760px;
+  margin: 1.5rem auto 4rem;
+  padding: 0 2rem;
+}
+
+main > article p.etiquette {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.75rem;
+}
+
+main > article h1 {
+  font-size: 2.4rem;
+  line-height: 1.2;
+  color: var(--rouge);
+  margin-bottom: 2rem;
+}
+
+main > article img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1.75rem;
+}
+
+main > article p:not(.etiquette) {
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: var(--noir);
+  margin-bottom: 1.5rem;
+}
+
+/* Trait jaune qui marque le debut du texte, juste apres l'image,
+   meme logique que sur les fiches d'exposition. */
+main > article img + p {
+  border-top: 3px solid var(--jaune);
+  padding-top: 1.5rem;
+}
+
+/* Les paragraphes de texte apparaissent en fondu avec une legere
+   montee au moment ou ils entrent dans la fenetre visible en
+   defilant vers le bas, un a la fois. Pilote par IntersectionObserver
+   (voir global.js) plutot que par animation-timeline: view(), car un
+   paragraphe deja visible des le chargement (avant tout defilement)
+   n'a alors aucune transition a jouer avec une timeline liee au
+   defilement : il apparait simplement tel quel, sans animation.
+   Avec la classe .est-visible ajoutee par JS, chaque paragraphe joue
+   une vraie transition chronometree, meme celui deja a l'ecran au
+   chargement. Un filet <noscript> dans chaque page d'article annule
+   ces regles si JavaScript est desactive, pour ne jamais cacher de
+   texte reel. */
+@media (prefers-reduced-motion: no-preference) {
+  main > article p:not(.etiquette) {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  main > article p:not(.etiquette).est-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  main > article {
+    padding: 0 1.5rem;
+  }
+
+  main > article h1 {
+    font-size: 1.8rem;
+  }
+
+  main > article img {
+    height: 260px;
+  }
+}
+
+/* Page Blogue : liste des articles en grille de deux colonnes,
+   chaque carte avec l'image en haut et le contenu texte en dessous. */
+
+.articles {
+  padding: 0 5rem 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem 2.5rem;
+}
+
+.articles > h2 {
+  grid-column: 1 / -1;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  color: var(--rouge);
+  margin-bottom: 0.5rem;
+}
+
+.articles article {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .articles article {
+    transition: transform 0.3s ease;
+  }
+
+  .articles article:hover {
+    transform: translateY(-6px);
+  }
+}
+
+.articles article .article-image {
+  overflow: hidden;
+}
+
+.articles article .article-image img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .articles article .article-image img {
+    transition: transform 0.4s ease;
+  }
+
+  .articles article:hover .article-image img {
+    transform: scale(1.05);
+  }
+}
+
+.articles article .article-corps {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+.articles article .etiquette-carte {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.6rem;
+}
+
+.articles article h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--rouge);
+}
+
+.articles article p {
+  margin: 0.75rem 0 0;
+  line-height: 1.65;
+  color: var(--noir);
+  opacity: 0.85;
+}
+
+.articles article a.lire-article {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-top: 1.25rem;
+  padding-top: 0.5rem;
+  color: var(--rouge);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-top: 2px solid var(--jaune);
+}
+
+.articles article a.lire-article .fleche {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .articles article a.lire-article {
+    transition: color 0.25s ease;
+  }
+
+  .articles article a.lire-article .fleche {
+    transition: transform 0.25s ease;
+  }
+
+  .articles article a.lire-article:hover {
+    color: var(--orange);
+  }
+
+  .articles article a.lire-article:hover .fleche {
+    transform: translate(3px, -3px);
+  }
+}
+
+@media (max-width: 860px) {
+  .articles {
+    grid-template-columns: 1fr;
+    padding: 0 2rem 4rem;
+  }
+}

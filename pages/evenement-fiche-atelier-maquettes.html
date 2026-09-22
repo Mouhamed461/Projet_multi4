@@ -5,19 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <link rel="icon" type="image/png" href="../favicon.ico">
-  <title>Musée du Modélisme Ferroviaire - Expositions</title>
+  <title>Musée du Modélisme Ferroviaire - Atelier maquettes</title>
   <link rel="stylesheet" href="../styles/global.css">
-  <link rel="stylesheet" href="../styles/pages/expositions.css">
+  <link rel="stylesheet" href="../styles/pages/evenements.css">
   <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
        analyse, pour que la transition entre les pages ne demarre
        jamais sur une page a moitie vide. -->
   <link rel="expect" href="#contenu-principal" blocking="render">
-  <!-- Charge tot pour que l'ecouteur pagereveal (transition horizontale
-       vers/depuis une fiche d'exposition) soit en place avant le tout
-       premier rendu de la page. -->
-  <script src="../scripts/global.js"></script>
 </head>
 <body>
+
+  <noscript>
+    <style>
+      .fiche-evenement-corps p.description {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 
   <header>
     <nav>
@@ -26,9 +31,9 @@
       </a>
       <ul>
         <li><a href="../index.html">Accueil</a></li>
-        <li><a href="expositions.html" aria-current="page">Expositions</a></li>
+        <li><a href="expositions.html">Expositions</a></li>
         <li><a href="horaire-tarifs.html">Horaire &amp; Tarifs</a></li>
-        <li><a href="evenements.html">Événements</a></li>
+        <li><a href="evenements.html" aria-current="page">Événements</a></li>
         <li><a href="information-visiteurs.html">Information visiteurs</a></li>
         <li><a href="blogue.html">Blogue</a></li>
         <li><a href="espace-enfant.html">Espace enfant</a></li>
@@ -39,51 +44,32 @@
 
   <main id="contenu-principal">
 
-    <section>
-      <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-      <h1>Nos expositions</h1>
-      <p>Le Musée du Modélisme Ferroviaire et des Chemins de fer du Québec présente trois expositions permanentes qui plongent les visiteurs dans l'univers du rail, de la miniature à l'histoire régionale.</p>
-    </section>
+    <a class="retour" href="evenements.html">Retour aux événements</a>
 
-    <section class="lignes-expositions">
+    <article class="fiche-evenement">
+      <div class="fiche-evenement-image">
+        <img src="../images/activités/ateliers-maquettes.jpg" alt="Participants à l'atelier maquettes mensuel">
+      </div>
+      <div class="fiche-evenement-corps">
+        <p class="etiquette">Événement</p>
+        <h1>Atelier maquettes</h1>
 
-      <a class="ligne-exposition" href="exposition-fiche.html">
-        <div class="ligne-image">
-          <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
+        <div class="fiche-evenement-meta">
+          <div>
+            <span class="etiquette-meta">Date</span>
+            <span class="valeur-meta">Chaque mois</span>
+          </div>
+          <div>
+            <span class="etiquette-meta">Prix</span>
+            <span class="valeur-meta">Compris avec l'entrée</span>
+          </div>
         </div>
-        <div class="ligne-texte">
-          <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Réseaux miniatures en action</h2>
-          <p>Plongez dans des univers miniatures où les trains circulent à travers des paysages inspirés du Québec. Ces réseaux animés reproduisent des scènes vivantes : locomotives franchissant des ponts de pierre, wagons serpentant dans les vallées, gares animées où les passagers attendent leur départ.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
 
-      <a class="ligne-exposition" href="exposition-fiche-gares-regionales.html">
-        <div class="ligne-image">
-          <img src="../images/expositions/gares-regionales.jpg" alt="Les gares régionales du Québec">
-        </div>
-        <div class="ligne-texte">
-          <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Les gares régionales</h2>
-          <p>Les gares ont longtemps été au cœur de la vie des communautés québécoises. Dans cette exposition, vous découvrirez des maquettes fidèles de plusieurs gares régionales, certaines toujours existantes, d'autres disparues avec le temps.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
+        <p class="description">Une fois par mois, des ateliers pratiques permettent aux participants d'apprendre à construire et décorer une maquette ferroviaire sous les conseils d'experts.</p>
 
-      <a class="ligne-exposition" href="exposition-fiche-souvenirs-ferroviaires.html">
-        <div class="ligne-image">
-          <img src="../images/expositions/souvenirs-ferroviaires.png" alt="Objets et souvenirs ferroviaires">
-        </div>
-        <div class="ligne-texte">
-          <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Objets et souvenirs ferroviaires</h2>
-          <p>Le musée abrite également une riche collection d'objets liés au monde ferroviaire : uniformes de cheminots, casquettes et insignes, lanternes de signalisation, outils de maintenance, billets d'époque et affiches publicitaires.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
-
-    </section>
+        <a class="cta" href="reservation.html">Réserver ma visite</a>
+      </div>
+    </article>
 
   </main>
 
@@ -121,5 +107,6 @@
     <p>&copy; 2026 Musée du Modélisme Ferroviaire</p>
   </footer>
 
+  <script src="../scripts/global.js"></script>
 </body>
 </html>

@@ -13,8 +13,6 @@
 }
 
 #accueil-hero h1 {
-  max-width: 640px;
-  margin: 0 auto;
   font-size: 2.75rem;
   line-height: 1.2;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
@@ -23,9 +21,9 @@
 #statut-musee {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.85rem;
   margin: 3.75rem auto 0;
-  padding: 0.7rem 1.5rem;
+  padding: 0.6rem 1.5rem 0.6rem 1.1rem;
   background-color: var(--beige);
   color: var(--noir);
   border-radius: 999px;
@@ -40,31 +38,44 @@
   letter-spacing: 0.04em;
 }
 
+/* Point de statut a deux cercles superposes (meme principe que sur
+   mnbaq.org) : un cercle plein en dessous a 50% d'opacite et un
+   cercle plus petit centre par-dessus, aussi a 50%, ce qui donne un
+   point doux avec un coeur plus dense sans flou ni animation
+   agressive. Vert quand le musee est ouvert, rouge quand il est
+   ferme, meme logique dans les deux cas. */
 #statut-musee span {
-  width: 10px;
-  height: 10px;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: inline-block;
+  color: var(--vert);
+}
+
+#statut-musee span::before,
+#statut-musee span::after {
+  content: "";
+  position: absolute;
   border-radius: 50%;
-  background-color: var(--vert);
-  animation: pulsation-statut 2s ease-in-out infinite;
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+#statut-musee span::before {
+  inset: 0;
+}
+
+#statut-musee span::after {
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #statut-musee.ferme span {
-  background-color: var(--rouge);
-}
-
-@keyframes pulsation-statut {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.35;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #statut-musee span {
-    animation: none;
-  }
+  color: var(--rouge);
 }
 
 #accueil-hero > a {
@@ -92,7 +103,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #accueil-hero > a svg {
+  #accueil-hero > a svg,
+  #statut-musee span {
     animation: none;
   }
 }
@@ -117,7 +129,9 @@
 }
 
 #bienvenue h2 {
-  font-size: 2rem;
+  font-size: 2.35rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--rouge);
   margin-bottom: 1rem;
