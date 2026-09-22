@@ -1,33 +1,101 @@
 /* Fiche d'une exposition */
 
-main > a.retour {
-  display: block;
-  margin: 1.5rem 5rem 0;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--rouge);
-  transition: color 0.25s ease;
-}
+/* .retour : couleur, icône et transition viennent de global.css (règle
+   partagée avec la fiche d'événement et les articles de blogue). */
 
-main > a.retour:hover {
-  color: var(--orange);
-}
-
+/* Deux colonnes : l'image occupe un peu moins de la moitie, une
+   fine ligne verticale (meme langage que .ligne-separateur sur la
+   page Expositions) marque la separation avec le texte. */
 article {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2.5rem 5rem 0;
+  padding: 2.5rem 5rem 4rem;
+  display: flex;
+  align-items: stretch;
+  gap: 3rem;
 }
 
-article > img {
+.fiche-image {
+  flex: 0 0 44%;
+}
+
+.fiche-image img {
   width: 100%;
-  height: 380px;
+  height: 100%;
+  min-height: 440px;
   object-fit: cover;
   border-radius: 4px;
-  margin-bottom: 1.5rem;
 }
 
-article > p.etiquette-secondaire {
+.fiche-separateur {
+  flex: 0 0 4px;
+  border-radius: 2px;
+  background-color: var(--rouge);
+}
+
+/* Nouvelle disposition pour la fiche "Reseaux miniatures en action" :
+   titre, image et texte tiennent dans un seul bandeau beige plein
+   largeur, comme un hero, mais sans photo de fond. Remplace l'essai
+   precedent (image agrandie a cote du texte, sans bandeau). */
+.fiche-hero {
+  max-width: none;
+  margin: 0;
+  padding: 4rem 5rem 4.5rem;
+  display: block;
+  background-color: var(--beige);
+}
+
+.fiche-hero .etiquette {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.75rem;
+}
+
+.fiche-hero h1 {
+  max-width: 900px;
+  font-size: 2.75rem;
+  line-height: 1.2;
+  color: var(--rouge);
+  margin-bottom: 3rem;
+}
+
+.fiche-hero h1 .accent {
+  color: var(--vert);
+}
+
+.fiche-hero-corps {
+  display: flex;
+  align-items: stretch;
+  gap: 3rem;
+}
+
+.fiche-hero-corps .fiche-image {
+  flex: 0 0 55%;
+}
+
+/* Hauteur fixe plutot que height:100% : sans ca, la hauteur de
+   l'image dependait de son propre ratio intrinseque (la hauteur du
+   conteneur .fiche-image etant elle-meme determinee par le contenu
+   avant l'etirement flex), donc une image plus haute que large
+   (l'affiche vintage de la fiche souvenirs ferroviaires) gonflait
+   tout le bandeau. Avec une hauteur fixe, object-fit: cover recadre
+   chaque image pareil, peu importe son format d'origine. */
+.fiche-hero-corps .fiche-image img {
+  height: 460px;
+  border-radius: 6px;
+}
+
+.fiche-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fiche-texte p.etiquette-secondaire {
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -36,50 +104,16 @@ article > p.etiquette-secondaire {
   margin-bottom: 1rem;
 }
 
-article > p {
-  font-size: 1.1rem;
+.fiche-texte p:not(.etiquette-secondaire) {
+  font-size: 1.05rem;
   line-height: 1.75;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
-article h2 {
-  font-size: 1.5rem;
-  color: var(--rouge);
-  margin: 2.25rem 0 1rem;
-}
-
-article > section {
-  margin-top: 3rem;
-  padding: 2rem;
-  background-color: var(--vert);
-  color: var(--beige);
-  border-radius: 4px;
-}
-
-article > section h2 {
-  color: var(--beige);
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-article > section dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.6rem 1.5rem;
-}
-
-article > section dt {
-  font-weight: 700;
-}
-
-article > section dd {
-  opacity: 0.9;
-}
-
-main > a.cta {
-  display: block;
+.fiche-texte a.cta {
+  display: inline-block;
+  margin-top: 0.5rem;
   width: fit-content;
-  margin: 3rem auto 4rem;
   padding: 1rem 2.5rem;
   background-color: var(--rouge);
   color: var(--beige);
@@ -88,9 +122,206 @@ main > a.cta {
   font-size: 1rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
-main > a.cta:hover {
+.fiche-texte a.cta:hover {
   background-color: var(--orange);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fiche-texte a.cta:active {
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 860px) {
+  .fiche-hero {
+    padding: 2.5rem 2rem 3rem;
+  }
+
+  .fiche-hero h1 {
+    font-size: 1.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .fiche-hero-corps {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  article {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .fiche-image img,
+  .fiche-hero-corps .fiche-image img {
+    height: 300px;
+    min-height: 0;
+  }
+
+  .fiche-separateur {
+    display: none;
+  }
+}
+
+/* Carte d'exposition avec retournement au survol : le bandeau sombre
+   du repos disparait pour laisser place a un panneau rouge qui
+   remonte et revele un court resume. Composant utilise seulement ici,
+   dans les suggestions "Autres expositions" en bas de fiche. */
+.grille-expositions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 0 5rem 5rem;
+}
+
+.carte-exposition {
+  position: relative;
+  display: block;
+  min-height: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(32, 33, 34, 0.18);
+}
+
+.carte-exposition img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carte-exposition:hover img {
+  transform: scale(1.05);
+}
+
+.carte-exposition .carte-info,
+.carte-exposition .carte-detail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+}
+
+.carte-exposition .carte-info {
+  background: linear-gradient(180deg, rgba(32, 33, 34, 0) 45%, rgba(32, 33, 34, 0.75));
+  color: var(--beige);
+  transition: opacity 0.3s ease;
+}
+
+.carte-exposition .carte-detail {
+  /* Fond translucide plutot qu'une couleur pleine : la photo reste
+     visible sous le panneau au survol, seulement teintee de rouge. */
+  background-color: rgba(158, 61, 35, 0.62);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: var(--beige);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.carte-exposition p.etiquette-secondaire {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin-bottom: 0.4rem;
+}
+
+.carte-exposition h2 {
+  font-size: 1.4rem;
+}
+
+.carte-exposition .carte-detail p:not(.etiquette-secondaire) {
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.carte-exposition .carte-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.carte-exposition .carte-cta::after {
+  content: "";
+  width: 1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../../images/icons/retour.svg") no-repeat center / contain;
+  transform: scaleX(-1);
+  transition: transform 0.25s ease;
+}
+
+.carte-exposition:hover .carte-info {
+  opacity: 0;
+}
+
+.carte-exposition:hover .carte-detail {
+  transform: translateY(0);
+}
+
+.carte-exposition:hover .carte-cta::after {
+  transform: scaleX(-1) translateX(-3px);
+}
+
+@media (max-width: 860px) {
+  .grille-expositions {
+    grid-template-columns: 1fr;
+    padding: 0 2rem 3rem;
+  }
+}
+
+/* Suggestion d'autres expositions en bas de fiche, meme carte que
+   sur la page Expositions mais limitee a deux colonnes. */
+.autres-expositions {
+  padding: 1rem 0 0;
+}
+
+.autres-expositions > h2 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  color: var(--rouge);
+  margin-bottom: 2rem;
+}
+
+.autres-expositions .grille-expositions {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* Essai : sur cette fiche seulement, les suggestions du bas prennent
+   plus de place (cartes plus grandes, donc images plus grandes). */
+.autres-expositions .grille-expositions.grille-expositions-grandes {
+  max-width: 1100px;
+}
+
+.grille-expositions-grandes .carte-exposition {
+  min-height: 560px;
+}
+
+@media (max-width: 860px) {
+  .autres-expositions .grille-expositions {
+    grid-template-columns: 1fr;
+  }
 }

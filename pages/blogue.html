@@ -3,9 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Blogue</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Blogue</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/blogue.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
+  <!-- Charge tot pour que l'ecouteur pagereveal (transition vers/depuis
+       un article de blogue) soit en place avant le tout premier rendu
+       de la page. -->
+  <script src="../scripts/global.js"></script>
 </head>
 <body>
 
@@ -27,34 +37,52 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
     <section>
       <img src="../images/blogue/raconter-histoire.jpg" alt="Trains miniatures qui racontent des histoires">
       <h1>Blogue</h1>
+      <p>Des textes et des anecdotes sur le modélisme ferroviaire, l'histoire du rail au Québec et les coulisses de nos expositions.</p>
     </section>
 
-    <section>
+    <section class="articles">
+
+      <h2>Nos articles</h2>
 
       <article>
-        <img src="../images/blogue/raconter-histoire.jpg" alt="Des trains miniatures sur un réseau animé">
-        <h2>Quand les trains miniatures racontent des histoires</h2>
-        <p>Au-delà du jeu, les réseaux miniatures sont de véritables fresques vivantes. Chaque maison, chaque arbre, chaque locomotive témoigne d'une époque et d'un savoir-faire. Nos bénévoles et maquettistes consacrent des centaines d'heures à donner vie à ces univers miniatures.</p>
-        <a href="blogue-article-1.html">Lire l'article</a>
+        <div class="article-image">
+          <img src="../images/blogue/raconter-histoire.jpg" alt="Des trains miniatures sur un réseau animé">
+        </div>
+        <div class="article-corps">
+          <p class="etiquette-carte">Blogue</p>
+          <h3>Quand les trains miniatures racontent des histoires</h3>
+          <p>Au-delà du jeu, les réseaux miniatures sont de véritables fresques vivantes. Chaque maison, chaque arbre, chaque locomotive témoigne d'une époque et d'un savoir-faire. Nos bénévoles et maquettistes consacrent des centaines d'heures à donner vie à ces univers miniatures.</p>
+          <a class="lire-article" href="blogue-article-1.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
+        </div>
       </article>
 
       <article>
-        <img src="../images/blogue/gares-disparues.jpg" alt="Maquette d'une gare régionale disparue">
-        <h2>Les gares disparues du Québec</h2>
-        <p>Saviez-vous que plusieurs gares régionales, jadis essentielles aux communautés, ont aujourd'hui disparu ? Nos maquettes permettent de leur redonner une place dans la mémoire collective et de rappeler l'importance du rail dans la vitalité des villages québécois.</p>
-        <a href="blogue-article-2.html">Lire l'article</a>
+        <div class="article-image">
+          <img src="../images/blogue/gares-disparues.jpg" alt="Maquette d'une gare régionale disparue">
+        </div>
+        <div class="article-corps">
+          <p class="etiquette-carte">Blogue</p>
+          <h3>Les gares disparues du Québec</h3>
+          <p>Saviez-vous que plusieurs gares régionales, jadis essentielles aux communautés, ont aujourd'hui disparu ? Nos maquettes permettent de leur redonner une place dans la mémoire collective et de rappeler l'importance du rail dans la vitalité des villages québécois.</p>
+          <a class="lire-article" href="blogue-article-2.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
+        </div>
       </article>
 
       <article>
-        <img src="../images/blogue/train-moteur.png" alt="Locomotive ancienne du Québec">
-        <h2>Le train, moteur du Québec moderne</h2>
-        <p>Sans le chemin de fer, l'industrialisation et l'essor économique du Québec auraient suivi un tout autre rythme. Le train a non seulement relié les villes, mais aussi rapproché les gens, ouvrant la voie au commerce, au tourisme et aux échanges culturels.</p>
-        <a href="blogue-article-3.html">Lire l'article</a>
+        <div class="article-image">
+          <img src="../images/blogue/train-moteur.png" alt="Locomotive ancienne du Québec">
+        </div>
+        <div class="article-corps">
+          <p class="etiquette-carte">Blogue</p>
+          <h3>Le train, moteur du Québec moderne</h3>
+          <p>Sans le chemin de fer, l'industrialisation et l'essor économique du Québec auraient suivi un tout autre rythme. Le train a non seulement relié les villes, mais aussi rapproché les gens, ouvrant la voie au commerce, au tourisme et aux échanges culturels.</p>
+          <a class="lire-article" href="blogue-article-3.html">Lire l'article <span class="fleche" aria-hidden="true">↗</span></a>
+        </div>
       </article>
 
     </section>
@@ -95,6 +123,5 @@
     <p>&copy; 2026 Musée du Modélisme Ferroviaire</p>
   </footer>
 
-  <script src="../scripts/global.js"></script>
 </body>
 </html>

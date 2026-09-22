@@ -3,11 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musée du Modélisme Ferroviaire — Journée des petits cheminots</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <title>Musée du Modélisme Ferroviaire - Journée des petits cheminots</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/evenements.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
+  <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
 <body>
+
+  <noscript>
+    <style>
+      .fiche-evenement-corps p.description {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 
   <header>
     <nav>
@@ -27,44 +42,34 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
-    <a href="evenements.html">&larr; Retour aux événements</a>
+    <a class="retour" href="evenements.html">Retour aux événements</a>
 
-    <article>
-      <img src="../images/activités/petits-cheminots.jpg" alt="Des enfants participant à la Journée des petits cheminots">
-      <h1>Journée des petits cheminots</h1>
+    <article class="fiche-evenement">
+      <div class="fiche-evenement-image">
+        <img src="../images/activités/petits-cheminots.jpg" alt="Des enfants participant à la Journée des petits cheminots">
+      </div>
+      <div class="fiche-evenement-corps">
+        <p class="etiquette">Événement</p>
+        <h1>Journée des petits cheminots</h1>
 
-      <p>La Journée des petits cheminots est l'événement familial phare du musée. Une fois par année, au printemps, le musée se transforme en terrain de jeu et d'apprentissage pour les enfants de 4 à 12 ans. Partout dans les salles, des animations ludiques et éducatives les invitent à découvrir le monde fascinant du rail sous un angle nouveau.</p>
+        <div class="fiche-evenement-meta">
+          <div>
+            <span class="etiquette-meta">Date</span>
+            <span class="valeur-meta">Chaque printemps</span>
+          </div>
+          <div>
+            <span class="etiquette-meta">Prix</span>
+            <span class="valeur-meta">Compris avec l'entrée</span>
+          </div>
+        </div>
 
-      <h2>Au programme</h2>
-      <ul>
-        <li>Ateliers de modélisme guidés par nos bénévoles</li>
-        <li>Mini-concours de construction de trains miniatures</li>
-        <li>Chasse aux trésors dans les expositions permanentes</li>
-        <li>Lecture d'histoires ferroviaires pour les 4 à 7 ans</li>
-        <li>Zone de jeux libres avec maquettes accessibles aux enfants</li>
-      </ul>
+        <p class="description">Chaque printemps, une journée spéciale est organisée pour les enfants, avec ateliers de modélisme, mini-concours de trains miniatures et chasse aux trésors dans les expositions.</p>
 
-      <h2>Informations pratiques</h2>
-      <dl>
-        <dt>Date</dt>
-        <dd>Une fois par année, au printemps (date annoncée sur nos réseaux)</dd>
-        <dt>Horaire</dt>
-        <dd>10 h à 16 h (animations en continu)</dd>
-        <dt>Âge recommandé</dt>
-        <dd>4 à 12 ans (enfants de moins de 6 ans avec un adulte)</dd>
-        <dt>Tarif</dt>
-        <dd>Inclus avec l'entrée — aucun supplément</dd>
-        <dt>Inscription requise</dt>
-        <dd>Non — accès libre aux animations</dd>
-      </dl>
-
-      <p>Un événement parfait pour initier les enfants à la passion du modélisme et à l'histoire du chemin de fer au Québec, dans une ambiance chaleureuse et familiale.</p>
-
+        <a class="cta" href="reservation.html">Réserver ma visite</a>
+      </div>
     </article>
-
-    <a href="reservation.html">Réserver ma visite</a>
 
   </main>
 

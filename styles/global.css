@@ -7,28 +7,31 @@
 }
 
 @font-face {
+  /* Un seul poids statique (400) dans ce fichier, malgré son nom.
+     font-weight: 400 force le navigateur à simuler le gras pour 700/900. */
   font-family: 'Roboto Condensed';
   src: url('../fonts/robotocondensed-variablefont_wght-webfont.woff2') format('woff2');
-  font-weight: 100 900;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
+  /* Même chose, poids 400 seulement. */
   font-family: 'Red Hat Display';
   src: url('../fonts/redhatdisplay-variablefont_wght-webfont.woff2') format('woff2');
-  font-weight: 100 900;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 /* Palette
-   Beige  #F5F0E8 — fond des pages
-   Noir   #202122 — texte courant
-   Vert   #304536 — header, footer sections mises en avant
-   Rouge  #9E3D23 — titres de section, accents, boutons principaux
-   Orange #DC6921 — hover des boutons
-   Jaune  #D89520 — hover des liens de navigation
+   Beige  #F5F0E8 : fond des pages
+   Noir   #202122 : texte courant
+   Vert   #304536 : header, footer, sections mises en avant
+   Rouge  #9E3D23 : titres de section, accents, boutons principaux
+   Orange #DC6921 : hover des boutons
+   Jaune  #D89520 : hover des liens de navigation
 
    Par élément :
    header / nav       fond vert,  texte beige
@@ -72,11 +75,197 @@ html {
   }
 }
 
+/* Transition douce entre les pages (view transitions natives).
+   Simple amelioration progressive : un navigateur qui ne la
+   supporte pas fait juste une navigation normale, sans erreur ni
+   script de remplacement necessaire. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both sortie-page;
+  }
+
+  ::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both entree-page;
+  }
+}
+
+@keyframes sortie-page {
+  to {
+    opacity: 0;
+    transform: translateX(-6%);
+  }
+}
+
+@keyframes entree-page {
+  from {
+    opacity: 0;
+    transform: translateX(6%);
+  }
+}
+
+/* Transition horizontale entre la liste des expositions et une fiche
+   en particulier : vers une fiche, le contenu glisse vers la gauche ;
+   au retour vers la liste, le glissement se fait dans l'autre sens.
+   Le type (expo-avant / expo-arriere) est ajoute en JS (voir
+   scripts/global.js, evenement pagereveal). */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(expo-avant)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-gauche;
+  }
+
+  html:active-view-transition-type(expo-avant)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-droite;
+  }
+
+  html:active-view-transition-type(expo-arriere)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-droite;
+  }
+
+  html:active-view-transition-type(expo-arriere)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-gauche;
+  }
+}
+
+@keyframes glisse-sortie-gauche {
+  to {
+    transform: translateX(-6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-entree-droite {
+  from {
+    transform: translateX(6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-sortie-droite {
+  to {
+    transform: translateX(6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes glisse-entree-gauche {
+  from {
+    transform: translateX(-6%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+/* Transition en fondu avec un leger zoom entre la page blogue et un
+   article en particulier : volontairement differente du glissement
+   horizontal des expositions, pour donner un rythme distinct a la
+   lecture d'un article. Vers un article, la nouvelle page s'approche
+   (zoom avant leger) ; au retour vers la liste, l'article s'eloigne
+   (zoom arriere leger). Le type (article-avant / article-arriere)
+   est ajoute en JS (voir scripts/global.js, evenement pagereveal). */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(article-avant)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both zoom-sortie-discret;
+  }
+
+  html:active-view-transition-type(article-avant)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both zoom-entree-avant;
+  }
+
+  html:active-view-transition-type(article-arriere)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both zoom-sortie-avant;
+  }
+
+  html:active-view-transition-type(article-arriere)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both zoom-entree-discret;
+  }
+}
+
+@keyframes zoom-sortie-discret {
+  to {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-entree-avant {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-sortie-avant {
+  to {
+    transform: scale(1.06);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-entree-discret {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+}
+
 body {
   font-family: var(--police-texte);
   background-color: var(--beige);
   color: var(--noir);
   line-height: 1.6;
+}
+
+/* Espace réservé avant le footer, sur toutes les pages, pour le train. */
+main {
+  position: relative;
+  padding-bottom: 182px;
+}
+
+main::after {
+  content: url("../images/footer-train-animated-x200.gif");
+  display: block;
+  position: absolute;
+  /* Le fichier contient une marge transparente sous les roues,
+     on ajuste bottom pour coller le train au trait du footer. */
+  bottom: -33px;
+  right: 3rem;
+  height: 182px;
+  width: auto;
+  line-height: 0;
+  font-size: 0;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Passage du train : il traverse une seule fois toute la largeur,
+   juste au-dessus du trait du footer, puis reste caché hors-champ
+   un bon moment avant de repasser (pas de mouvement en continu). La
+   locomotive regarde vers la gauche sur le visuel, donc le train se
+   déplace de la droite vers la gauche. */
+@media (prefers-reduced-motion: no-preference) {
+  main {
+    overflow: hidden;
+  }
+
+  main::after {
+    animation: passage-train 32s ease-in-out infinite;
+  }
+}
+
+@keyframes passage-train {
+  0% {
+    transform: translateX(60vw);
+  }
+  56% {
+    transform: translateX(-170vw);
+  }
+  100% {
+    transform: translateX(-170vw);
+  }
 }
 
 h1 {
@@ -100,6 +289,52 @@ a {
 ul {
   list-style: none;
 }
+
+/* Lien retour, utilisé sur les fiches et les articles de blogue.
+   Icone SVG en masque CSS pour garder la couleur du lien au survol. */
+.retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.5rem 5rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--rouge);
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .retour:active {
+    transform: scale(0.95);
+  }
+}
+
+.retour::before {
+  content: "";
+  display: inline-block;
+  width: 1.1rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  -webkit-mask: url("../images/icons/retour.svg") no-repeat center / contain;
+  transition: transform 0.25s ease;
+}
+
+.retour:hover {
+  color: var(--orange);
+}
+
+.retour:hover::before {
+  transform: translateX(-3px);
+}
+
+/* La carte d'exposition avec retournement (.grille-expositions,
+   .carte-exposition) et la liste en bandes de la page Expositions
+   (.lignes-expositions, .ligne-exposition) sont des composants
+   propres aux pages d'exposition : elles vivent dans
+   styles/pages/exposition-fiche.css et styles/pages/expositions.css
+   plutot qu'ici. */
 
 /* header */
 header {
@@ -145,7 +380,13 @@ header nav ul li a {
   padding: 0.4rem 0.1rem;
   letter-spacing: 0;
   white-space: nowrap;
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  header nav ul li a:active {
+    transform: scale(0.95);
+  }
 }
 
 header nav ul li:not(:last-child) a::after {
@@ -180,14 +421,20 @@ header nav ul li:last-child a {
   font-size: 0.9rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 header nav ul li:last-child a:hover {
   background-color: var(--orange);
 }
 
-/* hero des pages secondaires — même proportion que le hero de l'accueil :
+@media (prefers-reduced-motion: no-preference) {
+  header nav ul li:last-child a:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Hero des pages secondaires, même proportion que celui de l'accueil :
    image plein cadre sur toute la hauteur, texte superposé au centre */
 main > section:first-child:not(#accueil-hero) {
   position: relative;
@@ -224,7 +471,8 @@ main > section:first-child:not(#accueil-hero) p.etiquette {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--jaune);
+  color: var(--beige);
+  opacity: 0.85;
 }
 
 main > section:first-child:not(#accueil-hero) h1 {
@@ -292,11 +540,17 @@ footer nav ul li a {
   font-family: var(--police-h2);
   font-size: 1rem;
   color: var(--beige);
-  transition: color 0.25s ease;
+  transition: color 0.25s ease, transform 0.15s ease;
 }
 
 footer nav ul li a:hover {
   color: var(--jaune);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  footer nav ul li a:active {
+    transform: scale(0.95);
+  }
 }
 
 footer .footer-liens section {
@@ -331,11 +585,17 @@ footer .footer-liens section ul li a {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--beige);
-  transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 footer .footer-liens section ul li a:hover {
   background-color: var(--rouge);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  footer .footer-liens section ul li a:active {
+    transform: scale(0.9);
+  }
 }
 
 footer .footer-liens section ul li a svg {

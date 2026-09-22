@@ -1,0 +1,212 @@
+/* Horaire et Tarifs */
+/* Le hero reprend le gabarit commun de global.css. */
+
+#tarifs {
+  padding: 4.5rem 5rem 2rem;
+}
+
+#horaires {
+  padding: 4rem 5rem 3rem;
+}
+
+#horaires h2,
+#tarifs h2 {
+  font-size: 2rem;
+  color: var(--rouge);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* Tarifs en cartes, grille fixe de 3 colonnes comme le wireframe. */
+.tarifs-grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5rem 3rem;
+  margin-bottom: 2rem;
+}
+
+/* La carte de couleur reste fixe et sert de deuxieme carte cachee
+   dessous, entierement recouverte par la carte beige au repos. */
+.tarifs-grille li {
+  position: relative;
+  width: 72%;
+  min-height: 340px;
+  margin: 0 auto;
+  background-color: #9E3D23;
+  border-radius: 4px;
+}
+
+/* La carte du milieu reste centree dans sa colonne, mais celle de
+   gauche s'aligne avec le titre de la section et celle de droite
+   avec le bord droit, pour garder une bonne marge entre les trois
+   sans deformer la largeur de la page. */
+@media (min-width: 861px) {
+  .tarifs-grille li:nth-child(3n+1) {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .tarifs-grille li:nth-child(3n) {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+/* La carte beige, avec tout le contenu, glisse en diagonale au
+   survol et laisse apparaitre le coin de la carte verte dessous,
+   comme deux cartes empilees. */
+.tarif-corps {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background-color: var(--beige);
+  border: 2px solid rgba(32, 33, 34, 0.2);
+  border-radius: 4px;
+  transition: transform 0.4s ease;
+}
+
+.tarifs-grille li:hover .tarif-corps {
+  transform: translate(16px, 16px);
+}
+
+/* Petit bouton fleche, appel a l'action pour reserver directement
+   depuis la carte du tarif. */
+.tarif-cta {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--rouge);
+  color: var(--beige);
+  border-radius: 8px;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.tarif-cta:hover {
+  background-color: var(--orange);
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tarif-cta:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Icone fleche fournie par le client (images/icons/fleche_en_bas_a_droite.png),
+   en masque pour reprendre la couleur du bouton comme .retour. */
+.tarif-cta-icone {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-color: currentColor;
+  mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
+  -webkit-mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
+}
+
+.tarifs-grille h3 {
+  font-family: var(--police-h2);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-bottom: 0.9rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 2px solid rgba(32, 33, 34, 0.2);
+}
+
+.tarifs-grille h3 span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-family: var(--police-texte);
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+.tarifs-grille .prix {
+  font-family: var(--police-h2);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--rouge);
+  margin-bottom: 0.5rem;
+}
+
+.tarifs-grille .detail {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--noir);
+  opacity: 0.85;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+#tarifs > p {
+  font-size: 1rem;
+}
+
+#tarifs > p a {
+  color: var(--rouge);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Horaires en texte simple, sans carte ni fond colore. */
+.horaires-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 2.5rem;
+  max-width: 900px;
+}
+
+.horaires-grille h3 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--rouge);
+  margin-bottom: 0.4rem;
+}
+.horaires-grille p {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--noir);
+}
+
+@media (max-width: 860px) {
+  #horaires,
+  #tarifs {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .horaires-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .tarifs-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tarifs-grille li {
+    width: 90%;
+  }
+}
+
+@media (max-width: 560px) {
+  .tarifs-grille {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,525 @@
+/* Reservation */
+/* Le hero reprend le gabarit commun de global.css. */
+
+.visually-hidden {
+  position: absolute;
+  clip-path: inset(50%);
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+#panier {
+  padding: 4.5rem 5rem 5rem;
+}
+
+.panier-entete {
+  max-width: 640px;
+  margin-bottom: 3rem;
+}
+
+.panier-etiquette {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vert);
+  margin-bottom: 0.5rem;
+}
+
+.panier-entete h2 {
+  font-size: 2rem;
+  color: var(--rouge);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.panier-entete > p:not(.panier-etiquette) {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Grille principale : billets a gauche, recapitulatif fixe a droite. */
+.panier-grille {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  align-items: start;
+  gap: 3rem;
+}
+
+.billets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  border: 0;
+}
+
+/* Carte de billet */
+.carte-billet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(32, 33, 34, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(32, 33, 34, 0.06);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.carte-billet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(32, 33, 34, 0.12);
+}
+
+.carte-billet--actif {
+  border-color: var(--rouge);
+}
+
+.carte-billet--vedette {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: var(--vert);
+  border-color: var(--vert);
+  color: var(--beige);
+}
+
+.carte-billet--vedette:hover {
+  box-shadow: 0 14px 30px rgba(32, 33, 34, 0.22);
+}
+
+.billet-badge {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.25rem;
+  padding: 0.3rem 0.75rem;
+  background-color: var(--rouge);
+  color: var(--beige);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+}
+
+.billet-entete h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.billet-description {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 0.6rem;
+}
+
+.carte-billet--vedette .billet-description {
+  opacity: 0.85;
+}
+
+.billet-prix {
+  font-family: var(--police-h2);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--rouge);
+}
+
+.carte-billet--vedette .billet-prix {
+  color: var(--jaune);
+}
+
+.billet-pied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.carte-billet--vedette .billet-pied {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+/* Selecteur de quantite (stepper) */
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(32, 33, 34, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.carte-billet--vedette .stepper {
+  border-color: rgba(245, 240, 232, 0.4);
+}
+
+.stepper-bouton {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--rouge);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.carte-billet--vedette .stepper-bouton {
+  color: var(--beige);
+}
+
+.stepper-bouton:hover:not(:disabled) {
+  background-color: var(--rouge);
+  color: var(--beige);
+}
+
+.carte-billet--vedette .stepper-bouton:hover:not(:disabled) {
+  background-color: var(--orange);
+}
+
+.stepper-bouton:disabled {
+  color: rgba(32, 33, 34, 0.3);
+  cursor: not-allowed;
+}
+
+.carte-billet--vedette .stepper-bouton:disabled {
+  color: rgba(245, 240, 232, 0.35);
+}
+
+.stepper-champ {
+  width: 2.5rem;
+  height: 34px;
+  border: 0;
+  border-inline: 1px solid rgba(32, 33, 34, 0.2);
+  background-color: transparent;
+  color: inherit;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--police-texte);
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.carte-billet--vedette .stepper-champ {
+  border-inline-color: rgba(245, 240, 232, 0.4);
+}
+
+.stepper-champ::-webkit-outer-spin-button,
+.stepper-champ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper-champ:focus-visible,
+.stepper-bouton:focus-visible {
+  outline: 2px solid var(--rouge);
+  outline-offset: 2px;
+}
+
+.carte-billet--vedette .stepper-champ:focus-visible,
+.carte-billet--vedette .stepper-bouton:focus-visible {
+  outline-color: var(--jaune);
+}
+
+.billet-sous-total {
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.panier-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* Recapitulatif : panneau fonce, colle en haut de la fenetre lors du
+   defilement pour rester visible pendant que l'utilisateur choisit
+   ses billets plus haut dans la page. */
+.recapitulatif {
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: var(--vert);
+  color: var(--beige);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(32, 33, 34, 0.18);
+}
+
+.recapitulatif h2 {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.coordonnees {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.2);
+}
+
+.coordonnees legend {
+  padding: 0;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jaune);
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.champ label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.champ input {
+  padding: 0.65rem 0.75rem;
+  min-height: 44px;
+  background-color: rgba(245, 240, 232, 0.08);
+  border: 1px solid rgba(245, 240, 232, 0.35);
+  border-radius: 4px;
+  color: var(--beige);
+  font-size: 1rem;
+  font-family: var(--police-texte);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.champ input::placeholder {
+  color: rgba(245, 240, 232, 0.5);
+}
+
+.champ input:focus-visible {
+  outline: 2px solid var(--jaune);
+  outline-offset: 1px;
+  background-color: rgba(245, 240, 232, 0.14);
+}
+
+.champ input:user-invalid {
+  border-color: var(--orange);
+}
+
+.recap-lignes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.2);
+}
+
+.recap-lignes > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.recap-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(245, 240, 232, 0.35);
+  font-family: var(--police-h2);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.recap-total span:last-child {
+  color: var(--jaune);
+}
+
+#bouton-confirmer {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--rouge);
+  color: var(--beige);
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+
+#bouton-confirmer:hover:not(:disabled) {
+  background-color: var(--orange);
+}
+
+#bouton-confirmer:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #bouton-confirmer:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+.recap-message {
+  margin-top: -0.75rem;
+  font-size: 0.82rem;
+  text-align: center;
+  opacity: 0.75;
+}
+
+/* Confirmation */
+/* :not([hidden]) est necessaire ici : sans ca, ce display: flex a une
+   specificite (id) plus forte que la regle [hidden] du navigateur
+   (display: none) et l'emporte dessus, ce qui affichait la carte de
+   confirmation en permanence sous la section panier, meme avant tout
+   achat, avec un grand espace vide entre les deux. */
+#confirmation:not([hidden]) {
+  display: flex;
+  justify-content: center;
+  padding: 5rem 2rem 6rem;
+}
+
+.confirmation-carte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 480px;
+  padding: 3rem 2.5rem;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(32, 33, 34, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(32, 33, 34, 0.1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #confirmation {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  #confirmation.est-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmation-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1.25rem;
+  background-color: var(--vert);
+  color: var(--beige);
+  border-radius: 50%;
+}
+
+.confirmation-carte .etiquette-secondaire {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.5rem;
+}
+
+.confirmation-carte h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.confirmation-carte > p:not(.etiquette-secondaire) {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 1.75rem;
+}
+
+.confirmation-carte a.cta {
+  display: inline-block;
+  width: fit-content;
+  padding: 1rem 2.5rem;
+  background-color: var(--rouge);
+  color: var(--beige);
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.confirmation-carte a.cta:hover {
+  background-color: var(--orange);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .confirmation-carte a.cta:active {
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 1080px) {
+  .panier-grille {
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 860px) {
+  #panier {
+    padding: 3rem 2rem 4rem;
+  }
+
+  .panier-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .billets {
+    grid-template-columns: 1fr;
+  }
+
+  .carte-billet--vedette {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .carte-billet--vedette .billet-pied {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .recapitulatif {
+    position: static;
+  }
+}

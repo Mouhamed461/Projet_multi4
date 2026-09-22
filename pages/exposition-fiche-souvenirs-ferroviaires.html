@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
   <link rel="icon" type="image/png" href="../favicon.ico">
-  <title>Musée du Modélisme Ferroviaire - Expositions</title>
+  <title>Musée du Modélisme Ferroviaire - Objets et souvenirs ferroviaires</title>
   <link rel="stylesheet" href="../styles/global.css">
-  <link rel="stylesheet" href="../styles/pages/expositions.css">
+  <link rel="stylesheet" href="../styles/pages/exposition-fiche.css">
   <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
        analyse, pour que la transition entre les pages ne demarre
        jamais sur une page a moitie vide. -->
   <link rel="expect" href="#contenu-principal" blocking="render">
   <!-- Charge tot pour que l'ecouteur pagereveal (transition horizontale
-       vers/depuis une fiche d'exposition) soit en place avant le tout
+       vers/depuis la liste des expositions) soit en place avant le tout
        premier rendu de la page. -->
   <script src="../scripts/global.js"></script>
 </head>
@@ -39,51 +39,27 @@
 
   <main id="contenu-principal">
 
-    <section>
-      <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-      <h1>Nos expositions</h1>
-      <p>Le Musée du Modélisme Ferroviaire et des Chemins de fer du Québec présente trois expositions permanentes qui plongent les visiteurs dans l'univers du rail, de la miniature à l'histoire régionale.</p>
-    </section>
+    <a class="retour" href="expositions.html">Retour aux expositions</a>
 
-    <section class="lignes-expositions">
+    <article class="fiche-hero">
+      <p class="etiquette">Exposition permanente</p>
+      <h1>Objets et souvenirs ferroviaires</h1>
 
-      <a class="ligne-exposition" href="exposition-fiche.html">
-        <div class="ligne-image">
-          <img src="../images/expositions/reseaux-en-action.jpg" alt="Réseaux miniatures en action">
-        </div>
-        <div class="ligne-texte">
-          <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Réseaux miniatures en action</h2>
-          <p>Plongez dans des univers miniatures où les trains circulent à travers des paysages inspirés du Québec. Ces réseaux animés reproduisent des scènes vivantes : locomotives franchissant des ponts de pierre, wagons serpentant dans les vallées, gares animées où les passagers attendent leur départ.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
-
-      <a class="ligne-exposition" href="exposition-fiche-gares-regionales.html">
-        <div class="ligne-image">
-          <img src="../images/expositions/gares-regionales.jpg" alt="Les gares régionales du Québec">
-        </div>
-        <div class="ligne-texte">
-          <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Les gares régionales</h2>
-          <p>Les gares ont longtemps été au cœur de la vie des communautés québécoises. Dans cette exposition, vous découvrirez des maquettes fidèles de plusieurs gares régionales, certaines toujours existantes, d'autres disparues avec le temps.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
-
-      <a class="ligne-exposition" href="exposition-fiche-souvenirs-ferroviaires.html">
-        <div class="ligne-image">
+      <div class="fiche-hero-corps">
+        <div class="fiche-image">
           <img src="../images/expositions/souvenirs-ferroviaires.png" alt="Objets et souvenirs ferroviaires">
         </div>
-        <div class="ligne-texte">
+        <div class="fiche-texte">
           <p class="etiquette-secondaire">Exposition permanente</p>
-          <h2>Objets et souvenirs ferroviaires</h2>
-          <p>Le musée abrite également une riche collection d'objets liés au monde ferroviaire : uniformes de cheminots, casquettes et insignes, lanternes de signalisation, outils de maintenance, billets d'époque et affiches publicitaires.</p>
-          <span class="carte-cta">Découvrir cette exposition</span>
-        </div>
-      </a>
 
-    </section>
+          <p>Le musée abrite également une riche collection d'objets liés au monde ferroviaire. Uniformes de cheminots, casquettes et insignes, lanternes de signalisation, outils de maintenance, billets d'époque ou encore affiches publicitaires transportent le visiteur dans une autre époque.</p>
+
+          <p>Cette exposition permet aussi de mieux comprendre la culture ferroviaire : comment on voyageait, quelles consignes de sécurité étaient appliquées, et comment les travailleurs contribuaient à faire fonctionner cette immense machine collective qu'était le chemin de fer.</p>
+
+          <a class="cta" href="reservation.html">Réserver ma visite</a>
+        </div>
+      </div>
+    </article>
 
   </main>
 
