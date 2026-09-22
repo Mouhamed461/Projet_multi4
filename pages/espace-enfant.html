@@ -68,111 +68,121 @@
         </h1>
 
         <p id="consigne-niveau">
-          Sélectionne un rail puis clique sur une case pour le placer.
+          Relie le train à la gare en plaçant les bons rails !
         </p>
 
       </div>
 
-      <div class="jeu-rail__zone-plateau">
+      <div class="jeu-rail__contenu">
 
-        <div id="plateau-jeu" aria-label="Plateau du jeu"></div>
+        <div class="jeu-rail__zone-plateau">
 
-      </div>
-
-      <div class="jeu-rail__outils">
-
-        <h2>
-          Rails disponibles
-        </h2>
-
-        <p>
-          Clique sur un rail puis sur la case où tu souhaites le placer.
-        </p>
-
-        <div id="selection-rails">
-
-          <button type="button" class="rail-btn" data-type="h" aria-label="Rail horizontal">
-            <img src="../images/jeu/rails/horizontal/rail-tile.png" alt="" class="rail-apercu rail-apercu--horizontal">
-          </button>
-
-          <button type="button" class="rail-btn" data-type="v" aria-label="Rail vertical">
-            <img src="../images/jeu/rails/vertical/rail-tile.png" alt="" class="rail-apercu rail-apercu--vertical">
-          </button>
-
-          <button type="button" class="rail-btn" data-type="courbeBG" aria-label="Rail courbé bas gauche">
-            <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
-              class="rail-apercu rail-apercu--courbe courbe-bg">
-          </button>
-
-          <button type="button" class="rail-btn" data-type="courbeHD" aria-label="Rail courbé haut droite">
-            <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
-              class="rail-apercu rail-apercu--courbe courbe-hd">
-          </button>
-
-          <button type="button" class="rail-btn" data-type="courbeBD" aria-label="Rail courbé bas droite">
-            <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
-              class="rail-apercu rail-apercu--courbe courbe-bd">
-          </button>
-
-          <button type="button" class="rail-btn" data-type="courbeHG" aria-label="Rail courbé haut gauche">
-            <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
-              class="rail-apercu rail-apercu--courbe courbe-hg">
-          </button>
+          <div id="plateau-jeu" aria-label="Plateau du jeu"></div>
 
         </div>
 
-        <div class="jeu-rail__zone-message" aria-live="polite">
+        <div class="jeu-rail__panneau">
 
-          <p id="message-jeu"></p>
-
-        </div>
-
-        <div class="jeu-rail__actions">
-
-          <button type="button" class="bouton-jeu bouton-jeu--retour" id="bouton-retour" aria-label="Retour"></button>
-
-          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider"
-            aria-label="Valider le chemin"></button>
-
-        </div>
-
-        <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
-
-          <div class="jeu-rail__reussite-contenu">
+          <div class="jeu-rail__outils">
 
             <h2>
-              Bravo !
+              Rails disponibles
             </h2>
 
             <p>
-              Le train est arrivé à destination.
+              Choisis un rail puis clique sur une case vide.
             </p>
 
-            <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant"
-              aria-label="Niveau suivant"></button>
+            <div id="selection-rails">
+
+              <button type="button" class="rail-btn" data-type="h" aria-label="Rail horizontal">
+                <img src="../images/jeu/rails/horizontal/rail-tile.png" alt=""
+                  class="rail-apercu rail-apercu--horizontal">
+              </button>
+
+              <button type="button" class="rail-btn" data-type="v" aria-label="Rail vertical">
+                <img src="../images/jeu/rails/vertical/rail-tile.png" alt="" class="rail-apercu rail-apercu--vertical">
+              </button>
+
+              <button type="button" class="rail-btn" data-type="courbeBG" aria-label="Rail courbé bas gauche">
+                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
+                  class="rail-apercu rail-apercu--courbe courbe-bg">
+              </button>
+
+              <button type="button" class="rail-btn" data-type="courbeHD" aria-label="Rail courbé haut droite">
+                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
+                  class="rail-apercu rail-apercu--courbe courbe-hd">
+              </button>
+
+              <button type="button" class="rail-btn" data-type="courbeBD" aria-label="Rail courbé bas droite">
+                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
+                  class="rail-apercu rail-apercu--courbe courbe-bd">
+              </button>
+
+              <button type="button" class="rail-btn" data-type="courbeHG" aria-label="Rail courbé haut gauche">
+                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
+                  class="rail-apercu rail-apercu--courbe courbe-hg">
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="jeu-rail__zone-message" aria-live="polite">
+
+            <p id="message-jeu"></p>
+
+          </div>
+
+          <div class="jeu-rail__actions">
+
+            <button type="button" class="bouton-jeu bouton-jeu--retour" id="bouton-retour" aria-label="Retour"></button>
+
+            <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider"
+              aria-label="Valider le chemin"></button>
 
           </div>
 
         </div>
 
-        <div class="jeu-rail__fin" id="fin-jeu" hidden>
+      </div>
 
-          <div class="jeu-rail__fin-contenu">
+      <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
 
-            <h2>
-              Bravo !
-            </h2>
+        <div class="jeu-rail__reussite-contenu">
 
-            <p>
-              Tu as terminé les trois niveaux et permis au train d'arriver à destination.
-            </p>
+          <h2>
+            Bravo !
+          </h2>
 
-            <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-rejouer"
-              aria-label="Rejouer"></button>
+          <p>
+            Le train est arrivé à destination.
+          </p>
 
-          </div>
+          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant"
+            aria-label="Niveau suivant"></button>
 
         </div>
+
+      </div>
+
+      <div class="jeu-rail__fin" id="fin-jeu" hidden>
+
+        <div class="jeu-rail__fin-contenu">
+
+          <h2>
+            Bravo !
+          </h2>
+
+          <p>
+            Tu as terminé les trois niveaux et permis au train d'arriver à destination. Veux-tu rejouer ?
+          </p>
+
+          <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-rejouer" aria-label="Rejouer"></button>
+
+        </div>
+
+      </div>
 
     </section>
 
@@ -261,6 +271,7 @@
   </footer>
 
   <script src="../scripts/global.js"></script>
+  <script src="../scripts/donnees-jeu.js"></script>
   <script src="../scripts/espace-enfant.js"></script>
 
 </body>

@@ -4,7 +4,7 @@
 
 .introduction-jeu {
     width: 100%;
-    padding: 40px 20px;
+    padding: 40px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,19 +12,23 @@
 
 .menu-jeu {
     position: relative;
-    width: 512px;
+    width: 100%;
     height: 512px;
-    max-width: calc(100vw - 40px);
-    max-height: calc(100vw - 40px);
-    aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: #a83d25;
+    background: #9E3D23
 }
 
 .menu-jeu__fond {
     position: absolute;
-    inset: 0;
     z-index: 1;
+
+    top: 0;
+    left: 50%;
+
+    width: 512px;
+    height: 512px;
+
+    transform: translateX(-50%);
 
     background-image: url("../../images/jeu/menu-minijeu-Sheet.png");
     background-repeat: no-repeat;
@@ -38,8 +42,15 @@
 
 .menu-jeu__titre {
     position: absolute;
-    inset: 0;
     z-index: 2;
+
+    top: 0;
+    left: 50%;
+
+    width: 512px;
+    height: 512px;
+
+    transform: translateX(-50%);
 
     background-image: url("../../images/jeu/titre-minijeu-Sheet.png");
     background-repeat: no-repeat;
@@ -56,10 +67,10 @@
     position: absolute;
     z-index: 3;
 
-    left: 0;
+    left: calc(50% - 200px);
     bottom: 0;
 
-    width: 40% !important;
+    width: 205px !important;
     height: auto !important;
     max-width: none !important;
 
@@ -157,35 +168,74 @@
 }
 
 .jeu-rail {
-    max-width: 900px;
+    max-width: 1250px;
     margin: auto;
     padding: 50px 20px;
 }
 
 .jeu-rail__entete {
     text-align: center;
+    transform: translateY(12px);
 }
 
 .jeu-rail__niveau {
-    margin-bottom: 10px;
+    margin: 0 0 10px;
+}
+
+.jeu-rail__entete h1 {
+    margin: 0 0 12px;
+}
+
+.jeu-rail__entete p:last-child {
+    margin: 0;
+}
+
+.jeu-rail__contenu {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
 }
 
 .jeu-rail__zone-plateau {
+    flex: 1;
+    min-width: 0;
     overflow-x: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url("../../images/jeu/plateau/plateau-vide.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    padding: 60px 40px;
+}
+
+.jeu-rail__panneau {
+    width: 300px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
 }
 
 #plateau-jeu {
     display: grid;
     gap: 5px;
     width: fit-content;
-    margin: 40px auto;
+    margin: auto;
+    padding: 0 70px;
 }
 
 .case {
     width: 80px;
     height: 80px;
     border: 2px solid #333;
-    background: white;
+    background: rgba(255, 255, 255, 0.85);
     font-size: 35px;
     cursor: pointer;
 
@@ -206,7 +256,10 @@
 }
 
 .jeu-rail__outils {
-    margin-top: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .texture-rail {
@@ -229,8 +282,8 @@
 }
 
 #selection-rails {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 90px);
     gap: 15px;
     margin-top: 20px;
 }
@@ -304,20 +357,21 @@
 }
 
 .jeu-rail__zone-message {
-    min-height: 45px;
-    margin-top: 20px;
+    min-height: 30px;
+    margin-top: 10px;
 }
 
 #message-jeu {
     font-weight: bold;
+    color: red;
 }
 
 .jeu-rail__actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 15px;
+    margin-top: 10px;
 }
 
 .bouton-jeu {
@@ -419,6 +473,35 @@
         font-size: 20px;
     }
 
+}
+
+.case-train,
+.case-gare {
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+}
+
+.element-fixe {
+    display: block;
+    image-rendering: pixelated;
+    pointer-events: none;
+    object-fit: contain;
+    position: relative;
+    z-index: 3;
+    max-width: none;
+}
+
+.element-fixe--train {
+    width: 180px;
+    height: auto;
+    transform: translateX(-60px);
+}
+
+.element-fixe--gare {
+    width: 140px;
+    height: auto;
+    transform: translateX(45px);
 }
 
 .message-mobile {

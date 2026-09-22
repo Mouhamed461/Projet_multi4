@@ -18,105 +18,9 @@ const fin = document.getElementById("fin-jeu");
 
 const railBtns = document.querySelectorAll(".rail-btn");
 
-const niveaux = [
-    {
-        titre: "Premier trajet",
-        lignes: 3,
-        colonnes: 5,
-        depart: 5,
-        arrivee: 9,
-        rails: ["h", "v"],
-        solution: {
-            6: "h",
-            7: "h",
-            8: "h"
-        }
-    },
-
-    {
-        titre: "Premier virage",
-        lignes: 4,
-        colonnes: 5,
-        depart: 5,
-        arrivee: 19,
-        rails: ["h", "v", "courbeHD", "courbeBD", "courbeBG", "courbeHG"],
-        solution: {
-            6: "h",
-            7: "courbeBG",
-            12: "v",
-            17: "courbeHD",
-            18: "h"
-        }
-    },
-
-    {
-        titre: "Dernier trajet",
-        lignes: 5,
-        colonnes: 6,
-        depart: 6,
-        arrivee: 29,
-        rails: ["h", "v", "courbeHD", "courbeBD", "courbeBG", "courbeHG"],
-        solution: {
-            7: "h",
-            8: "courbeBG",
-            14: "v",
-            20: "v",
-            26: "courbeHD",
-            27: "h",
-            28: "h"
-        }
-    }
-];
-
-const symboles = {
-    h: "---",
-    v: "|||",
-    courbeHD: "└",
-    courbeBD: "┌",
-    courbeBG: "┐",
-    courbeHG: "┘"
-};
-
-const railsVerticaux = [
-    "../images/jeu/rails/vertical/rail-tile.png",
-    "../images/jeu/rails/vertical/rail-tile-2.png",
-    "../images/jeu/rails/vertical/rail-tile-3.png",
-    "../images/jeu/rails/vertical/rail-tile-4.png",
-    "../images/jeu/rails/vertical/rail-tile-5.png",
-    "../images/jeu/rails/vertical/rail-tile-6.png",
-    "../images/jeu/rails/vertical/rail-tile-7.png"
-];
-
-const railsHorizontaux = [
-    "../images/jeu/rails/horizontal/rail-tile.png",
-    "../images/jeu/rails/horizontal/rail-tile-2.png",
-    "../images/jeu/rails/horizontal/rail-tile-3.png",
-    "../images/jeu/rails/horizontal/rail-tile-4.png",
-    "../images/jeu/rails/horizontal/rail-tile-5.png",
-    "../images/jeu/rails/horizontal/rail-tile-6.png",
-    "../images/jeu/rails/horizontal/rail-tile-7.png"
-];
-
-const railCourbeGauche =
-    "../images/jeu/rails/courbe/left-curved-rail-minijeu.png";
-
-const railCourbeDroite =
-    "../images/jeu/rails/courbe/right-curved-rail-minijeu.png";
-
 let niveauActuel = 0;
+let puzzleActuel;
 let railActif = "";
-
-function recupererTypeRail(btn) {
-    if (btn.dataset.type === "bas") {
-        return "courbeBG";
-    }
-
-    if (btn.dataset.type === "droite") {
-        return "courbeHD";
-    }
-
-    return btn.dataset.type;
-}
 
 btnJouer.onclick = () => {
     btnJouer.classList.add("animation");
@@ -144,6 +48,7 @@ btnRetour.onclick = () => {
 
         railActif = "";
         msg.innerText = "";
+        msg.classList.remove("erreur");
 
         btnRetour.classList.remove("animation");
 
@@ -159,6 +64,7 @@ btnSuivant.onclick = () => {
 
     setTimeout(() => {
         niveauActuel++;
+
         btnSuivant.classList.remove("animation");
 
         chargerNiveau();
@@ -182,7 +88,7 @@ railBtns.forEach(btn => {
 
     btn.onclick = () => {
 
-        railActif = recupererTypeRail(btn);
+        railActif = btn.dataset.type;
 
         railBtns.forEach(b => {
             b.classList.remove("selected");
@@ -190,6 +96,7 @@ railBtns.forEach(btn => {
 
         btn.classList.add("selected");
 
+        msg.classList.remove("erreur");
         msg.innerText = "Rail sélectionné";
     };
 
@@ -199,6 +106,9 @@ function chargerNiveau() {
 
     const niveau = niveaux[niveauActuel];
 
+    puzzleActuel =
+        niveau.puzzles[Math.floor(Math.random() * niveau.puzzles.length)];
+
     compteur.innerText = `Niveau ${niveauActuel + 1} / 3`;
     titre.innerText = niveau.titre;
 
@@ -206,15 +116,14 @@ function chargerNiveau() {
     fin.hidden = true;
 
     msg.innerText = "";
+    msg.classList.remove("erreur");
     railActif = "";
 
     railBtns.forEach(btn => {
 
         btn.classList.remove("selected");
 
-        const type = recupererTypeRail(btn);
-
-        if (niveau.rails.includes(type)) {
+        if (niveau.rails.includes(btn.dataset.type)) {
             btn.style.display = "block";
         } else {
             btn.style.display = "none";
@@ -234,12 +143,13 @@ function chargerNiveau() {
 
 function creerPlateau() {
 
-    const niveau = niveaux[niveauActuel];
-
     plateau.innerHTML = "";
-    plateau.style.gridTemplateColumns = `repeat(${niveau.colonnes}, 80px)`;
 
-    const totalCases = niveau.lignes * niveau.colonnes;
+    plateau.style.gridTemplateColumns =
+        `repeat(${puzzleActuel.colonnes}, 80px)`;
+
+    const totalCases =
+        puzzleActuel.lignes * puzzleActuel.colonnes;
 
     for (let i = 0; i < totalCases; i++) {
 
@@ -248,19 +158,40 @@ function creerPlateau() {
         c.type = "button";
         c.className = "case";
 
-        if (i === niveau.depart) {
+        if (i === puzzleActuel.depart) {
 
-            c.innerText = "Train";
+            c.classList.add("fixe", "case-train");
+            c.disabled = true;
+
+            const img = document.createElement("img");
+
+            img.src = imageTrain;
+            img.alt = "Train";
+            img.className = "element-fixe element-fixe--train";
+
+            c.appendChild(img);
+
+        } else if (i === puzzleActuel.arrivee) {
+
+            c.classList.add("fixe", "case-gare");
+            c.disabled = true;
+
+            const img = document.createElement("img");
+
+            img.src = imageGare;
+            img.alt = "Gare";
+            img.className = "element-fixe element-fixe--gare";
+
+            c.appendChild(img);
+
+        } else if (puzzleActuel.fixes[i]) {
+
             c.classList.add("fixe");
             c.disabled = true;
 
-        } else if (i === niveau.arrivee) {
+            afficherRail(c, puzzleActuel.fixes[i]);
 
-            c.innerText = "Gare";
-            c.classList.add("fixe");
-            c.disabled = true;
-
-        } else if (niveau.solution[i]) {
+        } else if (puzzleActuel.solution[i]) {
 
             c.onclick = () => placerRail(c);
 
@@ -275,6 +206,53 @@ function creerPlateau() {
     }
 }
 
+function afficherRail(c, type) {
+
+    const img = document.createElement("img");
+
+    if (type === "v") {
+
+        img.src =
+            railsVerticaux[Math.floor(Math.random() * railsVerticaux.length)];
+
+        img.className =
+            "texture-rail texture-rail--vertical";
+
+    } else if (type === "h") {
+
+        img.src =
+            railsHorizontaux[Math.floor(Math.random() * railsHorizontaux.length)];
+
+        img.className =
+            "texture-rail texture-rail--horizontal";
+
+    } else if (type === "courbeBG") {
+
+        img.src = railCourbeGauche;
+        img.className = "texture-rail courbe-bg";
+
+    } else if (type === "courbeHD") {
+
+        img.src = railCourbeGauche;
+        img.className = "texture-rail courbe-hd";
+
+    } else if (type === "courbeBD") {
+
+        img.src = railCourbeDroite;
+        img.className = "texture-rail courbe-bd";
+
+    } else if (type === "courbeHG") {
+
+        img.src = railCourbeDroite;
+        img.className = "texture-rail courbe-hg";
+
+    }
+
+    img.alt = "Rail";
+
+    c.appendChild(img);
+}
+
 function placerRail(c) {
 
     if (!railActif) {
@@ -285,78 +263,9 @@ function placerRail(c) {
     c.innerHTML = "";
     c.dataset.val = railActif;
 
-    if (railActif === "v") {
+    afficherRail(c, railActif);
 
-        const img = document.createElement("img");
-
-        const texture =
-            railsVerticaux[Math.floor(Math.random() * railsVerticaux.length)];
-
-        img.src = texture;
-        img.alt = "Rail vertical";
-        img.className = "texture-rail texture-rail--vertical";
-
-        c.appendChild(img);
-
-    } else if (railActif === "h") {
-
-        const img = document.createElement("img");
-
-        const texture =
-            railsHorizontaux[Math.floor(Math.random() * railsHorizontaux.length)];
-
-        img.src = texture;
-        img.alt = "Rail horizontal";
-        img.className = "texture-rail texture-rail--horizontal";
-
-        c.appendChild(img);
-
-    } else if (railActif === "courbeBG") {
-
-        const img = document.createElement("img");
-
-        img.src = railCourbeGauche;
-        img.alt = "Rail courbé";
-        img.className = "texture-rail courbe-bg";
-
-        c.appendChild(img);
-
-    } else if (railActif === "courbeHD") {
-
-        const img = document.createElement("img");
-
-        img.src = railCourbeGauche;
-        img.alt = "Rail courbé";
-        img.className = "texture-rail courbe-hd";
-
-        c.appendChild(img);
-
-    } else if (railActif === "courbeBD") {
-
-        const img = document.createElement("img");
-
-        img.src = railCourbeDroite;
-        img.alt = "Rail courbé";
-        img.className = "texture-rail courbe-bd";
-
-        c.appendChild(img);
-
-    } else if (railActif === "courbeHG") {
-
-        const img = document.createElement("img");
-
-        img.src = railCourbeDroite;
-        img.alt = "Rail courbé";
-        img.className = "texture-rail courbe-hg";
-
-        c.appendChild(img);
-
-    } else {
-
-        c.innerText = symboles[railActif];
-
-    }
-
+    msg.classList.remove("erreur");
     msg.innerText = "";
 }
 
@@ -371,15 +280,13 @@ btnValider.onclick = () => {
 
 function verifierNiveau() {
 
-    const niveau = niveaux[niveauActuel];
-
     let correct = true;
 
-    for (const position in niveau.solution) {
+    for (const position in puzzleActuel.solution) {
 
         const c = plateau.children[position];
 
-        if (c.dataset.val !== niveau.solution[position]) {
+        if (c.dataset.val !== puzzleActuel.solution[position]) {
             correct = false;
         }
 
@@ -387,12 +294,14 @@ function verifierNiveau() {
 
     if (!correct) {
 
-        msg.innerText = "Le chemin n'est pas correct.";
+        msg.innerText = "Presque ! Vérifie l'orientation de tes rails.";
+        msg.classList.add("erreur");
         return;
 
     }
 
     msg.innerText = "";
+    msg.classList.remove("erreur");
 
     if (niveauActuel === niveaux.length - 1) {
 
