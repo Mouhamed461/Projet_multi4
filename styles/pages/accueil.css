@@ -1,5 +1,5 @@
 #accueil-hero {
-  background-image: linear-gradient(180deg, rgba(48, 69, 54, 0.4), rgba(48, 69, 54, 0.55)), url("../../images/musee-modelisme.jpg");
+  background-image: linear-gradient(180deg, rgba(158, 61, 35, 0.32), rgba(158, 61, 35, 0.45)), url("../../images/musee-modelisme.jpg");
   background-size: cover;
   background-position: center;
   color: var(--beige);
@@ -75,6 +75,10 @@
 }
 
 #statut-musee.ferme span {
+  color: var(--rouge);
+}
+
+#statut-musee.ferme strong {
   color: var(--rouge);
 }
 
@@ -235,4 +239,82 @@
 #prochains-evenements > a:hover {
   background-color: var(--jaune);
   color: var(--noir);
+}
+
+/* Responsivite tablette et telephone (voir aussi styles/global.css
+   pour le menu et le footer, partages avec les autres pages). */
+@media (max-width: 860px) {
+  #accueil-hero {
+    min-height: 460px;
+    padding: 2.5rem 1.5rem;
+  }
+
+  #accueil-hero h1 {
+    font-size: 2.1rem;
+  }
+
+  #statut-musee {
+    margin-top: 2.5rem;
+  }
+
+  #bienvenue {
+    flex-direction: column;
+    padding: 3rem 2rem;
+    gap: 2rem;
+  }
+
+  #bienvenue img {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  #bienvenue > div {
+    flex: none;
+  }
+
+  #bienvenue h2 {
+    font-size: 1.9rem;
+  }
+
+  #prochains-evenements {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  #accueil-hero {
+    min-height: 400px;
+    padding: 2rem 1.25rem;
+  }
+
+  #accueil-hero h1 {
+    font-size: 1.65rem;
+  }
+
+  #statut-musee {
+    margin-top: 2rem;
+    padding: 0.5rem 1.2rem 0.5rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  #bienvenue {
+    padding: 2.5rem 1.25rem;
+  }
+
+  #bienvenue h2 {
+    font-size: 1.6rem;
+  }
+
+  #bienvenue p {
+    font-size: 1rem;
+  }
+
+  #prochains-evenements {
+    padding: 2.5rem 1.25rem;
+  }
+
+  #prochains-evenements h2 {
+    font-size: 1.4rem;
+  }
 }

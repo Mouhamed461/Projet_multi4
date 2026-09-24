@@ -206,7 +206,22 @@
 }
 
 @media (max-width: 560px) {
+  #horaires,
+  #tarifs {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .tarifs-grille {
     grid-template-columns: 1fr;
+  }
+
+  .tarifs-grille li {
+    width: 100%;
+    min-height: 300px;
+  }
+
+  .horaires-grille {
+    gap: 1.5rem;
   }
 }

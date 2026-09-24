@@ -132,7 +132,33 @@ main > article img + p {
   margin-bottom: 0.5rem;
 }
 
+/* Meme logique de carte empilee que sur Evenements et Horaire & Tarifs
+   (voir evenements.css .carte-evenement / horaire-tarifs.css .tarif-corps) :
+   un panneau colore reste fixe derriere, entierement recouvert au repos
+   par le panneau blanc, qui glisse en diagonale au survol pour reveler
+   le panneau colore dessous. Ici le panneau colore est un pseudo-element
+   plutot qu'une hauteur fixe sur la carte : le texte des articles varie
+   trop selon la largeur d'ecran (2 a 4 lignes) pour qu'une hauteur fixe
+   fonctionne sans couper du texte ou laisser un grand vide. Le pseudo-
+   element suit alors toujours la hauteur reelle du panneau blanc. */
 .articles article {
+  position: relative;
+  border-radius: 6px;
+}
+
+.articles article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--rouge);
+  border-radius: 6px;
+}
+
+.article-panneau {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -141,12 +167,12 @@ main > article img + p {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .articles article {
-    transition: transform 0.3s ease;
+  .article-panneau {
+    transition: transform 0.4s ease;
   }
 
-  .articles article:hover {
-    transform: translateY(-6px);
+  .articles article:hover .article-panneau {
+    transform: translate(16px, 16px);
   }
 }
 

@@ -22,6 +22,16 @@
   background-color: var(--rouge);
 }
 
+/* Toute la carte est cliquable : ce lien couvre l'ensemble de la
+   carte et pointe vers la meme fiche que le bouton "Decouvrir
+   l'activite". Le lien vers les tarifs (destination differente) est
+   remonte au-dessus avec z-index pour rester cliquable independamment. */
+.carte-evenement-lien {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .carte-evenement-panneau {
   position: absolute;
   top: 0;
@@ -39,6 +49,11 @@
 
 .carte-evenement:hover .carte-evenement-panneau {
   transform: translate(16px, 16px);
+}
+
+.carte-evenement-panneau a.carte-evenement-image {
+  display: block;
+  flex-shrink: 0;
 }
 
 .carte-evenement-panneau img {
@@ -61,33 +76,34 @@
   margin-bottom: 1rem;
 }
 
-.carte-evenement-meta {
-  display: flex;
-  gap: 2rem;
+.carte-evenement h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.carte-evenement h3 a:hover {
+  color: var(--orange);
+}
+
+.carte-evenement-info {
   padding: 0.9rem 0;
   margin-bottom: 1.25rem;
   border-top: 1px solid rgba(32, 33, 34, 0.12);
   border-bottom: 1px solid rgba(32, 33, 34, 0.12);
-}
-
-.carte-evenement-meta div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.carte-evenement-meta .etiquette-meta {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--vert);
-}
-
-.carte-evenement-meta .valeur-meta {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.9rem;
   color: var(--noir);
+}
+
+.carte-evenement-info a {
+  position: relative;
+  z-index: 2;
+  color: var(--rouge);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.carte-evenement-info a:hover {
+  color: var(--orange);
 }
 
 .carte-evenement p.description {
@@ -139,8 +155,7 @@
 }
 
 /* Fiche detail d'un evenement (evenement-fiche.html) : meme logique
-   que les fiches d'exposition, deux colonnes image/texte, avec la
-   meme bande Date/Prix que sur les cartes de la page Evenements. */
+   que les fiches d'exposition, deux colonnes image/texte. */
 .fiche-evenement {
   max-width: 1100px;
   margin: 2.5rem auto 5rem;
@@ -202,33 +217,23 @@
   margin-bottom: 1.5rem;
 }
 
-.fiche-evenement-meta {
-  display: flex;
-  gap: 2.5rem;
+.fiche-evenement-info {
   padding: 1rem 0;
   margin-bottom: 1.5rem;
   border-top: 1px solid rgba(32, 33, 34, 0.15);
   border-bottom: 1px solid rgba(32, 33, 34, 0.15);
-}
-
-.fiche-evenement-meta div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.fiche-evenement-meta .etiquette-meta {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--vert);
-}
-
-.fiche-evenement-meta .valeur-meta {
   font-size: 1rem;
-  font-weight: 600;
   color: var(--noir);
+}
+
+.fiche-evenement-info a {
+  color: var(--rouge);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.fiche-evenement-info a:hover {
+  color: var(--orange);
 }
 
 .fiche-evenement-corps p.description {
@@ -299,8 +304,4 @@
     height: 280px;
   }
 
-  .fiche-evenement-meta {
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
 }
