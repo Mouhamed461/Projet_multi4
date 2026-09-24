@@ -1,0 +1,243 @@
+.informations-visite {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 3rem 6rem;
+}
+
+.bloc-information {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+    gap: 5rem;
+    padding: 3.25rem 0;
+}
+
+.bloc-information+.bloc-information::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 20px;
+
+    color: var(--vert);
+    opacity: 0.38;
+
+    background:
+        linear-gradient(currentColor 0 0) 0 4px / 100% 1px no-repeat,
+
+        linear-gradient(currentColor 0 0) 0 15px / 100% 1px no-repeat,
+
+        repeating-linear-gradient(to right,
+            transparent 0 28px,
+            currentColor 28px 29px,
+            transparent 29px 56px) 0 6px / 100% 8px no-repeat;
+
+    transform: translateY(-50%);
+
+    -webkit-mask-image: linear-gradient(to right,
+            transparent,
+            #000 7%,
+            #000 93%,
+            transparent);
+
+    mask-image: linear-gradient(to right,
+            transparent,
+            #000 7%,
+            #000 93%,
+            transparent);
+
+    pointer-events: none;
+}
+
+.bloc-information-titre {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bloc-information-titre .numero {
+    margin-bottom: 0.8rem;
+    font-family: var(--police-texte);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    color: var(--vert);
+}
+
+.bloc-information h2 {
+    max-width: 370px;
+    font-size: 2rem;
+    line-height: 1.08;
+    color: var(--rouge);
+    font-family: var(--police-h1);
+}
+
+.bloc-information-contenu {
+    max-width: 650px;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--vert);
+}
+
+.bloc-information address {
+    margin: 0;
+    font-style: normal;
+}
+
+.bloc-information address strong {
+    display: block;
+    max-width: 520px;
+    margin-bottom: 1rem;
+    font-family: var(--police-h2);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--vert);
+}
+
+.bloc-information address p {
+    color: var(--noir);
+}
+
+.coordonnees {
+    margin-top: 2.25rem;
+}
+
+.coordonnees>div {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid rgba(32, 33, 34, 0.14);
+}
+
+.coordonnees>div:last-child {
+    border-bottom: 1px solid rgba(32, 33, 34, 0.14);
+}
+
+.coordonnees dt {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--vert);
+}
+
+.coordonnees dd {
+    margin: 0;
+    font-weight: 500;
+}
+
+.coordonnees a {
+    position: relative;
+    color: var(--noir);
+    transition: color 0.2s ease;
+}
+
+.coordonnees a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background-color: var(--rouge);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+}
+
+.coordonnees a:hover {
+    color: var(--rouge);
+}
+
+.coordonnees a:hover::after {
+    transform: scaleX(1);
+}
+
+.liste-informations {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.liste-informations li {
+    position: relative;
+    padding: 1.1rem 0 1.1rem 1.7rem;
+    font-size: 1.08rem;
+    border-top: 1px solid rgba(32, 33, 34, 0.14);
+}
+
+.liste-informations li:last-child {
+    border-bottom: 1px solid rgba(32, 33, 34, 0.14);
+}
+
+.liste-informations li::before {
+    content: "";
+    position: absolute;
+    top: 1.7rem;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    background-color: var(--jaune);
+    transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .coordonnees a:active {
+        transform: scale(0.98);
+    }
+}
+
+@media (max-width: 900px) {
+    .informations-visite {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .bloc-information {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        padding: 2.75rem 0;
+    }
+
+    .bloc-information h2 {
+        max-width: 600px;
+        font-size: 1.8rem;
+    }
+
+    .bloc-information-contenu {
+        max-width: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .informations-visite {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .bloc-information {
+        padding: 2.25rem 0;
+    }
+
+    .bloc-information h2 {
+        font-size: 1.55rem;
+    }
+
+    .bloc-information-contenu {
+        font-size: 1rem;
+    }
+
+    .coordonnees>div {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .liste-informations li {
+        font-size: 1rem;
+    }
+}
