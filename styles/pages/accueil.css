@@ -188,8 +188,31 @@
   min-width: 220px;
   background-color: var(--beige);
   color: var(--noir);
-  padding: 1.2rem;
   border-radius: 4px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #prochains-evenements li:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px rgba(32, 33, 34, 0.22);
+  }
+}
+
+/* Toute la vignette est cliquable (retour du test utilisateur) :
+   l'ancre englobe image, titre, texte et le "En savoir plus", meme
+   logique que .tarif-corps (voir horaire-tarifs.css). Le padding
+   passe sur l'ancre plutot que sur le li pour que la zone cliquable
+   couvre bien tout l'espace visible de la carte, coins compris. */
+#prochains-evenements li a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1.2rem;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 #prochains-evenements li img {
@@ -208,17 +231,37 @@
 #prochains-evenements li p {
   font-size: 1rem;
   margin-bottom: 0.8rem;
+  flex: 1;
 }
 
-#prochains-evenements li a {
+#prochains-evenements li .carte-accueil-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--rouge);
   transition: color 0.25s ease;
 }
 
-#prochains-evenements li a:hover {
+#prochains-evenements li a:hover .carte-accueil-cta {
   color: var(--orange);
+}
+
+#prochains-evenements li .fleche {
+  display: inline-block;
+  font-size: 1.05rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #prochains-evenements li .fleche {
+    transition: transform 0.25s ease;
+  }
+
+  #prochains-evenements li a:hover .fleche {
+    transform: translate(3px, 3px);
+  }
 }
 
 #prochains-evenements > a {

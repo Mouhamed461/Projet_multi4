@@ -110,6 +110,33 @@ main > article img + p {
   main > article img {
     height: 260px;
   }
+
+  /* .retour vient de global.css avec une marge fixe de 5rem, pensee
+     pour l'alignement desktop (article aussi centre avec un espace
+     equivalent). A ce palier l'article passe a 1.5rem de padding :
+     sans cette reprise, la fleche retour resterait plus a droite que
+     le titre et le texte de l'article. */
+  .retour {
+    margin: 1.5rem 1.5rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  main > article {
+    padding: 0 1.25rem;
+  }
+
+  main > article h1 {
+    font-size: 1.5rem;
+  }
+
+  main > article img {
+    height: 200px;
+  }
+
+  .retour {
+    margin: 1.25rem 1.25rem 0;
+  }
 }
 
 /* Page Blogue : liste des articles en grille de deux colonnes,
@@ -123,6 +150,7 @@ main > article img + p {
 }
 
 .articles > h2 {
+  font-family: var(--police-h1);
   grid-column: 1 / -1;
   text-align: center;
   text-transform: uppercase;
@@ -144,6 +172,16 @@ main > article img + p {
 .articles article {
   position: relative;
   border-radius: 6px;
+}
+
+/* Toute la carte est cliquable (retour du test utilisateur) : ce lien
+   couvre l'ensemble de la carte et pointe vers le meme article que
+   "Lire l'article", meme logique que .carte-evenement-lien
+   (evenements.css). */
+.article-lien {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .articles article::before {
@@ -267,5 +305,20 @@ main > article img + p {
   .articles {
     grid-template-columns: 1fr;
     padding: 0 2rem 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .articles {
+    padding: 0 1.25rem 3rem;
+    gap: 2.5rem;
+  }
+
+  .articles > h2 {
+    font-size: 1.4rem;
+  }
+
+  .articles article .article-image img {
+    height: 200px;
   }
 }

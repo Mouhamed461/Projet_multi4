@@ -32,6 +32,7 @@
 }
 
 .panier-entete h2 {
+  font-family: var(--police-h1);
   font-size: 2rem;
   color: var(--rouge);
   text-transform: uppercase;
@@ -70,6 +71,7 @@
   border: 1px solid rgba(32, 33, 34, 0.12);
   border-radius: 8px;
   box-shadow: 0 4px 14px rgba(32, 33, 34, 0.06);
+  cursor: pointer;
   transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
@@ -275,6 +277,7 @@
 }
 
 .recapitulatif h2 {
+  font-family: var(--police-h1);
   font-size: 1.3rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -462,6 +465,7 @@
 }
 
 .confirmation-carte h2 {
+  font-family: var(--police-h1);
   font-size: 1.6rem;
   margin-bottom: 0.75rem;
 }
@@ -530,5 +534,31 @@
 
   .recapitulatif {
     position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  #panier {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+
+  .panier-entete h2 {
+    font-size: 1.6rem;
+  }
+
+  .recapitulatif {
+    padding: 1.5rem;
+  }
+
+  #confirmation:not([hidden]) {
+    padding: 3rem 1.25rem 4rem;
+  }
+
+  .confirmation-carte {
+    padding: 2.25rem 1.5rem;
+  }
+
+  .confirmation-carte h2 {
+    font-size: 1.4rem;
   }
 }

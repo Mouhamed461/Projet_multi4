@@ -154,6 +154,21 @@
   }
 }
 
+@media (max-width: 600px) {
+  .grille-evenements {
+    padding: 0 1.25rem;
+    gap: 2.5rem;
+  }
+
+  .carte-evenement {
+    min-height: 560px;
+  }
+
+  .carte-evenement-panneau img {
+    height: 180px;
+  }
+}
+
 /* Fiche detail d'un evenement (evenement-fiche.html) : meme logique
    que les fiches d'exposition, deux colonnes image/texte. */
 .fiche-evenement {
@@ -304,4 +319,30 @@
     height: 280px;
   }
 
+  /* .retour vient de global.css avec une marge fixe de 5rem, pensee
+     pour l'alignement desktop de .fiche-evenement (aussi 0 5rem).
+     A ce palier .fiche-evenement passe a 2rem : sans cette reprise,
+     la fleche retour resterait alignee sur l'ancien padding et se
+     retrouverait plus a droite que le titre et la colonne de texte. */
+  .retour {
+    margin: 1.5rem 2rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .fiche-evenement {
+    padding: 0 1.25rem;
+  }
+
+  .fiche-evenement-image {
+    height: 220px;
+  }
+
+  .fiche-evenement-corps h1 {
+    font-size: 1.8rem;
+  }
+
+  .retour {
+    margin: 1.25rem 1.25rem 0;
+  }
 }

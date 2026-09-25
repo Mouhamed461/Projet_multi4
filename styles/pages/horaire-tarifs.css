@@ -11,6 +11,7 @@
 
 #horaires h2,
 #tarifs h2 {
+  font-family: var(--police-h1);
   font-size: 2rem;
   color: var(--rouge);
   text-transform: uppercase;
@@ -54,7 +55,10 @@
 
 /* La carte beige, avec tout le contenu, glisse en diagonale au
    survol et laisse apparaitre le coin de la carte verte dessous,
-   comme deux cartes empilees. */
+   comme deux cartes empilees. Toute la vignette est maintenant un
+   lien (voir horaire-tarifs.html) : plus facile a cliquer, surtout
+   au doigt sur tablette/telephone, plutot que de viser le petit
+   bouton fleche seul. */
 .tarif-corps {
   position: absolute;
   top: 0;
@@ -70,6 +74,7 @@
   background-color: var(--beige);
   border: 2px solid rgba(32, 33, 34, 0.2);
   border-radius: 4px;
+  cursor: pointer;
   transition: transform 0.4s ease;
 }
 
@@ -77,8 +82,9 @@
   transform: translate(16px, 16px);
 }
 
-/* Petit bouton fleche, appel a l'action pour reserver directement
-   depuis la carte du tarif. */
+/* Bouton fleche, maintenant purement decoratif (le lien est
+   .tarif-corps en entier) : il reagit quand on survole n'importe
+   quelle partie de la carte, pas seulement lui-meme. */
 .tarif-cta {
   position: absolute;
   right: 1rem;
@@ -94,19 +100,22 @@
   transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
-.tarif-cta:hover {
+.tarif-corps:hover .tarif-cta {
   background-color: var(--orange);
   transform: scale(1.08);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .tarif-cta:active {
+  .tarif-corps:active .tarif-cta {
     transform: scale(0.95);
   }
 }
 
 /* Icone fleche fournie par le client (images/icons/fleche_en_bas_a_droite.png),
-   en masque pour reprendre la couleur du bouton comme .retour. */
+   en masque pour reprendre la couleur du bouton comme .retour. Elle
+   glisse dans sa propre direction (bas-droite) au survol de la
+   carte, meme animation que la fleche de .retour et des cartes
+   d'evenement. */
 .tarif-cta-icone {
   width: 16px;
   height: 16px;
@@ -114,6 +123,16 @@
   background-color: currentColor;
   mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
   -webkit-mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tarif-cta-icone {
+    transition: transform 0.25s ease;
+  }
+
+  .tarif-corps:hover .tarif-cta-icone {
+    transform: translate(3px, 3px);
+  }
 }
 
 .tarifs-grille h3 {
@@ -140,13 +159,13 @@
 .tarifs-grille .prix {
   font-family: var(--police-h2);
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   color: var(--rouge);
   margin-bottom: 0.5rem;
 }
 
 .tarifs-grille .detail {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   color: var(--noir);
   opacity: 0.85;
@@ -173,15 +192,15 @@
 }
 
 .horaires-grille h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--rouge);
   margin-bottom: 0.4rem;
 }
 .horaires-grille p {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 400;
   color: var(--noir);
 }
 

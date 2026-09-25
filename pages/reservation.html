@@ -20,7 +20,12 @@
       <a href="../index.html">
         <img src="../images/logo/image.png" alt="Logo du Musée du Modélisme Ferroviaire">
       </a>
-      <ul>
+      <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="menu-principal">
         <li><a href="../index.html">Accueil</a></li>
         <li><a href="expositions.html">Expositions</a></li>
         <li><a href="horaire-tarifs.html">Horaire &amp; Tarifs</a></li>
@@ -61,6 +66,7 @@
                 <img class="billet-icone" src="../images/icons/billet-adulte.png" alt="" aria-hidden="true">
                 <div class="billet-entete">
                   <h3>Adulte</h3>
+                  <p class="billet-description" aria-hidden="true">&nbsp;</p>
                   <p class="billet-prix"><span id="prix-adulte">12,00</span> $</p>
                 </div>
                 <div class="billet-pied">
