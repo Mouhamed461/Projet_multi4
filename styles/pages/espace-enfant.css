@@ -506,7 +506,8 @@
 .element-fixe--train {
     width: 180px;
     height: auto;
-    transform: translateX(-60px);
+    transform: translate(-60px, 0);
+    transition: transform 0.35s linear;
 }
 
 .element-fixe--gare {

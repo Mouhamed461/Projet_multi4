@@ -22,6 +22,7 @@ let niveauActuel = 0;
 let puzzleActuel;
 let railActif = "";
 
+
 btnJouer.onclick = () => {
     btnJouer.classList.add("animation");
 
@@ -35,6 +36,7 @@ btnJouer.onclick = () => {
         chargerNiveau();
     }, 300);
 };
+
 
 btnRetour.onclick = () => {
     btnRetour.classList.add("animation");
@@ -59,6 +61,7 @@ btnRetour.onclick = () => {
     }, 300);
 };
 
+
 btnSuivant.onclick = () => {
     btnSuivant.classList.add("animation");
 
@@ -70,6 +73,7 @@ btnSuivant.onclick = () => {
         chargerNiveau();
     }, 300);
 };
+
 
 btnRejouer.onclick = () => {
     btnRejouer.classList.add("animation");
@@ -83,6 +87,7 @@ btnRejouer.onclick = () => {
         chargerNiveau();
     }, 300);
 };
+
 
 railBtns.forEach(btn => {
 
@@ -101,6 +106,7 @@ railBtns.forEach(btn => {
     };
 
 });
+
 
 function chargerNiveau() {
 
@@ -140,6 +146,7 @@ function chargerNiveau() {
         });
     }, 100);
 }
+
 
 function creerPlateau() {
 
@@ -206,6 +213,7 @@ function creerPlateau() {
     }
 }
 
+
 function afficherRail(c, type) {
 
     const img = document.createElement("img");
@@ -253,6 +261,7 @@ function afficherRail(c, type) {
     c.appendChild(img);
 }
 
+
 function placerRail(c) {
 
     if (!railActif) {
@@ -278,7 +287,34 @@ btnValider.onclick = () => {
     }, 300);
 };
 
-function verifierNiveau() {
+
+async function animerTrain() {
+
+    const train = document.querySelector(".element-fixe--train");
+    const caseDepart = plateau.children[puzzleActuel.depart];
+
+    for (let i = 1; i < puzzleActuel.chemin.length; i++) {
+
+        const caseCible =
+            plateau.children[puzzleActuel.chemin[i]];
+
+        const x =
+            caseCible.offsetLeft - caseDepart.offsetLeft;
+
+        const y =
+            caseCible.offsetTop - caseDepart.offsetTop;
+
+        train.style.transform =
+            `translate(${x - 60}px, ${y}px)`;
+
+        await new Promise(resolve => {
+            setTimeout(resolve, 350);
+        });
+    }
+}
+
+
+async function verifierNiveau() {
 
     let correct = true;
 
@@ -302,6 +338,8 @@ function verifierNiveau() {
 
     msg.innerText = "";
     msg.classList.remove("erreur");
+
+    await animerTrain();
 
     if (niveauActuel === niveaux.length - 1) {
 
