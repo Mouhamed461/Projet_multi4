@@ -62,10 +62,6 @@ article {
   margin-bottom: 3rem;
 }
 
-.fiche-hero h1 .accent {
-  color: var(--vert);
-}
-
 .fiche-hero-corps {
   display: flex;
   align-items: stretch;
@@ -140,6 +136,14 @@ article {
     padding: 2.5rem 2rem 3rem;
   }
 
+  /* Aligne la fleche retour avec la colonne de l'etiquette et du
+     titre : le padding horizontal de .fiche-hero change a chaque
+     palier, donc la marge de .retour (definie dans global.css pour
+     toutes les fiches) doit suivre la meme valeur ici. */
+  .retour {
+    margin: 1.5rem 2rem 0;
+  }
+
   .fiche-hero h1 {
     font-size: 1.9rem;
     margin-bottom: 2rem;
@@ -164,6 +168,36 @@ article {
 
   .fiche-separateur {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  article {
+    padding: 1.5rem;
+  }
+
+  .fiche-hero {
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .retour {
+    margin: 1.25rem 1.25rem 0;
+  }
+
+  .fiche-hero h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .fiche-image img,
+  .fiche-hero-corps .fiche-image img {
+    height: 220px;
+  }
+
+  .fiche-texte a.cta {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 1.5rem;
   }
 }
 

@@ -57,16 +57,6 @@
     align-items: flex-start;
 }
 
-.bloc-information-titre .numero {
-    margin-bottom: 0.8rem;
-    font-family: var(--police-texte);
-    font-size: 0.78rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.14em;
-    color: var(--vert);
-}
-
 .bloc-information h2 {
     max-width: 370px;
     font-size: 2rem;
