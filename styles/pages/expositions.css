@@ -1,8 +1,4 @@
-/* Page Expositions : liste des trois expositions en bandes plein
-   largeur, chacune separee des autres par un espace genereux (gap).
-   Une fine ligne verte encadre la partie texte de chaque exposition,
-   en haut et en bas, sans traverser l'image. Image plus large que le
-   texte. */
+/* Page Expositions : une bande pleine largeur par exposition */
 .lignes-expositions {
   display: flex;
   flex-direction: column;
@@ -50,9 +46,7 @@
   border-bottom: 1px solid var(--vert);
 }
 
-/* Une expo sur deux est inversee (image a droite, texte a gauche)
-   pour que les trois bandes n'aient pas exactement la meme
-   disposition. Le remplissage du texte suit. */
+/* Une bande sur deux est inversée (image à droite). */
 .ligne-exposition:nth-child(even) {
   flex-direction: row-reverse;
 }
@@ -119,39 +113,11 @@
   gap: 0.9rem;
 }
 
-/* Entree en fondu au scroll, purement decorative : les navigateurs
-   qui ne prennent pas en charge les animations liees au scroll
-   affichent simplement les bandes sans animation (aucun script de
-   remplacement necessaire pour un effet decoratif). */
-@media (prefers-reduced-motion: no-preference) {
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    @keyframes ligne-entree {
-      from {
-        opacity: 0;
-        translate: 0 40px;
-      }
-    }
-
-    .ligne-exposition {
-      animation: ligne-entree 0.6s ease-out backwards;
-      animation-timeline: view();
-      animation-range: entry;
-    }
-  }
-}
-
 @media (max-width: 860px) {
   .lignes-expositions {
     gap: 1.5rem;
   }
 
-  /* Il faut repeter les variantes nth-child(even) / nth-child(3n)
-     ici : ces selecteurs desktop (specificite 0-2-0) sont plus
-     specifiques que .ligne-exposition seul (0-1-0), donc ils
-     l'emportent sur ces regles mobiles malgre leur position plus
-     tardive dans le fichier. Sans ca, la carte paire (Les gares
-     regionales) restait en row-reverse en mobile : le texte se
-     retrouvait ecrase hors de l'ecran. */
   .ligne-exposition,
   .ligne-exposition:nth-child(even) {
     flex-direction: column;

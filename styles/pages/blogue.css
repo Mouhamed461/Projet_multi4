@@ -1,7 +1,4 @@
-/* Barre de progression de lecture sur les pages d'article de blogue.
-   Suit le defilement de la page en CSS pur (scroll-driven animation) ;
-   un repli JS dans global.js prend le relais pour Firefox, qui ne
-   supporte pas encore animation-timeline. */
+/* Barre de progression de lecture (mise à jour par global.js). */
 #progression-lecture {
   position: fixed;
   top: 0;
@@ -14,21 +11,7 @@
   z-index: 1000;
 }
 
-@supports (animation-timeline: scroll()) {
-  @keyframes progression-lecture-defilement {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-
-  #progression-lecture {
-    animation: progression-lecture-defilement auto linear;
-    animation-timeline: scroll(root);
-  }
-}
-
-/* Fiche d'un article de blogue (blogue-article-1/2/3.html) : titre
-   en haut, grande image ensuite, puis le texte, dans les couleurs
-   du site plutot que le texte noir par defaut du navigateur. */
+/* Page d'un article */
 main > article {
   max-width: 760px;
   margin: 1.5rem auto 4rem;
@@ -66,36 +49,10 @@ main > article p:not(.etiquette) {
   margin-bottom: 1.5rem;
 }
 
-/* Trait jaune qui marque le debut du texte, juste apres l'image,
-   meme logique que sur les fiches d'exposition. */
+/* Trait jaune au début du texte. */
 main > article img + p {
   border-top: 3px solid var(--jaune);
   padding-top: 1.5rem;
-}
-
-/* Les paragraphes de texte apparaissent en fondu avec une legere
-   montee au moment ou ils entrent dans la fenetre visible en
-   defilant vers le bas, un a la fois. Pilote par IntersectionObserver
-   (voir global.js) plutot que par animation-timeline: view(), car un
-   paragraphe deja visible des le chargement (avant tout defilement)
-   n'a alors aucune transition a jouer avec une timeline liee au
-   defilement : il apparait simplement tel quel, sans animation.
-   Avec la classe .est-visible ajoutee par JS, chaque paragraphe joue
-   une vraie transition chronometree, meme celui deja a l'ecran au
-   chargement. Un filet <noscript> dans chaque page d'article annule
-   ces regles si JavaScript est desactive, pour ne jamais cacher de
-   texte reel. */
-@media (prefers-reduced-motion: no-preference) {
-  main > article p:not(.etiquette) {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-
-  main > article p:not(.etiquette).est-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 860px) {
@@ -111,11 +68,6 @@ main > article img + p {
     height: 260px;
   }
 
-  /* .retour vient de global.css avec une marge fixe de 5rem, pensee
-     pour l'alignement desktop (article aussi centre avec un espace
-     equivalent). A ce palier l'article passe a 1.5rem de padding :
-     sans cette reprise, la fleche retour resterait plus a droite que
-     le titre et le texte de l'article. */
   .retour {
     margin: 1.5rem 1.5rem 0;
   }
@@ -139,9 +91,7 @@ main > article img + p {
   }
 }
 
-/* Page Blogue : liste des articles en grille de deux colonnes,
-   chaque carte avec l'image en haut et le contenu texte en dessous. */
-
+/* Page Blogue : grille des articles */
 .articles {
   padding: 0 5rem 5rem;
   display: grid;
@@ -160,37 +110,16 @@ main > article img + p {
   margin-bottom: 0.5rem;
 }
 
-/* Meme logique de carte empilee que sur Evenements et Horaire & Tarifs
-   (voir evenements.css .carte-evenement / horaire-tarifs.css .tarif-corps) :
-   un panneau colore reste fixe derriere, entierement recouvert au repos
-   par le panneau blanc, qui glisse en diagonale au survol pour reveler
-   le panneau colore dessous. Ici le panneau colore est un pseudo-element
-   plutot qu'une hauteur fixe sur la carte : le texte des articles varie
-   trop selon la largeur d'ecran (2 a 4 lignes) pour qu'une hauteur fixe
-   fonctionne sans couper du texte ou laisser un grand vide. Le pseudo-
-   element suit alors toujours la hauteur reelle du panneau blanc. */
+/* Carte empilée : le panneau blanc glisse au survol et révèle le fond rouge. */
 .articles article {
   position: relative;
   border-radius: 6px;
 }
 
-/* Toute la carte est cliquable (retour du test utilisateur) : ce lien
-   couvre l'ensemble de la carte et pointe vers le meme article que
-   "Lire l'article", meme logique que .carte-evenement-lien
-   (evenements.css). */
-.article-lien {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
 .articles article::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: var(--rouge);
   border-radius: 6px;
 }
@@ -222,7 +151,6 @@ main > article img + p {
   width: 100%;
   height: 240px;
   object-fit: cover;
-  display: block;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -279,8 +207,19 @@ main > article img + p {
   border-top: 2px solid var(--jaune);
 }
 
+/* Le lien « Lire l'article » couvre toute la carte. */
+.articles article a.lire-article::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
 .articles article a.lire-article .fleche {
   display: inline-block;
+}
+
+.articles article:hover a.lire-article {
+  color: var(--orange);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -292,11 +231,7 @@ main > article img + p {
     transition: transform 0.25s ease;
   }
 
-  .articles article a.lire-article:hover {
-    color: var(--orange);
-  }
-
-  .articles article a.lire-article:hover .fleche {
+  .articles article:hover a.lire-article .fleche {
     transform: translate(3px, -3px);
   }
 }

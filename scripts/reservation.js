@@ -1,6 +1,5 @@
-/* Reservation : gestion du panier de billets, calcul des totaux et
-   confirmation de l'achat. Le paiement se fait sur place, ce formulaire
-   ne fait que reserver les billets. */
+// Réservation : panier de billets, calcul des taxes et confirmation.
+// Le paiement se fait sur place, le formulaire ne fait que réserver.
 
 const PRIX = {
   adulte: 12,
@@ -24,7 +23,7 @@ function obtenirQuantites() {
   const quantites = {};
   for (const cle of Object.keys(PRIX)) {
     const champ = document.getElementById(`quantite-${cle}`);
-    quantites[cle] = champ ? Math.max(0, parseInt(champ.value, 10) || 0) : 0;
+    quantites[cle] = Math.max(0, parseInt(champ.value, 10) || 0);
   }
   return quantites;
 }
@@ -42,22 +41,13 @@ function mettreAJourPanier() {
     const sousTotalLigne = quantite * prix;
     sousTotal += sousTotalLigne;
 
-    const elementSousTotal = document.getElementById(`sous-total-${cle}`);
-    if (elementSousTotal) {
-      elementSousTotal.textContent = formaterPrix(sousTotalLigne);
-    }
+    document.getElementById(`sous-total-${cle}`).textContent = formaterPrix(sousTotalLigne);
 
     const carte = document.querySelector(`.carte-billet[data-billet="${cle}"]`);
-    if (carte) {
-      carte.classList.toggle("carte-billet--actif", quantite > 0);
-    }
+    carte.classList.toggle("carte-billet--actif", quantite > 0);
 
-    const boutonMoins = document.querySelector(
-      `.stepper-bouton[data-cible="quantite-${cle}"][data-pas="-1"]`
-    );
-    if (boutonMoins) {
-      boutonMoins.disabled = quantite <= 0;
-    }
+    const boutonMoins = document.querySelector(`.selecteur-bouton[data-cible="quantite-${cle}"][data-pas="-1"]`);
+    boutonMoins.disabled = quantite <= 0;
   }
 
   const tps = sousTotal * TAUX_TPS;
@@ -70,24 +60,16 @@ function mettreAJourPanier() {
   document.getElementById("total").textContent = formaterPrix(total);
 
   const totalBillets = calculerTotalBillets(quantites);
-  const boutonConfirmer = document.getElementById("bouton-confirmer");
-  const messageRecap = document.getElementById("recap-message");
-
-  if (boutonConfirmer) {
-    boutonConfirmer.disabled = totalBillets === 0;
-  }
-  if (messageRecap) {
-    messageRecap.hidden = totalBillets > 0;
-  }
+  document.getElementById("bouton-confirmer").disabled = totalBillets === 0;
+  document.getElementById("recap-message").hidden = totalBillets > 0;
 }
 
 function initialiserSteppers() {
-  document.querySelectorAll(".stepper-bouton").forEach((bouton) => {
+  document.querySelectorAll(".selecteur-bouton").forEach((bouton) => {
     bouton.addEventListener("click", () => {
       const idCible = bouton.dataset.cible;
       const pas = parseInt(bouton.dataset.pas, 10) || 0;
       const champ = document.getElementById(idCible);
-      if (!champ) return;
 
       const min = parseInt(champ.min, 10) || 0;
       const max = parseInt(champ.max, 10) || Infinity;
@@ -99,7 +81,7 @@ function initialiserSteppers() {
     });
   });
 
-  document.querySelectorAll(".stepper-champ").forEach((champ) => {
+  document.querySelectorAll(".selecteur-champ").forEach((champ) => {
     champ.addEventListener("input", () => {
       const min = parseInt(champ.min, 10) || 0;
       const max = parseInt(champ.max, 10) || Infinity;
@@ -127,7 +109,6 @@ function initialiserSteppers() {
 function afficherConfirmation() {
   const panier = document.getElementById("panier");
   const confirmation = document.getElementById("confirmation");
-  if (!panier || !confirmation) return;
 
   panier.hidden = true;
   confirmation.hidden = false;
@@ -137,16 +118,13 @@ function afficherConfirmation() {
   });
 
   const titre = confirmation.querySelector("h2");
-  if (titre) {
-    titre.setAttribute("tabindex", "-1");
-    titre.focus();
-  }
+  titre.setAttribute("tabindex", "-1");
+  titre.focus();
   confirmation.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function initialiserFormulairePanier() {
   const formulaire = document.getElementById("formulaire-panier");
-  if (!formulaire) return;
 
   initialiserSteppers();
   mettreAJourPanier();
@@ -159,23 +137,13 @@ function initialiserFormulairePanier() {
       return;
     }
 
-    const quantites = obtenirQuantites();
-    if (calculerTotalBillets(quantites) === 0) {
-      const messageRecap = document.getElementById("recap-message");
-      if (messageRecap) {
-        messageRecap.hidden = false;
-        messageRecap.focus?.();
-      }
+    if (calculerTotalBillets(obtenirQuantites()) === 0) {
       return;
     }
 
-    const boutonConfirmer = document.getElementById("bouton-confirmer");
-    if (boutonConfirmer) {
-      boutonConfirmer.disabled = true;
-    }
-
+    document.getElementById("bouton-confirmer").disabled = true;
     afficherConfirmation();
   });
 }
 
-document.addEventListener("DOMContentLoaded", initialiserFormulairePanier);
+initialiserFormulairePanier();

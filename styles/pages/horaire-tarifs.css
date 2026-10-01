@@ -1,5 +1,4 @@
-/* Horaire et Tarifs */
-/* Le hero reprend le gabarit commun de global.css. */
+/* Page Horaire et tarifs */
 
 #tarifs {
   padding: 4.5rem 5rem 2rem;
@@ -18,7 +17,7 @@
   margin-bottom: 2rem;
 }
 
-/* Tarifs en cartes, grille fixe de 3 colonnes comme le wireframe. */
+/* Tarifs : grille de 3 cartes */
 .tarifs-grille {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -26,22 +25,18 @@
   margin-bottom: 2rem;
 }
 
-/* La carte de couleur reste fixe et sert de deuxieme carte cachee
-   dessous, entierement recouverte par la carte beige au repos. */
+/* Carte empilée : la carte beige glisse au survol et révèle le fond rouge. */
 .tarifs-grille li {
   position: relative;
   width: 72%;
   min-height: 340px;
   margin: 0 auto;
-  background-color: #9E3D23;
+  background-color: var(--rouge);
   border-radius: 4px;
 }
 
-/* La carte du milieu reste centree dans sa colonne, mais celle de
-   gauche s'aligne avec le titre de la section et celle de droite
-   avec le bord droit, pour garder une bonne marge entre les trois
-   sans deformer la largeur de la page. */
-@media (min-width: 861px) {
+/* Grand écran : cartes de gauche et de droite alignées sur les bords. */
+@media (min-width: 1401px) {
   .tarifs-grille li:nth-child(3n+1) {
     margin-left: 0;
     margin-right: auto;
@@ -53,19 +48,10 @@
   }
 }
 
-/* La carte beige, avec tout le contenu, glisse en diagonale au
-   survol et laisse apparaitre le coin de la carte verte dessous,
-   comme deux cartes empilees. Toute la vignette est maintenant un
-   lien (voir horaire-tarifs.html) : plus facile a cliquer, surtout
-   au doigt sur tablette/telephone, plutot que de viser le petit
-   bouton fleche seul. */
+/* Toute la carte est un lien vers la réservation. */
 .tarif-corps {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,17 +60,19 @@
   background-color: var(--beige);
   border: 2px solid rgba(32, 33, 34, 0.2);
   border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.4s ease;
 }
 
-.tarifs-grille li:hover .tarif-corps {
-  transform: translate(16px, 16px);
+@media (prefers-reduced-motion: no-preference) {
+  .tarif-corps {
+    transition: transform 0.4s ease;
+  }
+
+  .tarifs-grille li:hover .tarif-corps {
+    transform: translate(16px, 16px);
+  }
 }
 
-/* Bouton fleche, maintenant purement decoratif (le lien est
-   .tarif-corps en entier) : il reagit quand on survole n'importe
-   quelle partie de la carte, pas seulement lui-meme. */
+/* Petit bouton flèche décoratif en bas à droite. */
 .tarif-cta {
   position: absolute;
   right: 1rem;
@@ -111,18 +99,13 @@
   }
 }
 
-/* Icone fleche fournie par le client (images/icons/fleche_en_bas_a_droite.png),
-   en masque pour reprendre la couleur du bouton comme .retour. Elle
-   glisse dans sa propre direction (bas-droite) au survol de la
-   carte, meme animation que la fleche de .retour et des cartes
-   d'evenement. */
 .tarif-cta-icone {
   width: 16px;
   height: 16px;
   display: inline-block;
   background-color: currentColor;
-  mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
-  -webkit-mask: url("../../images/icons/fleche_en_bas_a_droite.png") no-repeat center / contain;
+  mask: url("../../images/icons/fleche-bas-droite.png") no-repeat center / contain;
+  -webkit-mask: url("../../images/icons/fleche-bas-droite.png") no-repeat center / contain;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -136,10 +119,10 @@
 }
 
 .tarifs-grille h3 {
-  font-family: var(--police-h2);
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  min-height: 4.1rem; /* place du sous-titre, même s'il est absent */
   padding-bottom: 0.9rem;
   margin-bottom: 0.9rem;
   border-bottom: 2px solid rgba(32, 33, 34, 0.2);
@@ -171,6 +154,7 @@
   opacity: 0.85;
   max-width: 220px;
   margin: 0 auto;
+  min-height: 4.5em; /* 3 lignes, pour aligner toutes les cartes */
 }
 
 #tarifs > p {
@@ -183,7 +167,7 @@
   text-decoration: underline;
 }
 
-/* Horaires en texte simple, sans carte ni fond colore. */
+/* Horaires */
 .horaires-grille {
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
@@ -198,10 +182,17 @@
   color: var(--rouge);
   margin-bottom: 0.4rem;
 }
+
 .horaires-grille p {
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--noir);
+}
+
+@media (max-width: 1400px) {
+  .tarifs-grille {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 860px) {
@@ -215,16 +206,12 @@
     grid-template-columns: 1fr;
   }
 
-  .tarifs-grille {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .tarifs-grille li {
     width: 90%;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   #horaires,
   #tarifs {
     padding-left: 1.5rem;
