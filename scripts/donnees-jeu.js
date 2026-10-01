@@ -179,6 +179,7 @@ const niveaux = [
   }
 ];
 
+// Images des rails, du train et de la gare
 const railsVerticaux = [
   "../images/jeu/rails/vertical/rail-tile.png",
   "../images/jeu/rails/vertical/rail-tile-2.png",

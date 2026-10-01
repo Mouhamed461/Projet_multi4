@@ -1,6 +1,7 @@
 // Activité interactive : guider le train jusqu'à la gare en plaçant les bons rails.
 // Les niveaux et les images viennent de donnees-jeu.js.
 
+// Éléments principaux de la page
 const intro = document.getElementById("introduction-jeu");
 const jeu = document.getElementById("jeu-rail");
 const enteteJeu = document.querySelector(".jeu-rail__entete");
@@ -19,6 +20,7 @@ const message = document.getElementById("message-jeu");
 const fenetreReussite = document.getElementById("fenetre-reussite");
 const fenetreFin = document.getElementById("fin-jeu");
 
+// État de la partie en cours
 let niveauActuel = 0;
 let puzzleActuel = null;
 let railActif = "";
@@ -33,15 +35,18 @@ function animerBouton(bouton, action) {
   }, 300);
 }
 
+// Affiche un message sous les rails (en rouge si c'est une erreur).
 function afficherMessage(texte, estErreur = false) {
   message.textContent = texte;
   message.classList.toggle("erreur", estErreur);
 }
 
+// Retourne un élément au hasard dans une liste.
 function choisirAuHasard(liste) {
   return liste[Math.floor(Math.random() * liste.length)];
 }
 
+// Bouton « Jouer » : lance l'activité au premier niveau.
 boutonJouer.addEventListener("click", () => {
   animerBouton(boutonJouer, () => {
     intro.hidden = true;
@@ -51,6 +56,7 @@ boutonJouer.addEventListener("click", () => {
   });
 });
 
+// Retour au menu de départ, l'activité est réinitialisée.
 boutonRetour.addEventListener("click", () => {
   animerBouton(boutonRetour, () => {
     jeu.hidden = true;
@@ -63,6 +69,7 @@ boutonRetour.addEventListener("click", () => {
   });
 });
 
+// Passe au niveau suivant.
 boutonSuivant.addEventListener("click", () => {
   animerBouton(boutonSuivant, () => {
     niveauActuel++;
@@ -70,6 +77,7 @@ boutonSuivant.addEventListener("click", () => {
   });
 });
 
+// Recommence depuis le premier niveau (même sprite que le bouton « Jouer »).
 boutonRejouer.addEventListener("click", () => {
   animerBouton(boutonRejouer, () => {
     niveauActuel = 0;
@@ -77,10 +85,12 @@ boutonRejouer.addEventListener("click", () => {
   });
 });
 
+// Vérifie les rails placés.
 boutonValider.addEventListener("click", () => {
   animerBouton(boutonValider, verifierNiveau);
 });
 
+// Sélection du type de rail à placer.
 boutonsRails.forEach((bouton) => {
   bouton.addEventListener("click", () => {
     railActif = bouton.dataset.type;
@@ -89,6 +99,7 @@ boutonsRails.forEach((bouton) => {
   });
 });
 
+// Charge un trajet au hasard pour le niveau actuel.
 function chargerNiveau() {
   const niveau = niveaux[niveauActuel];
   puzzleActuel = choisirAuHasard(niveau.puzzles);
@@ -115,6 +126,7 @@ function chargerNiveau() {
   }, 100);
 }
 
+// Crée les cases du plateau selon le trajet choisi.
 function creerPlateau() {
   plateau.innerHTML = "";
   plateau.style.gridTemplateColumns = `repeat(${puzzleActuel.colonnes}, 80px)`;
@@ -149,6 +161,7 @@ function creerPlateau() {
   }
 }
 
+// Crée une image (train, gare ou rail) pour une case.
 function creerImage(source, texteAlternatif, classes) {
   const image = document.createElement("img");
   image.src = source;
@@ -172,6 +185,7 @@ function afficherRail(caseJeu, type) {
   caseJeu.appendChild(creerImage(source, "Rail", `texture-rail ${classe}`));
 }
 
+// Place le rail sélectionné dans la case cliquée.
 function placerRail(caseJeu) {
   if (!railActif) {
     afficherMessage("Choisis d'abord un rail !");
@@ -204,6 +218,7 @@ async function animerTrain() {
   }
 }
 
+// Vérifie que chaque rail placé correspond à la solution.
 async function verifierNiveau() {
   const correct = Object.keys(puzzleActuel.solution).every((position) => {
     return plateau.children[position].dataset.val === puzzleActuel.solution[position];
@@ -224,6 +239,7 @@ async function verifierNiveau() {
 
   await animerTrain();
 
+  // Affiche la fenêtre du niveau suivant, ou celle de fin.
   const dernierNiveau = niveauActuel === niveaux.length - 1;
   const fenetre = dernierNiveau ? fenetreFin : fenetreReussite;
 

@@ -29,6 +29,7 @@
     linear-gradient(currentColor 0 0) 0 15px / 100% 1px no-repeat,
     repeating-linear-gradient(to right, transparent 0 28px, currentColor 28px 29px, transparent 29px 56px) 0 6px / 100% 8px no-repeat;
   transform: translateY(-50%);
+  /* Fondu des rails aux deux extrémités */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
   pointer-events: none;
@@ -99,6 +100,7 @@
   transition: color 0.2s ease;
 }
 
+/* Ligne animée sous les liens au survol */
 .coordonnees a::after {
   content: "";
   position: absolute;
@@ -143,6 +145,7 @@
   transform: rotate(45deg);
 }
 
+/* Tablette : une seule colonne */
 @media (max-width: 860px) {
   .informations-visite {
     padding-left: 2rem;
@@ -165,6 +168,7 @@
   }
 }
 
+/* Téléphone : espacements réduits */
 @media (max-width: 600px) {
   .informations-visite {
     padding-left: 1.25rem;
