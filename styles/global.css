@@ -158,6 +158,29 @@ html {
   }
 }
 
+/* Transition horizontale entre la liste des evenements et une
+   fiche en particulier : meme logique et memes animations que la
+   liste des expositions vers une fiche d'exposition (voir plus
+   haut). Le type (evenement-avant / evenement-arriere) est ajoute
+   en JS (voir scripts/global.js, evenement pagereveal). */
+@media (prefers-reduced-motion: no-preference) {
+  html:active-view-transition-type(evenement-avant)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-gauche;
+  }
+
+  html:active-view-transition-type(evenement-avant)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-droite;
+  }
+
+  html:active-view-transition-type(evenement-arriere)::view-transition-old(root) {
+    animation: 320ms cubic-bezier(0.4, 0, 1, 1) both glisse-sortie-droite;
+  }
+
+  html:active-view-transition-type(evenement-arriere)::view-transition-new(root) {
+    animation: 480ms cubic-bezier(0.22, 1, 0.36, 1) both glisse-entree-gauche;
+  }
+}
+
 /* Transition en fondu avec un leger zoom entre la page blogue et un
    article en particulier : volontairement differente du glissement
    horizontal des expositions, pour donner un rythme distinct a la
@@ -225,17 +248,18 @@ main {
 }
 
 main::after {
-  content: url("../images/footer-train-animated-x200.gif");
+  content: "";
   display: block;
   position: absolute;
-  /* Le fichier contient une marge transparente sous les roues,
-     on ajuste bottom pour coller le train au trait du footer. */
-  bottom: -33px;
+  /* Le fichier contient une marge transparente sous les roues (mesuree a environ 7px
+     une fois le gif mis a l'echelle), on ajuste bottom pour coller les roues au trait du footer. */
+  bottom: -8px;
   right: 3rem;
   height: 182px;
-  width: auto;
-  line-height: 0;
-  font-size: 0;
+  aspect-ratio: 644 / 156;
+  background-image: url("../images/footer-train-animated-x200.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
@@ -252,19 +276,25 @@ main::after {
   }
 
   main::after {
-    animation: passage-train 32s ease-in-out infinite;
+    animation: passage-train 19s ease-in-out infinite;
   }
 }
 
+/* Le train (largeur ~751px, calculee depuis height:182px et aspect-ratio 644/156)
+   part juste hors-champ a droite (3rem d'ancrage + sa propre largeur + une petite
+   marge de 40px) et termine juste hors-champ a gauche (calc base sur 100vw pour
+   rester correct peu importe la largeur d'ecran). Avant, les valeurs en vw
+   (60vw / -170vw) gonflaient enormement le temps invisible sur les grands ecrans,
+   ce qui donnait un intervalle perçu beaucoup plus long que prevu. */
 @keyframes passage-train {
   0% {
-    transform: translateX(60vw);
+    transform: translateX(839px);
   }
-  56% {
-    transform: translateX(-170vw);
+  55.26% {
+    transform: translateX(calc(-100vw + 8px));
   }
   100% {
-    transform: translateX(-170vw);
+    transform: translateX(calc(-100vw + 8px));
   }
 }
 
@@ -338,6 +368,8 @@ ul {
 
 /* header */
 header {
+  position: relative;
+  z-index: 10;
   background-color: var(--beige);
   border-bottom: 2px solid var(--rouge);
 }
@@ -434,6 +466,125 @@ header nav ul li:last-child a:hover {
   }
 }
 
+/* Menu tablette/telephone : bouton hamburger + panneau deroulant.
+   La regle :has() fait en sorte que tout ce bloc ne s'applique qu'aux
+   pages ou le bouton .nav-toggle existe reellement dans le HTML (pour
+   le moment, seulement index.html) ; les autres pages gardent le menu
+   horizontal actuel tel quel, sans regression, en attendant d'etre
+   rendues responsives elles aussi. */
+.nav-toggle {
+  display: none;
+}
+
+/* Le seuil est plus large (1150px) que la convention 860px utilisee
+   ailleurs sur le site pour le contenu des pages : le ul est centre
+   dans header nav sans tenir compte de la largeur du logo (left: 50%
+   + translateX(-50%)), donc avec 8 liens il commence a chevaucher le
+   logo bien avant 860px. Le menu-burger doit donc s'activer plus tot
+   pour couvrir toute la zone tablette (portrait et paysage) sans
+   chevauchement. */
+@media (max-width: 1150px) {
+  header nav:has(.nav-toggle) {
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    background-color: var(--noir);
+    border-radius: 1px;
+  }
+
+  header nav.menu-ouvert .nav-toggle span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  header nav.menu-ouvert .nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  header nav.menu-ouvert .nav-toggle span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  header nav:has(.nav-toggle) ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--beige);
+    border-bottom: 2px solid var(--rouge);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  header nav.menu-ouvert ul {
+    display: flex;
+  }
+
+  header nav:has(.nav-toggle) ul li {
+    width: 100%;
+  }
+
+  header nav:has(.nav-toggle) ul li a {
+    display: block;
+    padding: 0.9rem 1.5rem;
+  }
+
+  header nav:has(.nav-toggle) ul li:not(:last-child) a::after {
+    display: none;
+  }
+
+  header nav:has(.nav-toggle) ul li:last-child {
+    padding: 0.75rem 1.5rem 1.1rem;
+  }
+
+  header nav:has(.nav-toggle) ul li:last-child a {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  header nav:has(.nav-toggle) > a img {
+    height: 42px;
+    width: 42px;
+  }
+}
+
+@media (max-width: 1150px) and (prefers-reduced-motion: no-preference) {
+  .nav-toggle span:nth-child(1),
+  .nav-toggle span:nth-child(3) {
+    transition: transform 0.25s ease;
+  }
+
+  .nav-toggle span:nth-child(2) {
+    transition: opacity 0.2s ease;
+  }
+}
+
 /* Hero des pages secondaires, même proportion que celui de l'accueil :
    image plein cadre sur toute la hauteur, texte superposé au centre */
 main > section:first-child:not(#accueil-hero) {
@@ -489,6 +640,35 @@ main > section:first-child:not(#accueil-hero) p:not(.etiquette) {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--beige);
+}
+
+/* Hero des pages secondaires, tablette/telephone : partage par
+   toutes les pages qui utilisent ce patron (Expositions, etc.),
+   donc corrige ici une seule fois plutot que par page. */
+@media (max-width: 860px) {
+  main > section:first-child:not(#accueil-hero) {
+    height: 420px;
+    padding: 2.5rem 1.5rem;
+  }
+
+  main > section:first-child:not(#accueil-hero) h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  main > section:first-child:not(#accueil-hero) {
+    height: 360px;
+    padding: 2rem 1.25rem;
+  }
+
+  main > section:first-child:not(#accueil-hero) h1 {
+    font-size: 1.6rem;
+  }
+
+  main > section:first-child:not(#accueil-hero) p:not(.etiquette) {
+    font-size: 1rem;
+  }
 }
 
 /* footer */
@@ -561,7 +741,7 @@ footer .footer-liens section {
 }
 
 footer .footer-liens section h3 {
-  font-family: var(--police-h2);
+  font-family: var(--police-h1);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -611,3 +791,61 @@ footer > p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* Footer tablette/telephone : la grille 3 colonnes (logo | liens |
+   reseaux) devient une seule colonne centree. Comme .footer-liens a
+   display: contents, on cible directement footer nav et
+   footer .footer-liens section (ses vrais enfants dans la grille). */
+@media (max-width: 860px) {
+  footer > div {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding: 3rem 2rem;
+  }
+
+  footer > div > a {
+    grid-column: 1;
+    justify-self: center;
+  }
+
+  footer > div > a img {
+    height: 100px;
+    width: 100px;
+  }
+
+  footer nav {
+    grid-column: 1;
+    justify-self: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  footer nav ul {
+    align-items: center;
+  }
+
+  footer .footer-liens section {
+    grid-column: 1;
+    justify-self: center;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  footer > div {
+    padding: 2.5rem 1.5rem;
+  }
+
+  footer > div > a img {
+    height: 84px;
+    width: 84px;
+  }
+
+  footer nav {
+    gap: 1.75rem 2.5rem;
+  }
+}
+

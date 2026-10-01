@@ -71,6 +71,7 @@
 }
 
 .ligne-texte h2 {
+  font-family: var(--police-h1);
   font-size: 1.9rem;
   color: var(--rouge);
   margin-bottom: 1rem;
@@ -165,5 +166,24 @@
   .ligne-texte,
   .ligne-exposition:nth-child(even) .ligne-texte {
     padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .ligne-image {
+    height: 200px;
+  }
+
+  .ligne-texte,
+  .ligne-exposition:nth-child(even) .ligne-texte {
+    padding: 1.5rem;
+  }
+
+  .ligne-texte h2 {
+    font-size: 1.5rem;
+  }
+
+  .ligne-texte p:not(.etiquette-secondaire) {
+    font-size: 1rem;
   }
 }

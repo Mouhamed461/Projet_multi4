@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +8,11 @@
   <title>Musée du Modélisme Ferroviaire - Espace enfant</title>
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/pages/espace-enfant.css">
+  <!-- Bloque le rendu jusqu'a ce que le contenu principal soit
+       analyse, pour que la transition entre les pages ne demarre
+       jamais sur une page a moitie vide. -->
   <link rel="expect" href="#contenu-principal" blocking="render">
 </head>
-
 <body>
 
   <header>
@@ -19,8 +20,12 @@
       <a href="../index.html">
         <img src="../images/logo/image.png" alt="Logo du Musée du Modélisme Ferroviaire">
       </a>
-
-      <ul>
+      <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="menu-principal">
         <li><a href="../index.html">Accueil</a></li>
         <li><a href="expositions.html">Expositions</a></li>
         <li><a href="horaire-tarifs.html">Horaire &amp; Tarifs</a></li>
@@ -33,7 +38,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenu-principal">
 
     <div class="message-mobile">
       <h1>Mini-jeu non disponible sur mobile</h1>
@@ -43,240 +48,118 @@
     </div>
 
     <section class="introduction-jeu" id="introduction-jeu">
-
       <div class="menu-jeu">
-
         <div class="menu-jeu__fond"></div>
-
         <div class="menu-jeu__titre"></div>
-
         <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-jouer" aria-label="Jouer"></button>
-
         <img src="../images/jeu/train-minijeu.png" class="menu-jeu__train" alt="">
-
       </div>
-
     </section>
 
     <section class="jeu-rail" id="jeu-rail" hidden>
-
       <div class="jeu-rail__entete">
-
-        <p class="jeu-rail__niveau" id="compteur-niveau">
-          Niveau 1 / 3
-        </p>
-
-        <h1 id="titre-niveau">
-          Premier trajet
-        </h1>
-
-        <p id="consigne-niveau">
-          Relie le train à la gare en plaçant les bons rails !
-        </p>
-
+        <p class="jeu-rail__niveau" id="compteur-niveau">Niveau 1 / 3</p>
+        <h1 id="titre-niveau">Premier trajet</h1>
+        <p id="consigne-niveau">Relie le train à la gare en plaçant les bons rails !</p>
       </div>
 
       <div class="jeu-rail__contenu">
-
         <div class="jeu-rail__zone-plateau">
-
           <div id="plateau-jeu" aria-label="Plateau du jeu"></div>
-
         </div>
 
         <div class="jeu-rail__panneau">
-
           <div class="jeu-rail__outils">
-
-            <h2>
-              Rails disponibles
-            </h2>
-
-            <p>
-              Choisis un rail puis clique sur une case vide.
-            </p>
-
+            <h2>Rails disponibles</h2>
+            <p>Choisis un rail puis clique sur une case vide.</p>
             <div id="selection-rails">
-
               <button type="button" class="rail-btn" data-type="h" aria-label="Rail horizontal">
-                <img src="../images/jeu/rails/horizontal/rail-tile.png" alt=""
-                  class="rail-apercu rail-apercu--horizontal">
+                <img src="../images/jeu/rails/horizontal/rail-tile.png" alt="" class="rail-apercu rail-apercu--horizontal">
               </button>
-
               <button type="button" class="rail-btn" data-type="v" aria-label="Rail vertical">
                 <img src="../images/jeu/rails/vertical/rail-tile.png" alt="" class="rail-apercu rail-apercu--vertical">
               </button>
-
               <button type="button" class="rail-btn" data-type="courbeBG" aria-label="Rail courbé bas gauche">
-                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
-                  class="rail-apercu rail-apercu--courbe courbe-bg">
+                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt="" class="rail-apercu rail-apercu--courbe courbe-bg">
               </button>
-
               <button type="button" class="rail-btn" data-type="courbeHD" aria-label="Rail courbé haut droite">
-                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt=""
-                  class="rail-apercu rail-apercu--courbe courbe-hd">
+                <img src="../images/jeu/rails/courbe/left-curved-rail-minijeu.png" alt="" class="rail-apercu rail-apercu--courbe courbe-hd">
               </button>
-
               <button type="button" class="rail-btn" data-type="courbeBD" aria-label="Rail courbé bas droite">
-                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
-                  class="rail-apercu rail-apercu--courbe courbe-bd">
+                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt="" class="rail-apercu rail-apercu--courbe courbe-bd">
               </button>
-
               <button type="button" class="rail-btn" data-type="courbeHG" aria-label="Rail courbé haut gauche">
-                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt=""
-                  class="rail-apercu rail-apercu--courbe courbe-hg">
+                <img src="../images/jeu/rails/courbe/right-curved-rail-minijeu.png" alt="" class="rail-apercu rail-apercu--courbe courbe-hg">
               </button>
-
             </div>
-
           </div>
 
           <div class="jeu-rail__zone-message" aria-live="polite">
-
             <p id="message-jeu"></p>
-
           </div>
 
           <div class="jeu-rail__actions">
-
             <button type="button" class="bouton-jeu bouton-jeu--retour" id="bouton-retour" aria-label="Retour"></button>
-
-            <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider"
-              aria-label="Valider le chemin"></button>
-
+            <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-valider" aria-label="Valider le chemin"></button>
           </div>
-
         </div>
-
       </div>
 
       <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
-
         <div class="jeu-rail__reussite-contenu">
-
-          <h2>
-            Bravo !
-          </h2>
-
-          <p>
-            Le train est arrivé à destination.
-          </p>
-
-          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant"
-            aria-label="Niveau suivant"></button>
-
+          <h2>Bravo !</h2>
+          <p>Le train est arrivé à destination.</p>
+          <button type="button" class="bouton-jeu bouton-jeu--valider" id="bouton-niveau-suivant" aria-label="Niveau suivant"></button>
         </div>
-
       </div>
 
       <div class="jeu-rail__fin" id="fin-jeu" hidden>
-
         <div class="jeu-rail__fin-contenu">
-
-          <h2>
-            Bravo !
-          </h2>
-
-          <p>
-            Tu as terminé les trois niveaux et permis au train d'arriver à destination. Veux-tu rejouer ?
-          </p>
-
+          <h2>Bravo !</h2>
+          <p>Tu as terminé les trois niveaux et permis au train d'arriver à destination. Veux-tu rejouer ?</p>
           <button type="button" class="bouton-jeu bouton-jeu--jouer" id="bouton-rejouer" aria-label="Rejouer"></button>
-
         </div>
-
       </div>
-
     </section>
 
   </main>
 
   <footer>
-
     <div>
-
       <a href="../index.html">
         <img src="../images/logo/image.png" alt="Logo du Musée du Modélisme Ferroviaire">
       </a>
-
       <div class="footer-liens">
-
-        <nav aria-label="Plan du site">
-
-          <ul>
-            <li><a href="expositions.html">Expositions</a></li>
-            <li><a href="horaire-tarifs.html">Tarifs</a></li>
-            <li><a href="evenements.html">Événements</a></li>
-          </ul>
-
-          <ul>
-            <li><a href="information-visiteurs.html">Informations</a></li>
-            <li><a href="blogue.html">Blogue</a></li>
-            <li><a href="espace-enfant.html">Espace Enfant</a></li>
-          </ul>
-
-        </nav>
-
-        <section>
-
-          <h3>Nos réseaux</h3>
-
-          <ul>
-
-            <li>
-              <a href="#" aria-label="Facebook">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" aria-label="Instagram">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" aria-label="X">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" aria-label="YouTube">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-                  <polygon fill="#202122" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
-                </svg>
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
+      <nav aria-label="Plan du site">
+        <ul>
+          <li><a href="expositions.html">Expositions</a></li>
+          <li><a href="horaire-tarifs.html">Tarifs</a></li>
+        </ul>
+        <ul>
+          <li><a href="evenements.html">Événements</a></li>
+          <li><a href="information-visiteurs.html">Informations</a></li>
+        </ul>
+        <ul>
+          <li><a href="blogue.html">Blogue</a></li>
+          <li><a href="espace-enfant.html">Espace Enfant</a></li>
+        </ul>
+      </nav>
+      <section>
+        <h3>Nos réseaux</h3>
+        <ul>
+          <li><a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a></li>
+          <li><a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a></li>
+          <li><a href="#" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
+          <li><a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon fill="#202122" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a></li>
+        </ul>
+      </section>
       </div>
-
     </div>
-
     <p>&copy; 2026 Musée du Modélisme Ferroviaire</p>
-
   </footer>
 
   <script src="../scripts/global.js"></script>
   <script src="../scripts/donnees-jeu.js"></script>
   <script src="../scripts/espace-enfant.js"></script>
-
 </body>
-
 </html>

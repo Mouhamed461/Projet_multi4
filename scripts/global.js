@@ -1,6 +1,41 @@
 document.addEventListener("DOMContentLoaded", mettreAJourStatutMusee);
 document.addEventListener("DOMContentLoaded", activerReplBarreProgression);
 document.addEventListener("DOMContentLoaded", activerApparitionParagraphes);
+document.addEventListener("DOMContentLoaded", activerMenuMobile);
+
+// Menu de navigation en tiroir pour tablette et telephone (voir
+// global.css, .nav-toggle et header nav:has(.nav-toggle) ul). Le
+// bouton n'existe que sur les pages deja rendues responsives : sur
+// les autres, querySelector ne trouve rien et la fonction s'arrete
+// tout de suite, sans effet.
+function activerMenuMobile() {
+  const bouton = document.querySelector(".nav-toggle");
+  const nav = bouton ? bouton.closest("nav") : null;
+
+  if (!bouton || !nav) {
+    return;
+  }
+
+  const fermerMenu = () => {
+    nav.classList.remove("menu-ouvert");
+    bouton.setAttribute("aria-expanded", "false");
+  };
+
+  bouton.addEventListener("click", () => {
+    const estOuvert = nav.classList.toggle("menu-ouvert");
+    bouton.setAttribute("aria-expanded", String(estOuvert));
+  });
+
+  nav.querySelectorAll("ul a").forEach((lien) => {
+    lien.addEventListener("click", fermerMenu);
+  });
+
+  document.addEventListener("keydown", (evenement) => {
+    if (evenement.key === "Escape") {
+      fermerMenu();
+    }
+  });
+}
 
 // Fait apparaitre les paragraphes d'un article de blogue (voir
 // blogue.css) au fur et a mesure qu'ils entrent dans la fenetre
@@ -67,6 +102,8 @@ function activerReplBarreProgression() {
 // normale, sans script de remplacement.
 //   - liste des expositions <-> une fiche d'exposition : glissement
 //     horizontal (deja en place).
+//   - liste des evenements <-> une fiche d'evenement : meme
+//     glissement horizontal.
 //   - page blogue <-> un article de blogue : fondu avec un leger
 //     zoom, differencie du glissement des expositions.
 window.addEventListener("pagereveal", (evenement) => {
@@ -79,6 +116,8 @@ window.addEventListener("pagereveal", (evenement) => {
 
   const estFicheExposition = (url) => /exposition-fiche/.test(url);
   const estListeExpositions = (url) => /expositions\.html/.test(url);
+  const estFicheEvenement = (url) => /evenement-fiche/.test(url);
+  const estListeEvenements = (url) => /evenements\.html/.test(url);
   const estArticleBlogue = (url) => /blogue-article/.test(url);
   const estListeBlogue = (url) => /blogue\.html/.test(url);
 
@@ -86,6 +125,10 @@ window.addEventListener("pagereveal", (evenement) => {
     evenement.viewTransition.types.add("expo-avant");
   } else if (estFicheExposition(depart) && estListeExpositions(arrivee)) {
     evenement.viewTransition.types.add("expo-arriere");
+  } else if (estListeEvenements(depart) && estFicheEvenement(arrivee)) {
+    evenement.viewTransition.types.add("evenement-avant");
+  } else if (estFicheEvenement(depart) && estListeEvenements(arrivee)) {
+    evenement.viewTransition.types.add("evenement-arriere");
   } else if (estListeBlogue(depart) && estArticleBlogue(arrivee)) {
     evenement.viewTransition.types.add("article-avant");
   } else if (estArticleBlogue(depart) && estListeBlogue(arrivee)) {
