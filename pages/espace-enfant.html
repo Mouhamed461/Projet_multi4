@@ -13,11 +13,13 @@
 </head>
 <body>
 
+  <!-- En-tête et menu de navigation -->
   <header>
     <nav>
       <a href="../index.html">
         <img src="../images/logo/logo.png" alt="Logo du Musée du Modélisme Ferroviaire">
       </a>
+      <!-- Bouton du menu sur tablette et téléphone -->
       <button type="button" class="bouton-menu" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
         <span></span>
         <span></span>
@@ -38,11 +40,13 @@
 
   <main id="contenu-principal">
 
+    <!-- Message affiché sur téléphone à la place de l'activité -->
     <div class="message-mobile">
       <h2>Activité non disponible sur téléphone</h2>
       <p>Pour profiter correctement de l'activité, utilise un ordinateur ou une tablette.</p>
     </div>
 
+    <!-- Menu de départ de l'activité -->
     <section class="introduction-jeu" id="introduction-jeu">
       <div class="menu-jeu">
         <div class="menu-jeu__fond"></div>
@@ -52,6 +56,7 @@
       </div>
     </section>
 
+    <!-- Activité : le plateau est créé par espace-enfant.js -->
     <section class="jeu-rail" id="jeu-rail" hidden>
       <div class="jeu-rail__entete">
         <p class="jeu-rail__niveau" id="compteur-niveau">Niveau 1 / 3</p>
@@ -68,6 +73,7 @@
           <div class="jeu-rail__outils">
             <h2>Rails disponibles</h2>
             <p>Choisis un rail puis clique sur une case vide.</p>
+            <!-- Rails proposés (selon le niveau) -->
             <div id="selection-rails">
               <button type="button" class="bouton-rail" data-type="h" aria-label="Rail horizontal">
                 <img src="../images/jeu/rails/horizontal/rail-tile.png" alt="" class="rail-apercu rail-apercu--horizontal">
@@ -101,6 +107,7 @@
         </div>
       </div>
 
+      <!-- Fenêtre affichée après chaque niveau réussi -->
       <div class="jeu-rail__reussite" id="fenetre-reussite" hidden>
         <div class="jeu-rail__reussite-contenu">
           <h2>Bravo !</h2>
@@ -109,6 +116,7 @@
         </div>
       </div>
 
+      <!-- Fenêtre de fin, après le dernier niveau -->
       <div class="jeu-rail__fin" id="fin-jeu" hidden>
         <div class="jeu-rail__fin-contenu">
           <h2>Bravo !</h2>
@@ -120,6 +128,7 @@
 
   </main>
 
+  <!-- Pied de page -->
   <footer>
     <div>
       <a href="../index.html">

@@ -12,11 +12,13 @@
 </head>
 <body>
 
+  <!-- En-tête et menu de navigation -->
   <header>
     <nav>
       <a href="../index.html">
         <img src="../images/logo/logo.png" alt="Logo du Musée du Modélisme Ferroviaire">
       </a>
+      <!-- Bouton du menu sur tablette et téléphone -->
       <button type="button" class="bouton-menu" aria-label="Menu" aria-expanded="false" aria-controls="menu-principal">
         <span></span>
         <span></span>
@@ -37,12 +39,14 @@
 
   <main id="contenu-principal">
 
+    <!-- Bandeau de la page -->
     <section>
       <img src="../images/musee-modelisme.jpg" alt="Vue intérieure du Musée du Modélisme Ferroviaire">
       <h1>Réservation</h1>
       <p>Réservez vos billets en ligne et évitez l'attente à l'accueil. Le paiement se fait sur place, à votre arrivée.</p>
     </section>
 
+    <!-- Choix des billets : les totaux sont calculés par reservation.js -->
     <section id="panier">
       <div class="panier-entete">
         <p class="panier-etiquette">Vos billets</p>
@@ -55,6 +59,7 @@
 
           <div class="panier-colonne-billets">
 
+            <!-- Une carte par catégorie de billet -->
             <fieldset class="billets">
               <legend class="texte-masque">Catégories de billets</legend>
 
@@ -153,6 +158,7 @@
 
           </div>
 
+          <!-- Récapitulatif et coordonnées -->
           <aside class="recapitulatif" aria-labelledby="recap-titre">
 
             <h2 id="recap-titre">Récapitulatif</h2>
@@ -198,6 +204,7 @@
       </form>
     </section>
 
+    <!-- Message affiché après la réservation -->
     <section id="confirmation" hidden>
       <div class="confirmation-carte">
         <span class="confirmation-icone" aria-hidden="true">
@@ -214,6 +221,7 @@
 
   </main>
 
+  <!-- Pied de page -->
   <footer>
     <div>
       <a href="../index.html">
@@ -234,6 +242,7 @@
             <li><a href="espace-enfant.html">Espace enfant</a></li>
           </ul>
         </nav>
+        <!-- Bandeau de la page -->
         <section>
           <h2>Nos réseaux</h2>
           <ul>
