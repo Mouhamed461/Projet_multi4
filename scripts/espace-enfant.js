@@ -1,3 +1,4 @@
+// Récupération des éléments principaux de la page
 const intro = document.getElementById("introduction-jeu");
 const jeu = document.getElementById("jeu-rail");
 
@@ -18,11 +19,12 @@ const fin = document.getElementById("fin-jeu");
 
 const railBtns = document.querySelectorAll(".rail-btn");
 
+// Variables utilisées pendant la partie
 let niveauActuel = 0;
 let puzzleActuel;
 let railActif = "";
 
-
+// Bouton "Jouer" pour lancer le jeu
 btnJouer.onclick = () => {
     btnJouer.classList.add("animation");
 
@@ -37,7 +39,7 @@ btnJouer.onclick = () => {
     }, 300);
 };
 
-
+// Retourne au menu principal et réinitialise le jeu
 btnRetour.onclick = () => {
     btnRetour.classList.add("animation");
 
@@ -61,7 +63,7 @@ btnRetour.onclick = () => {
     }, 300);
 };
 
-
+// Passe au niveau suivant
 btnSuivant.onclick = () => {
     btnSuivant.classList.add("animation");
 
@@ -74,7 +76,7 @@ btnSuivant.onclick = () => {
     }, 300);
 };
 
-
+//Recommence le jeu depuis le premier niveau (même texture que le bouton "Jouer")
 btnRejouer.onclick = () => {
     btnRejouer.classList.add("animation");
 
@@ -88,7 +90,7 @@ btnRejouer.onclick = () => {
     }, 300);
 };
 
-
+// Permet de sélectionner le type de rail à placer
 railBtns.forEach(btn => {
 
     btn.onclick = () => {
@@ -108,6 +110,7 @@ railBtns.forEach(btn => {
 });
 
 
+// Charge un puzzle aléatoire correspondant au niveau actuel
 function chargerNiveau() {
 
     const niveau = niveaux[niveauActuel];
@@ -148,6 +151,7 @@ function chargerNiveau() {
 }
 
 
+// Génère les cases du plateau selon le puzzle choisi
 function creerPlateau() {
 
     plateau.innerHTML = "";
@@ -213,7 +217,7 @@ function creerPlateau() {
     }
 }
 
-
+// Affiche l'image correspondant au type de rail demandé
 function afficherRail(c, type) {
 
     const img = document.createElement("img");
@@ -261,7 +265,7 @@ function afficherRail(c, type) {
     c.appendChild(img);
 }
 
-
+// Place le rail sélectionné dans une case du plateau
 function placerRail(c) {
 
     if (!railActif) {
@@ -288,6 +292,7 @@ btnValider.onclick = () => {
 };
 
 
+// Déplace le train case par case jusqu'à la gare
 async function animerTrain() {
 
     const train = document.querySelector(".element-fixe--train");
@@ -314,6 +319,7 @@ async function animerTrain() {
 }
 
 
+// Vérifie si tous les rails placés correspondent à la solution
 async function verifierNiveau() {
 
     let correct = true;
@@ -341,6 +347,7 @@ async function verifierNiveau() {
 
     await animerTrain();
 
+    // Affiche soit le niveau suivant, soit l'écran de fin
     if (niveauActuel === niveaux.length - 1) {
 
         fin.hidden = false;

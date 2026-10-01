@@ -1,7 +1,10 @@
+/* Cache les éléments avec l'attribut hidden */
 [hidden] {
     display: none !important;
 }
 
+
+/* Menu principal du mini-jeu */
 .introduction-jeu {
     width: 100%;
     padding: 40px 0;
@@ -15,9 +18,11 @@
     width: 100%;
     height: 512px;
     overflow: hidden;
-    background: #9E3D23
+    background: #9E3D23;
 }
 
+
+/* Animation du fond à partir d'une spritesheet */
 .menu-jeu__fond {
     position: absolute;
     z-index: 1;
@@ -40,6 +45,8 @@
     animation: animation-menu 1.6s steps(11, end) infinite;
 }
 
+
+/* Animation du titre à partir d'une deuxième spritesheet */
 .menu-jeu__titre {
     position: absolute;
     z-index: 2;
@@ -63,6 +70,7 @@
     animation: animation-titre 1.4s steps(12, jump-none) infinite;
 }
 
+
 .menu-jeu__train {
     position: absolute;
     z-index: 3;
@@ -78,6 +86,8 @@
     pointer-events: none;
 }
 
+
+/* Bouton Jouer utilisant lui aussi une spritesheet */
 .menu-jeu .bouton-jeu--jouer {
     position: absolute;
     z-index: 4;
@@ -119,6 +129,8 @@
     animation: clic-jouer 0.3s linear forwards;
 }
 
+
+/* Parcourt les 5 images de la spritesheet au clic */
 @keyframes clic-jouer {
 
     0%,
@@ -147,6 +159,8 @@
     }
 }
 
+
+/* Déplacement de la spritesheet du fond */
 @keyframes animation-menu {
     from {
         background-position: 0 0;
@@ -157,6 +171,8 @@
     }
 }
 
+
+/* Déplacement de la spritesheet du titre */
 @keyframes animation-titre {
     from {
         background-position: 0 0;
@@ -167,6 +183,8 @@
     }
 }
 
+
+/* Mise en page principale du jeu */
 .jeu-rail {
     max-width: 1450px;
     margin: auto;
@@ -199,6 +217,8 @@
     margin-top: 30px;
 }
 
+
+/* Zone contenant le plateau et son décor */
 .jeu-rail__zone-plateau {
     flex: 1;
     min-width: 0;
@@ -225,6 +245,8 @@
     flex-direction: column;
 }
 
+
+/* Grille créée dynamiquement en JavaScript */
 #plateau-jeu {
     display: grid;
     gap: 5px;
@@ -250,6 +272,8 @@
     background: #eee;
 }
 
+
+/* Les cases inutilisées et les rails déjà placés restent invisibles */
 .case.cachee,
 .case.fixe {
     border: none;
@@ -273,6 +297,8 @@
     color: #000;
 }
 
+
+/* Images des rails placés sur le plateau */
 .texture-rail {
     width: 76px;
     height: 76px;
@@ -292,6 +318,8 @@
     height: 54px;
 }
 
+
+/* Liste des différents rails disponibles */
 #selection-rails {
     display: grid;
     grid-template-columns: repeat(2, 90px);
@@ -343,6 +371,8 @@
     height: 72px;
 }
 
+
+/* Rotation des deux images de courbes pour créer les quatre orientations */
 .courbe-bg {
     transform: rotate(0deg);
 }
@@ -385,6 +415,8 @@
     margin-top: 10px;
 }
 
+
+/* Style commun aux boutons du mini-jeu */
 .bouton-jeu {
     width: 124px;
     padding: 0;
@@ -427,6 +459,8 @@
     background-size: 620px 50px;
 }
 
+
+/* Anime les différentes images des spritesheets des boutons */
 .bouton-jeu.animation {
     animation: animation-bouton 0.3s steps(4, end) forwards;
 }
@@ -446,6 +480,8 @@
     outline-offset: 4px;
 }
 
+
+/* Messages affichés après la réussite d'un niveau ou du jeu */
 .jeu-rail__reussite,
 .jeu-rail__fin {
     margin-top: 30px;
@@ -466,6 +502,7 @@
     margin-top: 20px;
 }
 
+
 @media (max-width: 600px) {
 
     .case {
@@ -483,9 +520,10 @@
         min-height: 55px;
         font-size: 20px;
     }
-
 }
 
+
+/* Le train et la gare peuvent dépasser de leur case */
 .case-train,
 .case-gare {
     position: relative;
@@ -503,6 +541,8 @@
     max-width: none;
 }
 
+
+/* Le déplacement du train est contrôlé en JavaScript avec transform */
 .element-fixe--train {
     width: 180px;
     height: auto;
@@ -516,12 +556,16 @@
     transform: translateX(45px);
 }
 
+
+/* Message utilisé lorsque l'écran est trop petit pour le mini-jeu */
 .message-mobile {
     display: none;
     text-align: center;
     padding: 60px 20px;
 }
 
+
+/* Le mini-jeu est remplacé par un message sur les petits écrans */
 @media (max-width: 1016px) {
 
     .message-mobile {
@@ -532,5 +576,4 @@
     #jeu-rail {
         display: none !important;
     }
-
 }

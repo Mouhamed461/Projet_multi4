@@ -12,6 +12,8 @@
     padding: 3.25rem 0;
 }
 
+
+/* Séparation entre les blocs inspirée de rails de chemin de fer */
 .bloc-information+.bloc-information::before {
     content: "";
     position: absolute;
@@ -36,6 +38,7 @@
 
     transform: translateY(-50%);
 
+    /* Fondu progressif des rails aux deux extrémités */
     -webkit-mask-image: linear-gradient(to right,
             transparent,
             #000 7%,
@@ -137,6 +140,8 @@
     transition: color 0.2s ease;
 }
 
+
+/* Ligne animée sous les liens au survol */
 .coordonnees a::after {
     content: "";
     position: absolute;
@@ -175,6 +180,8 @@
     border-bottom: 1px solid rgba(32, 33, 34, 0.14);
 }
 
+
+/* Puce personnalisée en forme de losange pour les infos */
 .liste-informations li::before {
     content: "";
     position: absolute;
@@ -192,6 +199,8 @@
     }
 }
 
+
+/* Passage de la mise en page en une seule colonne sur tablette */
 @media (max-width: 900px) {
     .informations-visite {
         padding-left: 2rem;
@@ -214,6 +223,8 @@
     }
 }
 
+
+/* Responsive / Ajustements pour les petits écrans */
 @media (max-width: 600px) {
     .informations-visite {
         padding-left: 1.25rem;

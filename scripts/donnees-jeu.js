@@ -1,3 +1,7 @@
+// Fichier regroupant les différents niveaux du mini-jeu ainsi que les images des rails, du train et de la gare.
+
+
+// Niveaux du mini-jeu. Le chemin permet au train de se déplacer en suivant les cases une fois le niveau validé.
 const niveaux = [
     {
         titre: "Premier trajet",
@@ -180,6 +184,8 @@ const niveaux = [
         ]
     }
 ];
+
+// Les différents assets
 
 const railsVerticaux = [
     "../images/jeu/rails/vertical/rail-tile.png",
