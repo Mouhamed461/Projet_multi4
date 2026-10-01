@@ -1,3 +1,7 @@
+// Fichier regroupant les différents niveaux du mini-jeu ainsi que les images des rails, du train et de la gare.
+
+
+// Niveaux du mini-jeu. Le chemin permet au train de se déplacer en suivant les cases une fois le niveau validé.
 const niveaux = [
     {
         titre: "Premier trajet",
@@ -8,6 +12,7 @@ const niveaux = [
                 colonnes: 5,
                 depart: 5,
                 arrivee: 9,
+                chemin: [5, 6, 1, 2, 3, 8, 9],
                 fixes: {
                     1: "courbeBD",
                     3: "courbeBG"
@@ -24,6 +29,7 @@ const niveaux = [
                 colonnes: 5,
                 depart: 0,
                 arrivee: 4,
+                chemin: [0, 5, 6, 7, 8, 3, 4],
                 fixes: {
                     8: "courbeHG",
                     3: "courbeBD"
@@ -40,6 +46,7 @@ const niveaux = [
                 colonnes: 5,
                 depart: 10,
                 arrivee: 4,
+                chemin: [10, 11, 12, 7, 2, 3, 4],
                 fixes: {
                     7: "v",
                     2: "courbeBD"
@@ -62,6 +69,7 @@ const niveaux = [
                 colonnes: 5,
                 depart: 5,
                 arrivee: 19,
+                chemin: [5, 6, 7, 12, 17, 18, 19],
                 fixes: {},
                 solution: {
                     6: "h",
@@ -77,6 +85,7 @@ const niveaux = [
                 colonnes: 5,
                 depart: 15,
                 arrivee: 4,
+                chemin: [15, 16, 17, 12, 7, 2, 3, 4],
                 fixes: {
                     2: "courbeBD"
                 },
@@ -94,6 +103,7 @@ const niveaux = [
                 colonnes: 6,
                 depart: 18,
                 arrivee: 5,
+                chemin: [18, 19, 20, 14, 8, 2, 3, 4, 5],
                 fixes: {
                     2: "courbeBD",
                     4: "h"
@@ -118,6 +128,7 @@ const niveaux = [
                 colonnes: 6,
                 depart: 6,
                 arrivee: 29,
+                chemin: [6, 7, 8, 14, 20, 26, 27, 28, 29],
                 fixes: {},
                 solution: {
                     7: "h",
@@ -135,6 +146,7 @@ const niveaux = [
                 colonnes: 6,
                 depart: 24,
                 arrivee: 5,
+                chemin: [24, 25, 26, 20, 14, 8, 2, 3, 4, 5],
                 fixes: {
                     14: "v"
                 },
@@ -154,6 +166,7 @@ const niveaux = [
                 colonnes: 7,
                 depart: 28,
                 arrivee: 6,
+                chemin: [28, 29, 30, 23, 16, 9, 2, 3, 4, 5, 6],
                 fixes: {
                     23: "v",
                     4: "h"
@@ -171,6 +184,8 @@ const niveaux = [
         ]
     }
 ];
+
+// Les différents assets
 
 const railsVerticaux = [
     "../images/jeu/rails/vertical/rail-tile.png",
